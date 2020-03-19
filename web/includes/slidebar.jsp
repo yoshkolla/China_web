@@ -6,7 +6,7 @@
     </div>
     <div class="logo logo-mini">
         <a href="#" class="simple-text">
-            <%=NAME.substring(0, 1) %>
+            <%="R" %>
         </a>
     </div>
     <div class="sidebar-wrapper">
