@@ -63,7 +63,7 @@ public class GetLoginServlet extends HttpServlet {
                     dh.setTp(dt.getTp());
                     
                     
-                    session.setAttribute("admin", A);
+                    session.setAttribute("admin", lg);
                     session.setAttribute("details", dh);
                     
                 }
