@@ -3,6 +3,9 @@
     Created on : Dec 6, 2019, 11:37:56 AM
     Author     : SCORFi3LD
 --%>
+
+<%@page import="holder.DetailsHolder"%>
+<%@page import="holder.LogedUserHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,6 +25,33 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+         <%
+            String PAGE_NAME = "Dashboard",LOGED_USER_NAME="" ,  NAME = "", USERNAME = "";
+            int LOGED_USER_ID = 0;
+            int STAF_ID = 0;
+            LogedUserHolder luh;
+            DetailsHolder dth;
+            
+
+            try {
+                if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
+                    dth = (DetailsHolder) request.getSession().getAttribute("details");
+                    luh = (LogedUserHolder) request.getSession().getAttribute("admin");
+                    NAME = dth.getName();
+                    USERNAME = luh.getUsername();
+                    LOGED_USER_NAME = luh.getName();
+                    LOGED_USER_ID = luh.getUserId();
+                    STAF_ID = luh.getStafId();
+
+                } else {
+                    response.sendRedirect("LogOutServlet");
+                }
+            } catch (Exception e) {
+                response.sendRedirect("LogOutServlet");
+
+            }
+
+        %>
     </head>
     <body>
         <div class="wrapper">
