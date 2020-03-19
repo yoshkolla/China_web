@@ -5721,7 +5721,7 @@ h2.title {
       right: 18px; }
     .off-canvas-sidebar .nav [data-toggle="collapse"] ~ div ul > li > a,
     .sidebar .nav [data-toggle="collapse"] ~ div ul > li > a {
-      padding-left: 60px;
+      padding-left: 45px;
       color: #6f6f6f; }
     .off-canvas-sidebar .nav [data-toggle="collapse"] ~ div ul > li.active a, .off-canvas-sidebar .nav [data-toggle="collapse"] ~ div ul > li:hover a,
     .sidebar .nav [data-toggle="collapse"] ~ div ul > li.active a,
