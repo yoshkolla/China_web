@@ -1,12 +1,12 @@
 <div class="sidebar">
     <div class="logo">
         <a href="#" class="simple-text">
-            Turbo Admin
+            <%=NAME %>
         </a>
     </div>
     <div class="logo logo-mini">
         <a href="#" class="simple-text">
-            T
+            <%=NAME.substring(0, 0) %>
         </a>
     </div>
     <div class="sidebar-wrapper">

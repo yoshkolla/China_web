@@ -29,11 +29,11 @@
                     STAF_ID = luh.getStafId();
 
                 } else {
-                    //response.sendRedirect("LogOutServlet");
+                    response.sendRedirect("LogOutServlet");
                 }
             } catch (Exception e) {
-                //response.sendRedirect("LogOutServlet");
-                e.printStackTrace();
+                response.sendRedirect("LogOutServlet");
+               
             }
 
         %>
