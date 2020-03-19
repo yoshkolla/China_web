@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="en">
-
-
     <head>
-
+        <%@page isErrorPage="true"%>
         <title>Page Not Found | 404</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <!-- Material Dashboard CSS -->
@@ -36,7 +34,7 @@
             <div class="m-l-25">
                 <p class="heading_b">Page not found</p>
                 <p class="uk-text-large">
-                    The requested URL <span class="uk-text-muted">/some_url</span> was not found on this server.
+                    The requested URL <span class="uk-text-muted"><%=request.getRequestURL()%></span> was not found on this server.
                 </p>
                 <a href="#" onClick="history.go(-1);return false;">Go back to previous page</a>
             </div>
