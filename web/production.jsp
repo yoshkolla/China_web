@@ -13,7 +13,7 @@
     <head>
 
         <%
-            String PAGE_NAME = "Production", NAME = "", USERNAME = "";
+            String PAGE_NAME = "Create Production", NAME = "", USERNAME = "";
             int LOGED_USER_ID = 0;
             int STAF_ID = 0;
             LogedUserHolder luh;
