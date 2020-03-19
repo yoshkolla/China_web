@@ -71,7 +71,7 @@
         </style>
         <!-- for pre loader -->
     </head>
-    <body>
+    <body class="sidebar-mini">
         <!-- for pre loader -->
         <div class="preloader"></div>
         <!-- for pre loader -->
