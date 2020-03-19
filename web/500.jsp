@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="en">
-
-
     <head>
-
         <title>Internal Server Error | 500</title>
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <!-- Material Dashboard CSS -->
