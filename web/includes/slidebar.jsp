@@ -66,7 +66,7 @@
                 <div class="collapse" id="production" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Create Production</a>
+                            <a href="production.jsp">Create Production</a>
                         </li>
                         <li>
                             <a href="">Production Management</a>
