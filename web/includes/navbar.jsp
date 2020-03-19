@@ -27,13 +27,13 @@
                     <ul class="dropdown-menu">
                         
                         <li>
-                            <a href="#"><i class="material-icons">library_books</i> My Profile</a>
+                            <a href="#"><i class="material-icons">account_circle</i> My Profile</a>
                         </li>
                         <li>
-                            <a href="#"><i class="material-icons">library_books</i>Change Password</a>
+                            <a href="#"><i class="material-icons">vpn_key</i> Change Password</a>
                         </li>
                         <li>
-                            <a href="#"><i class="material-icons">library_books</i>Logout</a>
+                            <a href="#"><i class="material-icons">exit_to_app</i> Logout</a>
                         </li>
                     </ul>
                 </li>
