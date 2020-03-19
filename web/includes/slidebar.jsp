@@ -26,13 +26,13 @@
                 <div class="collapse" id="sales" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Create Invoice</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Invoice</a>
                         </li>
                         <li>
-                            <a href="">Return Invoice</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Return Invoice</a>
                         </li>
                         <li>
-                            <a href="">Create Payment</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Payment</a>
                         </li>
                     </ul>
                 </div>
@@ -46,13 +46,13 @@
                 <div class="collapse" id="purchase" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Create GRN</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create GRN</a>
                         </li>
                         <li>
-                            <a href="">Supplier Return</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Supplier Return</a>
                         </li>
                         <li>
-                            <a href="">Supplier Payment</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Supplier Payment</a>
                         </li>
                     </ul>
                 </div>
@@ -66,10 +66,10 @@
                 <div class="collapse" id="production" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="production.jsp">Create Production</a>
+                            <a href="production.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Production</a>
                         </li>
                         <li>
-                            <a href="">Production Management</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Productions</a>
                         </li>
                     </ul>
                 </div>
@@ -78,24 +78,24 @@
             <li class="<%=curruntpage.equals("Create") ? "active" : ""%>">
                 <a data-toggle="collapse" href="#create" class="collapsed" aria-expanded="false">
                     <i class="material-icons">note_added</i>
-                    <p>Create New <b class="caret"></b></p>
+                    <p>Create<b class="caret"></b></p>
                 </a>
                 <div class="collapse" id="create" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Customer Management</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Customers</a>
                         </li>
                         <li>
-                            <a href="">Supplier Management</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Suppliers</a>
                         </li>
                         <li>
-                            <a href="">Raw Materials</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Raw Materials</a>
                         </li>
                         <li>
-                            <a href="">Sales Items</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Sales Items</a>
                         </li>
                         <li>
-                            <a href="">Staff Management</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Staff Management</a>
                         </li>
                     </ul>
                 </div>
@@ -109,10 +109,10 @@
                 <div class="collapse" id="user" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Create User</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create User</a>
                         </li>
                         <li>
-                            <a href="">Change Account Settings</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Account Settings</a>
                         </li>
                     </ul>
                 </div>
@@ -126,10 +126,10 @@
                 <div class="collapse" id="cheque" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Released Cheque</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Released Cheque</a>
                         </li>
                         <li>
-                            <a href="">Reserved Cheque</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Reserved Cheque</a>
                         </li>
                     </ul>
                 </div>
@@ -143,7 +143,7 @@
                 <div class="collapse" id="report" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href="">Report 1</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Report 1</a>
                         </li>
                     </ul>
                 </div>
