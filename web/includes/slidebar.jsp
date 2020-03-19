@@ -89,10 +89,10 @@
                             <a href="">Supplier Management</a>
                         </li>
                         <li>
-                            <a href="">Raw Material Management</a>
+                            <a href="">Raw Materials</a>
                         </li>
                         <li>
-                            <a href="">Sales Items Management</a>
+                            <a href="">Sales Items</a>
                         </li>
                         <li>
                             <a href="">Staff Management</a>
