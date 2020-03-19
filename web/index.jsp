@@ -13,7 +13,7 @@
     <head>
 
         <%
-            String PAGE_NAME = "Dashboard", NAME = "", USERNAME = "";
+            String PAGE_NAME = "Dashboard",LOGED_USER_NAME="" ,  NAME = "", USERNAME = "";
             int LOGED_USER_ID = 0;
             int STAF_ID = 0;
             LogedUserHolder luh;
@@ -25,6 +25,7 @@
                     luh = (LogedUserHolder) request.getSession().getAttribute("admin");
                     NAME = dth.getName();
                     USERNAME = luh.getUsername();
+                    LOGED_USER_NAME = luh.getName();
                     LOGED_USER_ID = luh.getUserId();
                     STAF_ID = luh.getStafId();
 

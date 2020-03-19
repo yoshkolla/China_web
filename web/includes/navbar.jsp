@@ -25,34 +25,19 @@
                         </p>
                         <div class="ripple-container"></div></a>
                     <ul class="dropdown-menu">
-                        <li style="color:#000; padding: 15px;">
-                            User Full Name Here <br>
-                            <small>username here</small>
+                        
+                        <li>
+                            <a href="#"><i class="material-icons">library_books</i> My Profile</a>
                         </li>
                         <li>
-                            <a href="#">My Profile</a>
+                            <a href="#"><i class="material-icons">library_books</i>Change Password</a>
                         </li>
                         <li>
-                            <a href="#">Logout</a>
+                            <a href="#"><i class="material-icons">library_books</i>Logout</a>
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="material-icons">settings</i>
-                        <p class="hidden-lg hidden-md">
-                            Settings <b class="caret"></b>
-                        </p>
-                        <div class="ripple-container"></div></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#">Change Password</a>
-                        </li>
-                        <li>
-                            <a href="#">Edit Profile</a>
-                        </li>
-                    </ul>
-                </li>
+                
                 <li class="separator hidden-lg hidden-md"></li>
             </ul>
         </div>
