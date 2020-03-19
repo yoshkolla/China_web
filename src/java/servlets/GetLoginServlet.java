@@ -42,10 +42,11 @@ public class GetLoginServlet extends HttpServlet {
             
             Session ses = connection.GetConnection.getSessionFactory().openSession();
             Criteria cr = ses.createCriteria(User.class);
-            cr.add(Restrictions.eq("username", request.getParameter("username")));
+            cr.add(Restrictions.eq("username", request.getParameter("email")));
             cr.add(Restrictions.eq("password", request.getParameter("password")));
             cr.add(Restrictions.eq("status", 1));
             List<User> AD = cr.list();
+            System.out.println("");
             if (AD.size() == 1) {
                 HttpSession session = request.getSession(true);
                 for(User A : AD) {
