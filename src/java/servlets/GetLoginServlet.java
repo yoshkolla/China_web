@@ -48,6 +48,7 @@ public class GetLoginServlet extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 for(User A : AD) {
                     LogedUserHolder lg = new LogedUserHolder(A.getUserId(), A.getStaff().getStaffId(), A.getStaff().getName() , A.getUsername() ,A.getSales() , A.getPurchase() , A.getProduction() ,A.getCreate() , A.getUser() , A.getCheque() ,A.getReport() , A.getOther());
+                    //test
                     session.setAttribute("admin", A);
                     session.setAttribute("userHolder", "");
                 }
