@@ -90,7 +90,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="createitem.jsp" style="color: white;" class="btn btn-sm btn-info">CREATE NEW ITEM</a>
+                                <a href="createitem.jsp" style="color: white;" class="btn  btn-primary"><span class="fa fa-plus">&nbsp;&nbsp;</span>CREATE NEW ITEM</a>
                                 <div class="card">
                                     <div class="card-content">
 
