@@ -17,17 +17,41 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <i class="material-icons">person</i>
-                        <p class="hidden-lg hidden-md">Profile</p>
-                    </a>
+                        <p class="hidden-lg hidden-md">
+                            Profile <b class="caret"></b>
+                        </p>
+                        <div class="ripple-container"></div></a>
+                    <ul class="dropdown-menu">
+                        <li style="color:#000; padding: 15px;">
+                            User Full Name Here <br>
+                            <small>username here</small>
+                        </li>
+                        <li>
+                            <a href="#">My Profile</a>
+                        </li>
+                        <li>
+                            <a href="#">Logout</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <i class="material-icons">settings</i>
-                        <p class="hidden-lg hidden-md">Settings</p>
-                    </a>
+                        <p class="hidden-lg hidden-md">
+                            Settings <b class="caret"></b>
+                        </p>
+                        <div class="ripple-container"></div></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">Change Password</a>
+                        </li>
+                        <li>
+                            <a href="#">Edit Profile</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="separator hidden-lg hidden-md"></li>
             </ul>
