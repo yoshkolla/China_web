@@ -42,8 +42,6 @@
                         </ol>
                     </nav>
                     <div class="container">
-
-
                         <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
                             <i class="zmdi zmdi-plus-circle"></i> Add Staff Here
@@ -140,22 +138,26 @@
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Id</th>
                                     <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Date</th>
-                                    
+                                    <th>Mobile</th>
+                                    <th>Nic</th>
+                                    <th>Address</th>
+                                    <th>Job Type</th>
+
+
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
+                                    <th>Id</th>
                                     <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                  
+                                    <th>Mobile</th>
+                                    <th>Nic</th>
+                                    <th>Address</th>
+                                    <th>Job Type</th>
+
+
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -163,9 +165,10 @@
                                     <td>Tiger Nixon</td>
                                     <td>System Architect</td>
                                     <td>Edinburgh</td>
-                                    <td>61</td>
+                                    <td>932471159V</td>
                                     <td>2011/04/25</td>
-                                   
+                                    <td>Welder</td>
+
                                 </tr>
                                 <tr>
                                     <td>Garrett Winters</td>
@@ -173,9 +176,10 @@
                                     <td>Tokyo</td>
                                     <td>63</td>
                                     <td>2011/07/25</td>
-                                   
+                                    <td>PAinter</td>
+
                                 </tr>
-                              
+
                             </tbody>
                         </table>
                     </div>

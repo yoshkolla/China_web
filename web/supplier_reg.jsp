@@ -36,52 +36,127 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="card">
-                                    <form method="get" action="#" class="form-horizontal">
-                                        <div class="card-header card-header-text">
-                                            <h4 class="card-title">Customer Registration</h4>
+                                <div class="container">
+
+
+                                    <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+                                        <i class="zmdi zmdi-plus-circle"></i> Add Suppler Here
+                                    </button>
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog">   
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title"> Supplier Registration</h4>
+                                                </div>
+                                                <form method="POST" >
+                                                    <div class="modal-body">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-content">
+
+                                                                    <div class="card-content">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group label-floating is-empty">
+                                                                                    <label class="control-label">Name</label>
+                                                                                    <input type="text" class="form-control" value="">
+                                                                                    <span class="help-block">A block of help text that breaks onto a new line.</span>
+                                                                                    <span class="material-input"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group label-floating is-empty">
+                                                                                    <label class="control-label">Address</label>
+                                                                                    <textarea class="form-control"></textarea>
+                                                                                    <span class="help-block">A block of help text that breaks onto a new line.</span>
+                                                                                    <span class="material-input"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group label-floating is-empty">
+                                                                                    <label class="control-label">Mobile</label>
+                                                                                    <input type="text" class="form-control" value="">
+                                                                                    <span class="help-block">A block of help text that breaks onto a new line.</span>
+                                                                                    <span class="material-input"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="text-right">
+                                                                <button class="btn btn-success">
+                                                                    <span class="btn-label">
+                                                                        <i class="material-icons">check</i>
+                                                                    </span>
+                                                                    Save
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                </form>
+                                            </div>
+
                                         </div>
-                                        <div class="card-content">
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Name</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" value="">
-                                                        <span class="help-block">A block of help text that breaks onto a new line.</span>
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Address</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <textarea class="form-control"></textarea>
-                                                        <span class="help-block">A block of help text that breaks onto a new line.</span>
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Mobile</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" value="">
-                                                        <span class="help-block">A block of help text that breaks onto a new line.</span>
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-right">
-                                                <button type="submit" class="btn btn-success">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <br>    
+                                <!--data table start-->
+                                <h3>Suppler Data</h3>
+                                <br>
+                                <div class="material-datatables">
+                                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Mobile</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Mobile</th>
+
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>Garrett Winters</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>63</td>
+
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -89,53 +164,52 @@
         </div>
 
         <%@include file="includes/footer.jsp"%>
-    </div>
-</div>
-</body>
 
-<!--   Core JS Files   -->
-<script src="assets/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
-<script src="assets/vendors/jquery-ui.min.js" type="text/javascript"></script>
-<script src="assets/vendors/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/vendors/material.min.js" type="text/javascript"></script>
-<script src="assets/vendors/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+    </body>
 
-<!-- Forms Validations Plugin -->
-<script src="assets/vendors/jquery.validate.min.js"></script>
+    <!--   Core JS Files   -->
+    <script src="assets/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="assets/vendors/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/vendors/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/vendors/material.min.js" type="text/javascript"></script>
+    <script src="assets/vendors/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
 
-<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-<script src="assets/vendors/moment.min.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="assets/vendors/jquery.validate.min.js"></script>
 
-<!--  Charts Plugin -->
-<script src="assets/vendors/charts/flot/jquery.flot.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.resize.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.pie.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.stack.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.categories.js"></script>
-<script src="assets/vendors/charts/chartjs/Chart.min.js" type="text/javascript"></script>
+    <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+    <script src="assets/vendors/moment.min.js"></script>
 
-<!--  Plugin for the Wizard -->
-<script src="assets/vendors/jquery.bootstrap-wizard.js"></script>
-<!--  Notifications Plugin    -->
-<script src="assets/vendors/bootstrap-notify.js"></script>
-<!-- DateTimePicker Plugin -->
-<script src="assets/vendors/bootstrap-datetimepicker.js"></script>
-<!-- Vector Map plugin -->
-<script src="assets/vendors/jquery-jvectormap.js"></script>
-<!-- Sliders Plugin -->
-<script src="assets/vendors/nouislider.min.js"></script>
-<!-- Select Plugin -->
-<script src="assets/vendors/jquery.select-bootstrap.js"></script>
-<!--  DataTables.net Plugin    -->
-<script src="assets/vendors/jquery.datatables.js"></script>
-<!-- Sweet Alert 2 plugin -->
-<script src="assets/vendors/sweetalert2.js"></script>
-<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-<script src="assets/vendors/jasny-bootstrap.min.js"></script>
-<!--  Full Calendar Plugin    -->
-<script src="assets/vendors/fullcalendar.min.js"></script>
-<!-- TagsInput Plugin -->
-<script src="assets/vendors/jquery.tagsinput.js"></script>
-<!-- Material Dashboard javascript methods -->
-<script src="assets/js/turbo.js"></script>
+    <!--  Charts Plugin -->
+    <script src="assets/vendors/charts/flot/jquery.flot.js"></script>
+    <script src="assets/vendors/charts/flot/jquery.flot.resize.js"></script>
+    <script src="assets/vendors/charts/flot/jquery.flot.pie.js"></script>
+    <script src="assets/vendors/charts/flot/jquery.flot.stack.js"></script>
+    <script src="assets/vendors/charts/flot/jquery.flot.categories.js"></script>
+    <script src="assets/vendors/charts/chartjs/Chart.min.js" type="text/javascript"></script>
+
+    <!--  Plugin for the Wizard -->
+    <script src="assets/vendors/jquery.bootstrap-wizard.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="assets/vendors/bootstrap-notify.js"></script>
+    <!-- DateTimePicker Plugin -->
+    <script src="assets/vendors/bootstrap-datetimepicker.js"></script>
+    <!-- Vector Map plugin -->
+    <script src="assets/vendors/jquery-jvectormap.js"></script>
+    <!-- Sliders Plugin -->
+    <script src="assets/vendors/nouislider.min.js"></script>
+    <!-- Select Plugin -->
+    <script src="assets/vendors/jquery.select-bootstrap.js"></script>
+    <!--  DataTables.net Plugin    -->
+    <script src="assets/vendors/jquery.datatables.js"></script>
+    <!-- Sweet Alert 2 plugin -->
+    <script src="assets/vendors/sweetalert2.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="assets/vendors/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin    -->
+    <script src="assets/vendors/fullcalendar.min.js"></script>
+    <!-- TagsInput Plugin -->
+    <script src="assets/vendors/jquery.tagsinput.js"></script>
+    <!-- Material Dashboard javascript methods -->
+    <script src="assets/js/turbo.js"></script>
 </html>
