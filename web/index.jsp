@@ -5,15 +5,44 @@
 --%>
 
 
+<%@page import="holder.LogedUserHolder"%>
+<%@page import="holder.DetailsHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+
+        <%
+            String PAGE_NAME = "Dashboard", NAME = "", USERNAME = "";
+            int LOGED_USER_ID = 0;
+            int STAF_ID = 0;
+            LogedUserHolder luh;
+            DetailsHolder dth;
+
+            try {
+                if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
+                    dth = (DetailsHolder) request.getSession().getAttribute("details");
+                    luh = (LogedUserHolder) request.getSession().getAttribute("admin");
+                    NAME = dth.getName();
+                    USERNAME = luh.getUsername();
+                    LOGED_USER_ID = luh.getUserId();
+                    STAF_ID = luh.getStafId();
+
+                } else {
+                    //response.sendRedirect("LogOutServlet");
+                }
+            } catch (Exception e) {
+                //response.sendRedirect("LogOutServlet");
+                e.printStackTrace();
+            }
+
+        %>
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
-        <title>APK HUB</title>
+        <title><%=NAME+" | "+PAGE_NAME %></title>
         <!-- Bootstrap core CSS -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <!-- Material Dashboard CSS -->
@@ -27,7 +56,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <%
+            <%                
                 String curruntpage = "Dashboard";
             %>
             <%@include file="includes/slidebar.jsp"%>
