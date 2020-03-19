@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import holder.DetailsHolder;
 import holder.LogedUserHolder;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import resources.Details;
 import resources.User;
 
 /**
@@ -48,10 +50,21 @@ public class GetLoginServlet extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 for(User A : AD) {
                     LogedUserHolder lg = new LogedUserHolder(A.getUserId(), A.getStaff().getStaffId(), A.getStaff().getName() , A.getUsername() ,A.getSales() , A.getPurchase() , A.getProduction() ,A.getCreate() , A.getUser() , A.getCheque() ,A.getReport() , A.getOther());
-                    // Kokila
+                    Details dt = (Details) ses.load(Details.class, 1);
+                    
+                    DetailsHolder dh = new DetailsHolder();
+                    dh.setAddress(dt.getAddress());
+                    dh.setDomain(dt.getDomain());
+                    dh.setEmail(dt.getEmail());
+                    dh.setFax(dt.getFax());
+                    dh.setImage(dt.getImage());
+                    dh.setName(dt.getName());
+                    dh.setTp(dt.getTp());
+                    
+                    
                     session.setAttribute("admin", A);
-                    session.setAttribute("details", "");
-                    //mayura lakshan
+                    session.setAttribute("details", dh);
+                    
                 }
 
                 out.print("1");
