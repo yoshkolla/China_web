@@ -33,7 +33,7 @@
                 }
             } catch (Exception e) {
                 response.sendRedirect("LogOutServlet");
-               
+
             }
 
         %>
@@ -42,7 +42,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
-        <title><%=NAME+" | "+PAGE_NAME %></title>
+        <title><%=NAME + " | " + PAGE_NAME%></title>
         <!-- Bootstrap core CSS -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <!-- Material Dashboard CSS -->
@@ -53,10 +53,29 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <!-- for pre loader -->
+        <style>
+            .preloader {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background-image: url('assets/img/lo.gif');
+                background-repeat: no-repeat; 
+                background-color: #FFF;
+                background-position: center;
+            }
+        </style>
+        <!-- for pre loader -->
     </head>
     <body>
+        <!-- for pre loader -->
+        <div class="preloader"></div>
+        <!-- for pre loader -->
         <div class="wrapper">
-            <%                
+            <%
                 String curruntpage = "Dashboard";
             %>
             <%@include file="includes/slidebar.jsp"%>
@@ -192,4 +211,11 @@
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
+    <!-- for pre loader -->
+    <script>
+        $(window).on("load", function (e) {
+            $('.preloader').fadeOut('slow');
+        });
+    </script>
+    <!-- for pre loader -->
 </html>
