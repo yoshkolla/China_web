@@ -138,7 +138,7 @@
                     success: function (data) {
                         if (data === "1") {
 
-                            window.location.replace("daystart.jsp");
+                            window.location.replace("index.jsp");
 
 
                         } else if (data === "0") {
