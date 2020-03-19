@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.Items" table="items" catalog="rat_trap" optimistic-lock="version">
+        <id name="itemsId" type="java.lang.Integer">
+            <column name="items_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="measurementType" class="resources.MeasurementType" fetch="select">
+            <column name="measurement_type_id" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="45" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="65535" />
+        </property>
+        <property name="rol" type="java.lang.Double">
+            <column name="ROL" precision="22" scale="0" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
+        </property>
+        <set name="itemStaffCosts" table="item_staff_cost" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="items_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ItemStaffCost" />
+        </set>
+        <set name="itemsHasRawItemses" table="items_has_raw_items" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="items_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ItemsHasRawItems" />
+        </set>
+        <set name="productionStepses" table="production_steps" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="items_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ProductionSteps" />
+        </set>
+        <set name="stocks" table="stock" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="items_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.Stock" />
+        </set>
+        <set name="productions" table="production" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="items_items_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.Production" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.ProductionSteps" table="production_steps" catalog="rat_trap" optimistic-lock="version">
+        <id name="productionStepsId" type="java.lang.Integer">
+            <column name="production_steps_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="items" class="resources.Items" fetch="select">
+            <column name="items_id" not-null="true" />
+        </many-to-one>
+        <property name="stepName" type="string">
+            <column name="step_name" length="45" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <set name="itemStaffCosts" table="item_staff_cost" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="production_steps_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ItemStaffCost" />
+        </set>
+        <set name="productionStaffs" table="production_staff" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="production_steps_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ProductionStaff" />
+        </set>
+    </class>
+</hibernate-mapping>

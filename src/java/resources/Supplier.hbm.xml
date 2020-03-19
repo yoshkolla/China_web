@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.Supplier" table="supplier" catalog="rat_trap" optimistic-lock="version">
+        <id name="supplierId" type="java.lang.Integer">
+            <column name="supplier_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="65535" />
+        </property>
+        <property name="tele" type="string">
+            <column name="tele" length="45" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <set name="grns" table="grn" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="supplier_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.Grn" />
+        </set>
+    </class>
+</hibernate-mapping>

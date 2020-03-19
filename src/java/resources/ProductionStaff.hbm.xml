@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.ProductionStaff" table="production_staff" catalog="rat_trap" optimistic-lock="version">
+        <id name="productionStaffId" type="java.lang.Integer">
+            <column name="production_staff_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="production" class="resources.Production" fetch="select">
+            <column name="production_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="productionSteps" class="resources.ProductionSteps" fetch="select">
+            <column name="production_steps_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="staff" class="resources.Staff" fetch="select">
+            <column name="staff_id" not-null="true" />
+        </many-to-one>
+        <property name="cost" type="java.lang.Double">
+            <column name="cost" precision="22" scale="0" />
+        </property>
+        <property name="totalCost" type="java.lang.Double">
+            <column name="total_cost" precision="22" scale="0" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+    </class>
+</hibernate-mapping>

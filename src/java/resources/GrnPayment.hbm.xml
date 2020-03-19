@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.GrnPayment" table="grn_payment" catalog="rat_trap" optimistic-lock="version">
+        <id name="grnPaymentId" type="java.lang.Integer">
+            <column name="grn_payment_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="grn" class="resources.Grn" fetch="select">
+            <column name="grn_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paymentType" class="resources.PaymentType" fetch="select">
+            <column name="payment_type_id" not-null="true" />
+        </many-to-one>
+        <property name="date" type="string">
+            <column name="date" length="45" />
+        </property>
+        <property name="time" type="string">
+            <column name="time" length="45" />
+        </property>
+        <property name="amount" type="java.lang.Double">
+            <column name="amount" precision="22" scale="0" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <set name="grnChequeDetailses" table="grn_cheque_details" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="grn_payment_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.GrnChequeDetails" />
+        </set>
+    </class>
+</hibernate-mapping>

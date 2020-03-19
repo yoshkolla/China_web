@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.InvoiceItem" table="invoice_item" catalog="rat_trap" optimistic-lock="version">
+        <id name="invoiceItemId" type="java.lang.Integer">
+            <column name="invoice_item_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="invoice" class="resources.Invoice" fetch="select">
+            <column name="invoice_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="stock" class="resources.Stock" fetch="select">
+            <column name="stock_id" not-null="true" />
+        </many-to-one>
+        <property name="cost" type="java.lang.Double">
+            <column name="cost" precision="22" scale="0" />
+        </property>
+        <property name="unitPrice" type="java.lang.Double">
+            <column name="unit_price" precision="22" scale="0" />
+        </property>
+        <property name="qty" type="java.lang.Double">
+            <column name="qty" precision="22" scale="0" />
+        </property>
+        <property name="total" type="java.lang.Double">
+            <column name="total" precision="22" scale="0" />
+        </property>
+        <property name="discount" type="java.lang.Double">
+            <column name="discount" precision="22" scale="0" />
+        </property>
+        <property name="netTotal" type="java.lang.Double">
+            <column name="net_total" precision="22" scale="0" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+    </class>
+</hibernate-mapping>

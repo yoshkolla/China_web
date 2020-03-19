@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.ItemsHasRawItems" table="items_has_raw_items" catalog="rat_trap" optimistic-lock="version">
+        <id name="itemsHasRawItemsId" type="java.lang.Integer">
+            <column name="items_has_raw_items_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="items" class="resources.Items" fetch="select">
+            <column name="items_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="rawItems" class="resources.RawItems" fetch="select">
+            <column name="raw_items_id" not-null="true" />
+        </many-to-one>
+        <property name="amount" type="java.lang.Double">
+            <column name="amount" precision="22" scale="0" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.User" table="user" catalog="rat_trap" optimistic-lock="version">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="staff" class="resources.Staff" fetch="select">
+            <column name="staff_id" not-null="true" />
+        </many-to-one>
+        <property name="username" type="string">
+            <column name="username" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <property name="sales" type="string">
+            <column name="sales" length="45" />
+        </property>
+        <property name="purchase" type="string">
+            <column name="purchase" length="45" />
+        </property>
+        <property name="production" type="string">
+            <column name="production" length="45" />
+        </property>
+        <property name="create" type="string">
+            <column name="create" length="45" />
+        </property>
+        <property name="user" type="string">
+            <column name="user" length="45" />
+        </property>
+        <property name="cheque" type="string">
+            <column name="cheque" length="45" />
+        </property>
+        <property name="report" type="string">
+            <column name="report" length="45" />
+        </property>
+        <property name="other" type="string">
+            <column name="other" length="45" />
+        </property>
+        <set name="grns" table="grn" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.Grn" />
+        </set>
+        <set name="invoices" table="invoice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.Invoice" />
+        </set>
+    </class>
+</hibernate-mapping>

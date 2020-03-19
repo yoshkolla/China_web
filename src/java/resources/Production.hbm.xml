@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="resources.Production" table="production" catalog="rat_trap" optimistic-lock="version">
+        <id name="productionId" type="java.lang.Integer">
+            <column name="production_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="items" class="resources.Items" fetch="select">
+            <column name="items_items_id" not-null="true" />
+        </many-to-one>
+        <property name="date" type="string">
+            <column name="date" length="45" />
+        </property>
+        <property name="time" type="string">
+            <column name="time" length="45" />
+        </property>
+        <property name="salePrice" type="java.lang.Double">
+            <column name="sale_price" precision="22" scale="0" />
+        </property>
+        <property name="qty" type="java.lang.Double">
+            <column name="qty" precision="22" scale="0" />
+        </property>
+        <property name="totalCost" type="java.lang.Double">
+            <column name="total_cost" precision="22" scale="0" />
+        </property>
+        <property name="totalLabourCost" type="java.lang.Double">
+            <column name="total_labour_cost" precision="22" scale="0" />
+        </property>
+        <property name="companyCost" type="java.lang.Double">
+            <column name="company_cost" precision="22" scale="0" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <set name="productionRawItemses" table="production_raw_items" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="production_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ProductionRawItems" />
+        </set>
+        <set name="productionStaffs" table="production_staff" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="production_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.ProductionStaff" />
+        </set>
+    </class>
+</hibernate-mapping>
