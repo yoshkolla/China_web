@@ -24,7 +24,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
     </head>
-    <body>
+    <body class="sidebar-mini">
         <div class="wrapper">
             <%
                 String curruntpage = "cusreg";
