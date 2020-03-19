@@ -92,7 +92,7 @@
                             <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Raw Materials</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Sales Items</a>
+                            <a href="items.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Sales Items</a>
                         </li>
                         <li>
                             <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Staff Management</a>

@@ -13,7 +13,7 @@
     <head>
 
         <%
-            String PAGE_NAME = "Create Production", NAME = "", USERNAME = "";
+            String PAGE_NAME = "Create Item", NAME = "", USERNAME = "";
             int LOGED_USER_ID = 0;
             int STAF_ID = 0;
             LogedUserHolder luh;
@@ -76,7 +76,7 @@
         <!-- for pre loader -->
         <div class="wrapper">
             <%
-                String curruntpage = "Production";
+                String curruntpage = "Create";
             %>
             <%@include file="includes/slidebar.jsp"%>
             <div class="main-panel">
@@ -87,7 +87,7 @@
                             <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 style="color: #263238 !important;">Create new production</h3>
+                                    <h3 style="color: #263238 !important;">Create new sales item</h3>
                                 </div>
 
                                 <div class="card-content">
