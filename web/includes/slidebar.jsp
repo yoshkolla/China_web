@@ -26,7 +26,7 @@
                 <div class="collapse" id="sales" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Invoice</a>
+                            <a href="createinvoice.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Invoice</a>
                         </li>
                         <li>
                             <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Return Invoice</a>
