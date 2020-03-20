@@ -241,4 +241,9 @@
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#minimizeSidebar').click();
+        });
+    </script>
 </html>
