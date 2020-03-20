@@ -5,6 +5,11 @@
 --%>
 
 
+<%@page import="java.util.List"%>
+<%@page import="org.hibernate.criterion.Restrictions"%>
+<%@page import="resources.MeasurementType"%>
+<%@page import="org.hibernate.Criteria"%>
+<%@page import="org.hibernate.Session"%>
 <%@page import="holder.LogedUserHolder"%>
 <%@page import="holder.DetailsHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -35,7 +40,7 @@
                 response.sendRedirect("LogOutServlet");
 
             }
-
+            Session ses = connection.GetConnection.getSessionFactory().openSession();
         %>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -137,20 +142,36 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group">
                                                                     <select  name="type" id="type" class="form-control">
-                                                                        <option value="0" >PLEASE SELECT</option>
+                                                                        <%
+                                                                            Criteria cr = ses.createCriteria(MeasurementType.class);
+                                                                            cr.add(Restrictions.eq("status", 1));
+                                                                            List<MeasurementType> list = cr.list();
+                                                                            if (list.isEmpty()) {
+                                                                        %>
+                                                                        <option value="0" >PLEASE ADD TYPES FIRST</option>      
+                                                                        <%
+                                                                        } else {
+                                                                            for (MeasurementType t : list) {
+                                                                        %>
+                                                                            <option value="<%=t.getMeasurementTypeId() %>" ><%=t.getName().toUpperCase() %></option>
+                                                                        <%
+                                                                                }
+                                                                            }
+                                                                        %>
+
                                                                     </select>
                                                                     <label for="type" class="control-label">MEASURING TYPE</label>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </div>
-                                                        
+
                                                     </div>
                                                     <!--end #tab1 -->
                                                     <div class="tab-pane" id="fws_tab2">
                                                         <div class="row">
                                                             <div class="col-sm-5">
-                                                                
+
                                                             </div>
                                                             <div class="col-sm-3">
                                                                 <legend class="text-center">PLEASE SELECT IMAGE FOR ITEM</legend>
@@ -170,7 +191,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4">
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -296,7 +317,7 @@
         });
         $(document).ready(function () {
             $('#minimizeSidebar').click();
-            
+
         });
     </script>
     <script type="text/javascript">
@@ -414,45 +435,45 @@
                     _updateHorizontalProgressBar(tab, navigation, index, $('#formwizard_validation'));
                 }
             });
-            
+
             //page JS
-            var NAME = "" ;
-            var ROL = 0 ;
-            var TYPE = 0 ;
-            
+            var NAME = "";
+            var ROL = 0;
+            var TYPE = 0;
+
             $('#name').focus();
-            $('#name').keypress(function (key){
-                if(key.which === 13 ){
+            $('#name').keypress(function (key) {
+                if (key.which === 13) {
                     NAME = $('#name').val();
-                    if(NAME !== ""){
-                       $('#rol').focus(); 
-                    }else{
-                        swal("Please Enter Item Name !").then(function (e){
-                           $('#name').focus();  
+                    if (NAME !== "") {
+                        $('#rol').focus();
+                    } else {
+                        swal("Please Enter Item Name !").then(function (e) {
+                            $('#name').focus();
                         });
-                       
+
                     }
                 }
             });
-            $('#rol').keypress(function (key){
-                if(key.which === 13 ){
+            $('#rol').keypress(function (key) {
+                if (key.which === 13) {
                     ROL = $('#rol').val();
-                    if(ROL !== ""){
-                       $('#type').focus(); 
-                    }else{
-                        swal("Please Enter Re Order Level !").then(function (e){
-                           $('#rol').focus();  
+                    if (ROL !== "") {
+                        $('#type').focus();
+                    } else {
+                        swal("Please Enter Re Order Level !").then(function (e) {
+                            $('#rol').focus();
                         });
-                       
+
                     }
                 }
             });
-            
-            $('#type').change(function (){
-                
+
+            $('#type').change(function () {
+                TYPE = $('#type').val();
             });
-            
-            
+
+
             //page JS
 
         });
