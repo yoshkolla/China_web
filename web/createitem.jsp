@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="resources.RawItems"%>
 <%@page import="java.util.List"%>
 <%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="resources.MeasurementType"%>
@@ -129,19 +130,19 @@
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
-                                                                    <input type="text" name="name" id="name" class="form-control">
+                                                                    <input type="text" name="name" id="name" class="form-control" required="">
                                                                     <label for="name" class="control-label">ITEM NAME</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-3">
                                                                 <div class="form-group">
-                                                                    <input type="number" name="rol" id="rol" class="form-control">
+                                                                    <input type="number" name="rol" id="rol" class="form-control" required="">
                                                                     <label for="rol" class="control-label">RE ORDER LEVEL</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-3">
                                                                 <div class="form-group">
-                                                                    <select  name="type" id="type" class="form-control">
+                                                                    <select  name="type" id="type" class="form-control" required="">
                                                                         <%
                                                                             Criteria cr = ses.createCriteria(MeasurementType.class);
                                                                             cr.add(Restrictions.eq("status", 1));
@@ -153,7 +154,7 @@
                                                                         } else {
                                                                             for (MeasurementType t : list) {
                                                                         %>
-                                                                            <option value="<%=t.getMeasurementTypeId() %>" ><%=t.getName().toUpperCase() %></option>
+                                                                        <option value="<%=t.getMeasurementTypeId()%>" ><%=t.getName().toUpperCase()%></option>
                                                                         <%
                                                                                 }
                                                                             }
@@ -196,15 +197,61 @@
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane" id="fws_tab3">
-                                                        <br><br>
-                                                        <div class="form-group">
-                                                            <input type="text" name="Country" id="Country" class="form-control">
-                                                            <label for="Country" class="control-label">Country</label>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <select  name="ro" id="ro" class="form-control" required="">
+                                                                        <%
+                                                                            Criteria cr_row = ses.createCriteria(RawItems.class);
+                                                                            cr_row.add(Restrictions.eq("status", 1));
+                                                                            List<RawItems> list_row = cr_row.list();
+                                                                            if (list_row.isEmpty()) {
+                                                                        %>
+                                                                        <option value="0" >PLEASE ADD TYPES FIRST</option>      
+                                                                        <%
+                                                                        } else {
+                                                                            for (RawItems t : list_row) {
+                                                                        %>
+                                                                        <option value="<%=t.getRawItemsId()%>" ><%=t.getName().toUpperCase() + "  (" + t.getMeasurementType().getName().toLowerCase() + ")"%></option>
+                                                                        <%
+                                                                                }
+                                                                            }
+                                                                        %>
+
+                                                                    </select>
+                                                                    <label for="ro" class="control-label">SELECT ROW MATERIAL</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <input type="number" name="amount" id="amount" class="form-control">
+                                                                    <label for="amount" class="control-label">AMOUNT</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-sm btn-warning"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12"> 
+                                                                <table class="table  table-sm table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="border: #576574 solid 1px;">#</th>
+                                                                            <th style="border: #576574 solid 1px;">MATERIAL NAME</th>
+                                                                            <th style="border: #576574 solid 1px;">AMOUNT</th>
+                                                                            <th style="border: #576574 solid 1px;"></th>
+                                                                        </tr>
+                                                                    <tbody>
+                                                                        
+                                                                    </tbody>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+
                                                         </div>
-                                                        <div class="form-group">
-                                                            <input type="text" name="Zipcode" id="Zipcode" class="form-control">
-                                                            <label for="Zipcode" class="control-label">Zipcode</label>
-                                                        </div>
+
+
                                                     </div>
                                                     <!--end #tab2 -->
 
@@ -472,6 +519,20 @@
             $('#type').change(function () {
                 TYPE = $('#type').val();
             });
+            $('#type').keypress(function (key) {
+                if (key.which === 13) {
+                    TYPE = $('#type').val();
+                    if (TYPE !== "0") {
+                        $('.next').click();
+                    } else {
+                        swal("Please Select Type !").then(function (e) {
+                            $('#rol').focus();
+                        });
+
+                    }
+                }
+            });
+
 
 
             //page JS
