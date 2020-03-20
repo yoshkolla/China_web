@@ -194,7 +194,8 @@
             $('.preloader').fadeOut('slow');
         });
         $(document).ready(function () {
-            $('#datatables').DataTable();
+            $('#minimizeSidebar').click();
+            $('#datatables').dataTable();
         });
     </script>
     <!-- for pre loader -->
