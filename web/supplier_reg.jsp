@@ -4,8 +4,14 @@
     Author     : SCORFi3LD
 --%>
 
-<%@page import="holder.DetailsHolder"%>
+<%@page import="resources.Supplier"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="resources.Customer"%>
+<%@page import="org.hibernate.Session"%>
+<%@page import="connection.GetConnection"%>
 <%@page import="holder.LogedUserHolder"%>
+<%@page import="holder.DetailsHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,13 +31,12 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
-         <%
-            String PAGE_NAME = "Dashboard",LOGED_USER_NAME="" ,  NAME = "", USERNAME = "";
+        <%
+            String PAGE_NAME = "Dashboard", LOGED_USER_NAME = "", NAME = "", USERNAME = "";
             int LOGED_USER_ID = 0;
             int STAF_ID = 0;
             LogedUserHolder luh;
             DetailsHolder dth;
-            
 
             try {
                 if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
@@ -55,8 +60,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <%
-                String curruntpage = "cusreg";
+            <%                String curruntpage = "cusreg";
             %>
             <%@include file="includes/slidebar.jsp"%>
             <div class="main-panel">
@@ -70,7 +74,7 @@
 
                                     <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
                                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
-                                        <i class="zmdi zmdi-plus-circle"></i> Add Suppler Here
+                                        <i class="zmdi zmdi-plus-circle"></i> Add Supplier Here
                                     </button>
                                     <div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog">   
@@ -79,7 +83,7 @@
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     <h4 class="modal-title"> Supplier Registration</h4>
                                                 </div>
-                                                <form method="POST" >
+                                                <form action="Suppler_reg" method="POST">
                                                     <div class="modal-body">
                                                         <div class="col-md-12">
                                                             <div class="card">
@@ -90,7 +94,7 @@
                                                                             <div class="col-sm-12">
                                                                                 <div class="form-group label-floating is-empty">
                                                                                     <label class="control-label">Name</label>
-                                                                                    <input type="text" class="form-control" value="">
+                                                                                    <input type="text" name="name" class="form-control" value="">
                                                                                     <span class="help-block">A block of help text that breaks onto a new line.</span>
                                                                                     <span class="material-input"></span>
                                                                                 </div>
@@ -100,7 +104,7 @@
                                                                             <div class="col-sm-12">
                                                                                 <div class="form-group label-floating is-empty">
                                                                                     <label class="control-label">Address</label>
-                                                                                    <textarea class="form-control"></textarea>
+                                                                                    <textarea name="address" class="form-control"></textarea>
                                                                                     <span class="help-block">A block of help text that breaks onto a new line.</span>
                                                                                     <span class="material-input"></span>
                                                                                 </div>
@@ -110,7 +114,7 @@
                                                                             <div class="col-sm-12">
                                                                                 <div class="form-group label-floating is-empty">
                                                                                     <label class="control-label">Mobile</label>
-                                                                                    <input type="text" class="form-control" value="">
+                                                                                    <input type="text" name="mobile" class="form-control" value="">
                                                                                     <span class="help-block">A block of help text that breaks onto a new line.</span>
                                                                                     <span class="material-input"></span>
                                                                                 </div>
@@ -130,69 +134,66 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                </form>
-                                            </div>
 
+                                                    </div>
+                                                </form>
+
+
+                                            </div>
                                         </div>
                                     </div>
+                                    <br>
+                                    <br>
+                                    <br>    
+                                    <div class="card">
+                                        <div class="card-content">
+
+                                            <h3 class="card-title" style="margin-bottom: 15px;">production items list</h3>
+                                            <div class="material-datatables">
+                                              <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                      <tr style="background-color: #10ac84; color: white;">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Address</th>
+                                                            <th>Mobile</th>                                                    
+                                                        </tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%
+                                                            Session s = GetConnection.getSessionFactory().openSession();
+                                                            List<Supplier> cList = s.createCriteria(Supplier.class).list();
+                                                            for (Supplier c : cList) {
+                                                        %>
+                                                        <tr>
+                                                            <td><%=c.getSupplierId() %></td>
+                                                            <td><%=c.getName()%></td>
+                                                            <td><%=c.getAddress()%></td>
+                                                            <td><%=c.getTele()%></td>
+
+
+                                                        </tr>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end content-->
+                                    </div>
+
                                 </div>
-                                <br>
-                                <br>
-                                <br>    
-                                <!--data table start-->
-                                <h3>Suppler Data</h3>
-                                <br>
-                                <div class="material-datatables">
-                                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th>Mobile</th>
 
-
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th>Mobile</th>
-
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-
-
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <%@include file="includes/footer.jsp"%>
+            <%@include file="includes/footer.jsp"%>
 
     </body>
 
@@ -241,4 +242,13 @@
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
+
+    <script>
+        $(window).on("load", function (e) {
+            $('.preloader').fadeOut('slow');
+        });
+        $(document).ready(function () {
+            $('#datatables').DataTable();
+        });
+    </script>
 </html>

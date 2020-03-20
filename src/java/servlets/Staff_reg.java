@@ -5,8 +5,8 @@
  */
 package servlets;
 
-
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import resources.Customer;
+import resources.JobRoll;
+import resources.Staff;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Staff_reg", urlPatterns = {"/Staff_reg"})
+public class Staff_reg extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,25 +40,40 @@ public class Custommer_reg extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String Name = request.getParameter("name");
-            String Address = request.getParameter("address");
-            String Mobile = request.getParameter("mobile");
 
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(Integer.parseInt("1"));
             Session ses = connection.GetConnection.getSessionFactory().openSession();
-            Transaction tr = ses.beginTransaction();
-            ses.save(c);
-            tr.commit();
-            ses.flush();
-            ses.close();
-            System.out.println("Done Save Customer");
 
-            response.sendRedirect("customer_reg.jsp");
+            String name = request.getParameter("n");
+            String mobile = request.getParameter("m");
+            String address = request.getParameter("a");
+            
+            int jobrole = Integer.parseInt(request.getParameter("j"));   
+
+            String nic = request.getParameter("ni");
+
+            Object stf =  ses.createCriteria(Staff.class).add(Restrictions.eq("nic", nic)).uniqueResult();
+
+            if (stf == null) {
+
+                Staff sa = new Staff();
+
+                sa.setName(name);
+                sa.setMobile(mobile);
+                sa.setAddress(address);
+                sa.setNic(nic);
+
+                sa.setJobRoll((JobRoll) ses.load(JobRoll.class, jobrole));
+
+                Transaction tr = ses.beginTransaction();
+                ses.save(sa);
+                tr.commit();
+                ses.flush();
+                ses.close();
+                response.sendRedirect("staff_reg.jsp");
+
+            } else {
+                System.out.println("Same Nice Used");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

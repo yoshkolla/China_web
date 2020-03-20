@@ -5,9 +5,8 @@
  */
 package servlets;
 
-
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import resources.Customer;
+import resources.Supplier;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Suppler_reg", urlPatterns = {"/Suppler_reg"})
+public class Suppler_reg extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,21 +41,19 @@ public class Custommer_reg extends HttpServlet {
             String Address = request.getParameter("address");
             String Mobile = request.getParameter("mobile");
 
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(Integer.parseInt("1"));
+            Supplier s = new Supplier();
+            s.setName(Name);
+            s.setAddress(Address);
+            s.setTele(Mobile);
+            s.setStatus(Integer.parseInt("1"));
             Session ses = connection.GetConnection.getSessionFactory().openSession();
             Transaction tr = ses.beginTransaction();
-            ses.save(c);
+            ses.save(s);
             tr.commit();
             ses.flush();
             ses.close();
-            System.out.println("Done Save Customer");
-
-            response.sendRedirect("customer_reg.jsp");
+            System.out.println("Done Save Supplier");
+            response.sendRedirect("supplier_reg.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();

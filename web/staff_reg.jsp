@@ -4,6 +4,13 @@
     Author     : SCORFi3LD
 --%>
 
+<%@page import="resources.Staff"%>
+<%@page import="resources.JobRoll"%>
+<%@page import="java.util.List"%>
+<%@page import="resources.Customer"%>
+<%@page import="org.hibernate.Session"%>
+<%@page import="connection.GetConnection"%>
+<%@page import="connection.GetConnection"%>
 <%@page import="holder.DetailsHolder"%>
 <%@page import="holder.LogedUserHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,13 +32,12 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
-         <%
-            String PAGE_NAME = "Dashboard",LOGED_USER_NAME="" ,  NAME = "", USERNAME = "";
+        <%
+            String PAGE_NAME = "Dashboard", LOGED_USER_NAME = "", NAME = "", USERNAME = "";
             int LOGED_USER_ID = 0;
             int STAF_ID = 0;
             LogedUserHolder luh;
             DetailsHolder dth;
-            
 
             try {
                 if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
@@ -53,11 +59,10 @@
 
         %>
     </head>
-    
+
     <body>
         <div class="wrapper">
-            <%
-                String curruntpage = "Dashboard";
+            <%                String curruntpage = "Dashboard";
             %>
             <%@include file="includes/slidebar.jsp"%>
             <div class="main-panel">
@@ -83,22 +88,24 @@
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title"> Staff Registration</h4>
                                     </div>
-                                    <form method="POST" >
+                                    <form action="Staff_reg" method="Get">
                                         <div class="modal-body">
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="card-content">
                                                         <div class="row">
                                                             <div class="col-sm-12">
-                                                                <select class="form-group form-control" id="jobroll">
+                                                                <select class="form-group form-control" name="j" id="jobroll">
                                                                     <option disabled selected>Choose JOB TYPE</option>
-                                                                    <option value="2">Paris </option>
-                                                                    <option value="3">Bucharest</option>
-                                                                    <option value="4">Rome</option>
-                                                                    <option value="5">New York</option>
-                                                                    <option value="6">Miami </option>
-                                                                    <option value="7">Piatra Neamt</option>
-
+                                                                    <%
+                                                                        Session s = GetConnection.getSessionFactory().openSession();
+                                                                        List<JobRoll> cList = s.createCriteria(JobRoll.class).list();
+                                                                        for (JobRoll c : cList) {
+                                                                    %>                                                                   
+                                                                    <option value="<%=c.getJobRollId()%>"><%=c.getName()%> </option>                                                              
+                                                                    <%
+                                                                        }
+                                                                    %>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -106,7 +113,7 @@
                                                             <div class="col-sm-12">
                                                                 <div class="form-group label-floating is-empty">
                                                                     <label class="control-label">Name</label>
-                                                                    <input type="text" class="form-control" value>
+                                                                    <input type="text" name="n" class="form-control" value>
                                                                     <span class="help-block">A block of help text that breaks onto a new line.</span>
                                                                 </div>
                                                             </div>
@@ -115,7 +122,7 @@
                                                             <div class="col-sm-12">
                                                                 <div class="form-group label-floating is-empty">
                                                                     <label class="control-label">Mobile</label>
-                                                                    <input type="text" class="form-control" value>
+                                                                    <input type="text" name="m" class="form-control" value>
                                                                     <span class="help-block">Use + mark For The Country Code</span>
                                                                 </div>
                                                             </div>
@@ -124,7 +131,7 @@
                                                             <div class="col-sm-12">
                                                                 <div class="form-group label-floating is-empty">
                                                                     <label class="control-label">NIC</label>
-                                                                    <input type="text" class="form-control" value>
+                                                                    <input type="text" name="ni" class="form-control" value>
                                                                     <span class="help-block">Don't Use " SPACE " FOR V or X</span>
                                                                 </div>
                                                             </div>
@@ -132,8 +139,8 @@
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <div class="form-group label-floating is-empty">
-                                                                    <label class="control-label">Address</label>
-                                                                    <input type="text" class="form-control" value>
+                                                                    <label class="control-label" >Address</label>
+                                                                    <input type="text" name="a" class="form-control" value>
                                                                     <span class="help-block">Use " , " To Separate Address Line</span>
                                                                 </div>
                                                             </div>
@@ -144,7 +151,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <div class="text-right">
-                                                <button class="btn btn-success">
+                                                <button type="submit" class="btn btn-success">
                                                     <span class="btn-label">
                                                         <i class="material-icons">check</i>
                                                     </span>
@@ -164,54 +171,44 @@
                     <!--data table start-->
                     <h3>Staff Data</h3>
                     <br>
-                    <div class="material-datatables">
-                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
-                                    <th>Nic</th>
-                                    <th>Address</th>
-                                    <th>Job Type</th>
+                    <div class="card">
+                        <div class="card-content">
 
-
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
-                                    <th>Nic</th>
-                                    <th>Address</th>
-                                    <th>Job Type</th>
-
-
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>932471159V</td>
-                                    <td>2011/04/25</td>
-                                    <td>Welder</td>
-
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>PAinter</td>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
+                            <h3 class="card-title" style="margin-bottom: 15px;">production items list</h3>
+                            <div class="material-datatables">
+                                <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
+                                    <thead>
+                                        <tr style="background-color: #10ac84; color: white;">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Mobile</th>                                                    
+                                            <th>Job Roll</th>                                                    
+                                        </tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            Session sx = GetConnection.getSessionFactory().openSession();
+                                            List<Staff> cList1 = sx.createCriteria(Staff.class).list();                                                       
+                                            for (Staff c : cList1) {
+                                        %>
+                                        <tr>
+                                            <td><%=c.getStaffId()%></td>
+                                            <td><%=c.getName()%></td>
+                                            <td><%=c.getAddress()%></td>
+                                            <td><%=c.getMobile()%></td>
+                                            <td><%=c.getJobRoll().getName() %></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- end content-->
                     </div>
                 </div>
             </div>
@@ -269,5 +266,13 @@
 <script src="assets/vendors/jquery.tagsinput.js"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="assets/js/turbo.js"></script>
+ <script>
+        $(window).on("load", function (e) {
+            $('.preloader').fadeOut('slow');
+        });
+        $(document).ready(function () {
+            $('#datatables').DataTable();
+        });
+    </script>
 </html>
 
