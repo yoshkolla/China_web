@@ -6,6 +6,7 @@
 package help;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -14,7 +15,10 @@ import java.util.Calendar;
  * @author Mayura Lakshan
  */
 public class Helper {
-    
+
+    public static DecimalFormat priceFormt = new DecimalFormat("#,##0.00");
+    public static DecimalFormat intFormat = new DecimalFormat("0");
+
     public static String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
@@ -28,6 +32,5 @@ public class Helper {
         return datetime.format(cal.getTime());
 
     }
-    
-    
+
 }

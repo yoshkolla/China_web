@@ -51,7 +51,7 @@
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="assets/img/favicon.ico" />
         <!-- Fonts and icons -->
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
         <!-- for pre loader -->

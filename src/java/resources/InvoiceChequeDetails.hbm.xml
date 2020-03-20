@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 19, 2020 6:33:14 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 20, 2020 3:46:23 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.InvoiceChequeDetails" table="invoice_cheque_details" catalog="rat_trap" optimistic-lock="version">
         <id name="invoiceChequeDetailsId" type="java.lang.Integer">
