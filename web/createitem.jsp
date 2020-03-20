@@ -256,16 +256,40 @@
                                                     <!--end #tab2 -->
 
                                                     <div class="tab-pane" id="fws_tab4">
-                                                        <br><br>
-                                                        <div class="form-group">
-                                                            <input type="text" name="URL" id="URL" class="form-control">
-                                                            <label for="URL" class="control-label">URL</label>
-                                                            <p class="help-block">Starts with http://</p>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" name="rangelength" id="rangelength" class="form-control">
-                                                            <label for="rangelength" class="control-label">Range restriction</label>
-                                                            <p class="help-block">Between 5 and 10</p>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <input type="text" name="step" id="step" class="form-control">
+                                                                    <label for="step" class="control-label">PRODUCTION STEP NAME</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <input type="number" name="cost" id="cost" class="form-control">
+                                                                    <label for="cost" class="control-label">COST</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-sm btn-warning"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12"> 
+                                                                <table class="table  table-sm table-bordered">
+                                                                    <thead  style="height :10px !important;">
+                                                                        <tr>
+                                                                            <th style="border: #576574 solid 1px;">#</th>
+                                                                            <th style="border: #576574 solid 1px;">STEP NAME</th>
+                                                                            <th style="border: #576574 solid 1px;">COST</th>
+                                                                            <th style="border: #576574 solid 1px;"></th>
+                                                                        </tr>
+                                                                    <tbody>
+                                                                        
+                                                                    </tbody>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <!--end #tab3 -->
