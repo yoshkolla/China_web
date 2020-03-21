@@ -597,6 +597,19 @@
                     }
                 });
             }
+            
+            $("#tbl1").on("click", ".delete_pr", function () {
+                $.ajax({
+                    url: "removeSalesProductionPlanServlet",
+                    data: {id: $(this).attr('data-ref')},
+                    success: function (data) {
+                        if (data == "1") {
+                            //$('#companyAllowance').removeAttr('disabled');
+                        }
+                    }
+                });
+                $(this).closest("tr").remove();
+            });
             //production plan
             //metirel plan
             $('#add_ro').click(function (key) {
