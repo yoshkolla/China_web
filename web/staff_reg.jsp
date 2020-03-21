@@ -4,6 +4,7 @@
     Author     : SCORFi3LD
 --%>
 
+<%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="resources.Staff"%>
 <%@page import="resources.JobRoll"%>
 <%@page import="java.util.List"%>
@@ -81,6 +82,25 @@
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
                             <i class="zmdi zmdi-plus-circle"></i> Add Staff Here
                         </button>
+
+                        <%
+                            if (request.getParameter("msg") != null) {
+                        %>
+                        <div class="alert alert-danger " role="alert">
+                            <%=request.getParameter("msg")%>
+                        </div>
+
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <%
+                            }
+                        %>
+
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">   
                                 <div class="modal-content">
@@ -169,12 +189,12 @@
                     <br>
                     <br>    
                     <!--data table start-->
-                    <h3>Staff Data</h3>
+
                     <br>
                     <div class="card">
                         <div class="card-content">
 
-                            <h3 class="card-title" style="margin-bottom: 15px;">production items list</h3>
+                            <h3 class="card-title" style="margin-bottom: 15px;">Staff Data</h3>
                             <div class="material-datatables">
                                 <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
                                     <thead>
@@ -191,7 +211,8 @@
                                     <tbody>
                                         <%
                                             Session sx = GetConnection.getSessionFactory().openSession();
-                                            List<Staff> cList1 = sx.createCriteria(Staff.class).list();                                                       
+                                            List<Staff> cList1 = sx.createCriteria(Staff.class).add(Restrictions.eq("status", 1)).list();
+
                                             for (Staff c : cList1) {
                                         %>
                                         <tr>
@@ -199,7 +220,25 @@
                                             <td><%=c.getName()%></td>
                                             <td><%=c.getAddress()%></td>
                                             <td><%=c.getMobile()%></td>
-                                            <td><%=c.getJobRoll().getName() %></td>
+                                            <td><%=c.getJobRoll().getName()%></td>
+                                            <td>
+                                                <a href="staff_updates.jsp?id=<%=c.getStaffId()%>">
+                                                    <button class="btn btn-warning btn-sm">
+                                                        <i class="material-icons"></i> Update
+                                                    </button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <form action="Staff_delete_servlert" method="POST">
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <input type="hidden" id="id" name="id" value="<%=c.getStaffId()%>">
+                                                        <i class="material-icons"></i> Delete
+                                                    </button>
+                                                </form>
+
+                                            </td>
+
+                                        </tr>
                                         </tr>
                                         <%
                                             }
@@ -266,13 +305,13 @@
 <script src="assets/vendors/jquery.tagsinput.js"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="assets/js/turbo.js"></script>
- <script>
-        $(window).on("load", function (e) {
-            $('.preloader').fadeOut('slow');
-        });
-        $(document).ready(function () {
-            $('#datatables').DataTable();
-        });
-    </script>
+<script>
+    $(window).on("load", function (e) {
+        $('.preloader').fadeOut('slow');
+    });
+    $(document).ready(function () {
+        $('#datatables').DataTable();
+    });
+</script>
 </html>
 

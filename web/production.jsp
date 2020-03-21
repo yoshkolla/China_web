@@ -253,6 +253,9 @@
         $(window).on("load", function (e) {
             $('.preloader').fadeOut('slow');
         });
+        $(document).ready(function () {
+            $('#minimizeSidebar').click();
+        });
     </script>
     <!-- for pre loader -->
 </html>

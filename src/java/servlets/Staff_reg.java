@@ -45,12 +45,11 @@ public class Staff_reg extends HttpServlet {
 
             String name = request.getParameter("n");
             String mobile = request.getParameter("m");
-            String address = request.getParameter("a");
+            String address = request.getParameter("a");            
             
             int jobrole = Integer.parseInt(request.getParameter("j"));   
 
             String nic = request.getParameter("ni");
-
             Object stf =  ses.createCriteria(Staff.class).add(Restrictions.eq("nic", nic)).uniqueResult();
 
             if (stf == null) {
@@ -72,7 +71,8 @@ public class Staff_reg extends HttpServlet {
                 response.sendRedirect("staff_reg.jsp");
 
             } else {
-                System.out.println("Same Nice Used");
+                 response.sendRedirect("staff_reg.jsp?msg=Same Nic Used For Another Staff Member ");
+                
             }
 
         } catch (Exception e) {

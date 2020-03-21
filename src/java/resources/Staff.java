@@ -1,5 +1,5 @@
 package resources;
-// Generated Mar 19, 2020 6:33:12 PM by Hibernate Tools 4.3.1
+// Generated Mar 20, 2020 3:46:21 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class Staff  implements java.io.Serializable {
      private String mobile;
      private String nic;
      private String address;
+     private Integer status;
      private Set productionStaffs = new HashSet(0);
      private Set users = new HashSet(0);
 
@@ -27,12 +28,13 @@ public class Staff  implements java.io.Serializable {
     public Staff(JobRoll jobRoll) {
         this.jobRoll = jobRoll;
     }
-    public Staff(JobRoll jobRoll, String name, String mobile, String nic, String address, Set productionStaffs, Set users) {
+    public Staff(JobRoll jobRoll, String name, String mobile, String nic, String address, Integer status, Set productionStaffs, Set users) {
        this.jobRoll = jobRoll;
        this.name = name;
        this.mobile = mobile;
        this.nic = nic;
        this.address = address;
+       this.status = status;
        this.productionStaffs = productionStaffs;
        this.users = users;
     }
@@ -78,6 +80,13 @@ public class Staff  implements java.io.Serializable {
     
     public void setAddress(String address) {
         this.address = address;
+    }
+    public Integer getStatus() {
+        return this.status;
+    }
+    
+    public void setStatus(Integer status) {
+        this.status = status;
     }
     public Set getProductionStaffs() {
         return this.productionStaffs;

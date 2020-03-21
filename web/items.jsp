@@ -3,8 +3,6 @@
     Created on : Mar 19, 2020, 5:14:33 PM
     Author     : Chamara
 --%>
-
-
 <%@page import="java.util.List"%>
 <%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="resources.Items"%>
@@ -60,6 +58,12 @@
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
         <!-- for pre loader -->
         <style>
+            #datatables_length{
+                float: left;
+            }
+            .dataTables_info{
+                float: left !important;;
+            }
             .preloader {
                 position: absolute;
                 top: 0;
@@ -90,19 +94,25 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="createitem.jsp" style="color: white;" class="btn  btn-primary"><span class="fa fa-plus">&nbsp;&nbsp;</span>CREATE NEW ITEM</a>
-                                <div class="card">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb" style="font-size: 14px;">
+                                        <li class="breadcrumb-item"><a href="index.jsp"><span class="fa fa-home">&nbsp;</span>Home</a></li>
+                                        <li class="breadcrumb-item active">Sales items</li>
+                                        <li class="breadcrumb-item active"><a href="createitem.jsp"><span class="fa fa-plus">&nbsp;</span>Create new item</a></li>
+                                    </ol>
+                                </nav>
+
+                                <div class="card card-stats">
                                     <div class="card-content">
 
-                                        <h3 class="card-title" style="margin-bottom: 15px;">production items list</h3>
                                         <div class="material-datatables">
                                             <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
                                                 <thead>
                                                     <tr style="background-color: #10ac84; color: white;">
                                                         <th>#</th>
-                                                        <th>Item name</th>
-                                                        <th>Type</th>
-                                                        <th>Reorder level</th>
+                                                        <th>ITEM NAME</th>
+                                                        <th>TYPE</th>
+                                                        <th>RE ORDER LEVEL</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -112,14 +122,14 @@
                                                         Criteria cr = ses.createCriteria(Items.class);
                                                         cr.add(Restrictions.eq("status", "1"));
                                                         List<Items> it = cr.list();
-                                                        for(Items i : it){
+                                                        for (Items i : it) {
                                                     %>
                                                     <tr>
                                                         <td><%=i.getItemsId()%></td>
-                                                        <td><%=i.getName().toUpperCase() %></td>
-                                                        <td><%=i.getMeasurementType().getName().toUpperCase() %></td>
-                                                        <td><%=i.getRol() %></td>
-                                                        <td><a href="viewitems.jsp?id=<%=i.getItemsId() %>">Details</a></td>
+                                                        <td><%=i.getName().toUpperCase()%></td>
+                                                        <td><%=i.getMeasurementType().getName().toUpperCase()%></td>
+                                                        <td><%=i.getRol()%></td>
+                                                        <td><a href="viewitems.jsp?id=<%=i.getItemsId()%>">Details</a></td>
 
                                                     </tr>
                                                     <%
@@ -194,7 +204,8 @@
             $('.preloader').fadeOut('slow');
         });
         $(document).ready(function () {
-            $('#datatables').DataTable();
+            $('#minimizeSidebar').click();
+            $('#datatables').dataTable();
         });
     </script>
     <!-- for pre loader -->

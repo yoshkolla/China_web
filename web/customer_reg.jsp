@@ -4,6 +4,7 @@
     Author     : SCORFi3LD
 --%>
 
+<%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="resources.Customer"%>
@@ -147,23 +148,27 @@
                                     <div class="card">
                                         <div class="card-content">
 
-                                            <h3 class="card-title" style="margin-bottom: 15px;">production items list</h3>
+                                            <h3 class="card-title" style="margin-bottom: 15px;">Customer Data</h3>
                                             <div class="material-datatables">
-                                              <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
+                                                <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
                                                     <thead>
-                                                      <tr style="background-color: #10ac84; color: white;">
+                                                        <tr style="background-color: #10ac84; color: white;">
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Name</th>
                                                             <th>Address</th>
-                                                            <th>Mobile</th>                                                    
+                                                            <th>Mobile</th> 
+                                                            <th>Update</th> 
+                                                            <th>Delete</th> 
+
                                                         </tr>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <%
-                                                            Session s = GetConnection.getSessionFactory().openSession();
-                                                            List<Customer> cList = s.createCriteria(Customer.class).list();
+                                                            Session s = GetConnection.getSessionFactory().openSession();                                                            
+                                                            List<Customer> cList = s.createCriteria(Customer.class).add(Restrictions.eq("status",1)).list();
+                                                            
                                                             for (Customer c : cList) {
                                                         %>
                                                         <tr>
@@ -171,8 +176,23 @@
                                                             <td><%=c.getName()%></td>
                                                             <td><%=c.getAddress()%></td>
                                                             <td><%=c.getMobile()%></td>
+                                                            <td>
+                                                                <a href="customer_update.jsp?id=<%= c.getCustomerId()%>">
+                                                                    <button class="btn btn-warning btn-sm">
+                                                                        <i class="material-icons"></i> Update
+                                                                    </button>
+                                                                </a>
+                                                            </td>
+                                                            <td>
 
+                                                                <form action="Customer_delete" method="POST">
+                                                                    <button class="btn btn-danger btn-sm">
+                                                                        <input type="hidden" id="id" name="id" value="<%=c.getCustomerId()%>">
+                                                                        <i class="material-icons"></i> Delete
+                                                                    </button>
+                                                                </form>
 
+                                                            </td>
                                                         </tr>
                                                         <%
                                                             }
