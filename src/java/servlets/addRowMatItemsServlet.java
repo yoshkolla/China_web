@@ -6,6 +6,7 @@
 package servlets;
 
 import holder.ProductionPlanHolder;
+import holder.ProductionRawMatHolder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
+import resources.RawItems;
 
 /**
  *
@@ -36,20 +39,26 @@ public class addRowMatItemsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try{
-            if(request.getParameter("name") == null || request.getParameter("name").equals("")
-                    || request.getParameter("cost") == null || request.getParameter("cost").equals("")){
+            if(request.getParameter("rol") == null || request.getParameter("rol").equals("")
+                    || request.getParameter("amount") == null || request.getParameter("amount").equals("")){
                     out.print("0");
             }else{
-                String NAME = request.getParameter("name");
-                double COST = Double.parseDouble(request.getParameter("cost"));
-                ArrayList<ProductionPlanHolder> pph = new ArrayList();
-                if(request.getSession().getAttribute("ppl") != null){
-                    pph = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
+                int RO_ID = Integer.parseInt(request.getParameter("rol"));
+                Session ses= connection.GetConnection.getSessionFactory().openSession();
+                
+                RawItems RI =(RawItems) ses.load(RawItems.class, RO_ID);
+                String NAME = RI.getName();
+                double AMOUNT = Double.parseDouble(request.getParameter("amount"));
+                
+                ArrayList<ProductionRawMatHolder> pph = new ArrayList();
+                if(request.getSession().getAttribute("rrl") != null){
+                    pph = (ArrayList<ProductionRawMatHolder>) request.getSession().getAttribute("rrl");
                 }
-                ProductionPlanHolder ph = new ProductionPlanHolder();
+                ProductionRawMatHolder ph = new ProductionRawMatHolder();
                 ph.setId(0);
-                ph.setCost(COST);
+                ph.setAmount(AMOUNT);
                 ph.setName(NAME);
+                ph.setRow_id(RO_ID);
                 pph.add(ph);
                 out.print("1");
                 

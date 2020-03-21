@@ -41,6 +41,12 @@
                 response.sendRedirect("LogOutServlet");
 
             }
+            if (request.getSession().getAttribute("ppl") != null) {
+                request.getSession().removeAttribute("ppl");
+            }
+            if (request.getSession().getAttribute("rrl") != null) {
+                request.getSession().removeAttribute("ppl");
+            }
             Session ses = connection.GetConnection.getSessionFactory().openSession();
         %>
 
@@ -564,11 +570,6 @@
                     $('#cost').focus();
                 }
             });
-            $('#cost').keypress(function (key) {
-                if (key.which === 13) {
-                    onAddPressPlan();
-                }
-            });
             var i = 0;
             function onAddPressPlan() {
                 i++;
@@ -604,11 +605,7 @@
             $('#ro').change(function (key) {
                 $('#amount').focus();
             });
-            $('#amount').keypress(function (key) {
-                if (key.which === 13) {
-                    onAddPressRo();
-                }
-            });
+
             var i = 0;
             function onAddPressRo() {
                 i++;
