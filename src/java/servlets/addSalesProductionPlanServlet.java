@@ -51,6 +51,7 @@ public class addSalesProductionPlanServlet extends HttpServlet {
                 ph.setCost(COST);
                 ph.setName(NAME);
                 pph.add(ph);
+                request.getSession().setAttribute("ppl", pph);
                 out.print("1");
                 
             }

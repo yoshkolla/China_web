@@ -38,43 +38,52 @@ public class addRowMatItemsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try{
-            if(request.getParameter("rol") == null || request.getParameter("rol").equals("")
-                    || request.getParameter("amount") == null || request.getParameter("amount").equals("")){
-                    out.print("0");
-            }else{
+        try {
+            if (request.getParameter("rol") == null || request.getParameter("rol").equals("")
+                    || request.getParameter("amount") == null || request.getParameter("amount").equals("")) {
+                out.print("0");
+            } else {
                 int RO_ID = Integer.parseInt(request.getParameter("rol"));
-                Session ses= connection.GetConnection.getSessionFactory().openSession();
-                
-                RawItems RI =(RawItems) ses.load(RawItems.class, RO_ID);
+                Session ses = connection.GetConnection.getSessionFactory().openSession();
+
+                RawItems RI = (RawItems) ses.load(RawItems.class, RO_ID);
                 String NAME = RI.getName();
                 double AMOUNT = Double.parseDouble(request.getParameter("amount"));
-                
+
                 ArrayList<ProductionRawMatHolder> pph = new ArrayList();
-                if(request.getSession().getAttribute("rrl") != null){
+                if (request.getSession().getAttribute("rrl") != null) {
                     pph = (ArrayList<ProductionRawMatHolder>) request.getSession().getAttribute("rrl");
                 }
-                ProductionRawMatHolder ph = new ProductionRawMatHolder();
-                ph.setId(0);
-                ph.setAmount(AMOUNT);
-                ph.setName(NAME);
-                ph.setRow_id(RO_ID);
-                pph.add(ph);
+                boolean flag = true;
+                for (ProductionRawMatHolder p : pph) {
+                    if (p.getRow_id() == RO_ID) {
+                        double curr = p.getAmount();
+                        p.setAmount(AMOUNT + curr);
+                        flag = false;
+                    }
+                }
+                if (flag){
+                    ProductionRawMatHolder ph = new ProductionRawMatHolder();
+                    ph.setId(0);
+                    ph.setAmount(AMOUNT);
+                    ph.setName(NAME);
+                    ph.setRow_id(RO_ID);
+                    pph.add(ph);
+                }
+
+                request.getSession().setAttribute("rrl", pph);
                 out.print("1");
-                
+
             }
-        }catch(Exception e){
-        
+        } catch (Exception e) {
+
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-   
 
 }

@@ -6,6 +6,7 @@
 package servlets;
 
 import holder.ProductionPlanHolder;
+import holder.ProductionRawMatHolder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class removeRawMatItemaServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             int id = Integer.parseInt(request.getParameter("id"));
             if (request.getSession().getAttribute("rrl") != null) {
-                ArrayList<ProductionPlanHolder> holders = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("rrl");
+                ArrayList<ProductionRawMatHolder> holders = (ArrayList<ProductionRawMatHolder>) request.getSession().getAttribute("rrl");
                 holders.remove(id);
                 request.getSession().setAttribute("rrl",holders);
                 if (holders.isEmpty()) {

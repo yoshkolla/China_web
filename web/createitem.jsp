@@ -637,7 +637,7 @@
                                 button: "OK"
                             });
                         } else if (data === "1") {
-                            $('#tbl2 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + ROL_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + AMOUNT + '</td><td style="border: #2d3436 solid 1px !important;"><button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete" data-ref="' + i + '">REMOVE</button></td></tr>');
+                            $('#tbl2 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + ROL_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + AMOUNT + '</td><td style="border: #2d3436 solid 1px !important;"><button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_ro" data-ref="' + i + '">REMOVE</button></td></tr>');
                             $('#amount').val("");
                             $('#ro').focus();
                         } else if (data === "2") {
@@ -648,7 +648,7 @@
             }
             $("#tbl2").on("click", ".delete_ro", function () {
                 $.ajax({
-                    url: "removeSalesProductionPlanServlet",
+                    url: "removeRawMatItemaServlet",
                     data: {id: $(this).attr('data-ref')},
                     success: function (data) {
                         if (data == "1") {
