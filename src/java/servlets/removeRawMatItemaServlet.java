@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mayura Lakshan
  */
-@WebServlet(name = "removeSalesProductionPlanServlet", urlPatterns = {"/removeSalesProductionPlanServlet"})
-public class removeSalesProductionPlanServlet extends HttpServlet {
+@WebServlet(name = "removeRawMatItemaServlet", urlPatterns = {"/removeRawMatItemaServlet"})
+public class removeRawMatItemaServlet extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -28,10 +28,10 @@ public class removeSalesProductionPlanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             int id = Integer.parseInt(request.getParameter("id"));
-            if (request.getSession().getAttribute("ppl") != null) {
-                ArrayList<ProductionPlanHolder> holders = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
+            if (request.getSession().getAttribute("rrl") != null) {
+                ArrayList<ProductionPlanHolder> holders = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("rrl");
                 holders.remove(id);
-                request.getSession().setAttribute("ppl",holders);
+                request.getSession().setAttribute("rrl",holders);
                 if (holders.isEmpty()) {
                     out.write("1");
                 }
