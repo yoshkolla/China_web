@@ -207,7 +207,7 @@
                                                                             List<RawItems> list_row = cr_row.list();
                                                                             if (list_row.isEmpty()) {
                                                                         %>
-                                                                        <option value="0" >PLEASE ADD TYPES FIRST</option>      
+                                                                        <option value="0" >PLEASE ADD ROW MATERIAL FIRST</option>      
                                                                         <%
                                                                         } else {
                                                                             for (RawItems t : list_row) {
@@ -276,7 +276,7 @@
                                                             </div>
                                                             <div class="col-sm-12"> 
                                                                 <table class="table  table-sm table-bordered">
-                                                                    <thead  style="height :10px !important;">
+                                                                    <thead>
                                                                         <tr>
                                                                             <th style="border: #576574 solid 1px;">#</th>
                                                                             <th style="border: #576574 solid 1px;">STEP NAME</th>
@@ -295,18 +295,16 @@
                                                     <!--end #tab3 -->
 
                                                     <div class="tab-pane" id="fws_tab5">
-                                                        <br><br>
-                                                        <div class="form-group">
-                                                            <select id="Age1" name="Age" class="form-control">
-                                                                <option value="">&nbsp;</option>
-                                                                <option value="30">30</option>
-                                                                <option value="40">40</option>
-                                                                <option value="50">50</option>
-                                                                <option value="60">60</option>
-                                                                <option value="70">70</option>
-                                                            </select>
-                                                            <label for="Age1">Age</label>
-                                                            <p class="help-block">This is supporting text for this field.</p>
+                                                        <div class="row">
+                                                            <div class="col-sm-5">
+                                                                
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <button class="btn btn-warning"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!--end #tab4 -->
@@ -558,6 +556,11 @@
             });
 
 
+
+            function onAddPressPlan(){
+                var PLAN_NAME = $('#type').val();
+                var PLAN_COST = $('#type').val();
+            }
 
             //page JS
 
