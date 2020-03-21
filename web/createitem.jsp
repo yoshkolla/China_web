@@ -230,17 +230,17 @@
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <div class="form-group">
-                                                                    <button class="btn btn-sm btn-warning"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                                    <button class="btn btn-sm btn-warning" id="add_ro"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12"> 
-                                                                <table class="table  table-sm table-bordered">
+                                                                <table class="" id="tbl2" style="width: 100%;">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th style="border: #576574 solid 1px;">#</th>
-                                                                            <th style="border: #576574 solid 1px;">MATERIAL NAME</th>
-                                                                            <th style="border: #576574 solid 1px;">AMOUNT</th>
-                                                                            <th style="border: #576574 solid 1px;"></th>
+                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">#</th>
+                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">MATERIAL NAME</th>
+                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">AMOUNT</th>
+                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
                                                                         </tr>
                                                                     <tbody>
 
@@ -554,10 +554,21 @@
                     }
                 }
             });
+
+            //production plan
             $('#add_pr').click(function (key) {
                 onAddPressPlan();
             });
-
+            $('#step').keypress(function (key) {
+                if (key.which === 13) {
+                    $('#cost').focus();
+                }
+            });
+            $('#cost').keypress(function (key) {
+                if (key.which === 13) {
+                    onAddPressPlan();
+                }
+            });
             var i = 0;
             function onAddPressPlan() {
                 i++;
@@ -575,13 +586,57 @@
                                 button: "OK"
                             });
                         } else if (data === "1") {
-                            $('#tbl1 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + PLAN_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + PLAN_COST + '</td><td style="border: #2d3436 solid 1px !important;"><button type="button" class="delete" data-ref="' + i + '">REMOVE</button></td></tr>');
+                            $('#tbl1 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + PLAN_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + PLAN_COST + '</td><td style="border: #2d3436 solid 1px !important;"><button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="' + i + '">REMOVE</button></td></tr>');
+                            $('#step').val("");
+                            $('#cost').val("");
+                            $('#step').focus();
                         } else if (data === "2") {
-                            
+
                         }
                     }
                 });
             }
+            //production plan
+            //metirel plan
+            $('#add_ro').click(function (key) {
+                onAddPressRo();
+            });
+            $('#ro').change(function (key) {
+                $('#amount').focus();
+            });
+            $('#amount').keypress(function (key) {
+                if (key.which === 13) {
+                    onAddPressRo();
+                }
+            });
+            var i = 0;
+            function onAddPressRo() {
+                i++;
+                var ROL_ID = $('#ro').val();
+                var ROL_NAME = $('#ro').text();
+                var AMOUNT = $('#amount').val();
+                $.ajax({
+                    url: "addRowMatItemsServlet",
+                    data: {rol: ROL_ID, amount: AMOUNT},
+                    success: function (data) {
+                        if (data === "0") {
+                            swal({
+                                title: "Empty Data !",
+                                text: "Some data are missing please retry.",
+                                icon: "error",
+                                button: "OK"
+                            });
+                        } else if (data === "1") {
+                            $('#tbl2 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + ROL_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + AMOUNT + '</td><td style="border: #2d3436 solid 1px !important;"><button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete" data-ref="' + i + '">REMOVE</button></td></tr>');
+                            $('#amount').val("");
+                            $('#ro').focus();
+                        } else if (data === "2") {
+
+                        }
+                    }
+                });
+            }
+            //metirel plan
         });
 
 
