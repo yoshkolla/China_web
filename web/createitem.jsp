@@ -243,7 +243,7 @@
                                                                             <th style="border: #576574 solid 1px;"></th>
                                                                         </tr>
                                                                     <tbody>
-                                                                        
+
                                                                     </tbody>
                                                                     </thead>
                                                                 </table>
@@ -271,20 +271,20 @@
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <div class="form-group">
-                                                                    <button class="btn btn-sm btn-warning"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                                    <button class="btn btn-sm btn-warning" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12"> 
-                                                                <table class="table  table-sm table-bordered">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th style="border: #576574 solid 1px;">#</th>
-                                                                            <th style="border: #576574 solid 1px;">STEP NAME</th>
-                                                                            <th style="border: #576574 solid 1px;">COST</th>
-                                                                            <th style="border: #576574 solid 1px;"></th>
-                                                                        </tr>
-                                                                    <tbody>
-                                                                        
+                                                                <table class="" id="tbl1" style="width: 100%;">
+
+                                                                    <tr>
+                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">#</th>
+                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">STEP NAME</th>
+                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">COST</th>
+                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
+                                                                    </tr>
+
+
                                                                     </tbody>
                                                                     </thead>
                                                                 </table>
@@ -297,13 +297,13 @@
                                                     <div class="tab-pane" id="fws_tab5">
                                                         <div class="row">
                                                             <div class="col-sm-5">
-                                                                
+
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <button class="btn btn-warning"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
                                                             </div>
                                                             <div class="col-sm-5">
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -554,17 +554,41 @@
                     }
                 }
             });
+            $('#add_pr').click(function (key) {
+                onAddPressPlan();
+            });
 
-
-
-            function onAddPressPlan(){
-                var PLAN_NAME = $('#type').val();
-                var PLAN_COST = $('#type').val();
+            var i = 0;
+            function onAddPressPlan() {
+                i++;
+                var PLAN_NAME = $('#step').val();
+                var PLAN_COST = $('#cost').val();
+                $.ajax({
+                    url: "addSalesProductionPlanServlet",
+                    data: {name: PLAN_NAME, cost: PLAN_COST},
+                    success: function (data) {
+                        if (data === "0") {
+                            swal({
+                                title: "Empty Data !",
+                                text: "Some data are missing please retry.",
+                                icon: "error",
+                                button: "OK"
+                            });
+                        } else if (data === "1") {
+                            $('#tbl1 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + PLAN_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + PLAN_COST + '</td><td style="border: #2d3436 solid 1px !important;"><button type="button" class="delete" data-ref="' + i + '">REMOVE</button></td></tr>');
+                        } else if (data === "2") {
+                            
+                        }
+                    }
+                });
             }
-
-            //page JS
-
         });
+
+
+
+        //page JS
+
+
     </script>
 
     <!-- for pre loader -->
