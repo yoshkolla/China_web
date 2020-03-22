@@ -19,7 +19,7 @@
     <div class="col-md-6">
         <div class="input-group">
             <span class="input-group-addon" style="padding: 6px 12px;background-color: #eee;border: 1px solid #ccc;">Qty</span>
-            <input type="number" id="qty" class="form-control" value="1" min="1" style="height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;background-image: none;border: 1px solid #ccc;border-radius: 4px;"/>
+            <input type="number" id="qty" onkeypress="javascript: if(event.keyCode == 13) $('#dis').focus();" class="form-control" value="1" min="1" style="height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;background-image: none;border: 1px solid #ccc;border-radius: 4px;"/>
         </div>
     </div>
     <div class="col-md-6">
