@@ -5,7 +5,6 @@
  */
 package servlets;
 
-import holder.ProductionPlanHolder;
 import holder.ProductionRawMatHolder;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,7 +69,6 @@ public class addRowMatItemsServlet extends HttpServlet {
                     ph.setRow_id(RO_ID);
                     pph.add(ph);
                 }
-
                 request.getSession().setAttribute("rrl", pph);
                 out.print("1");
 

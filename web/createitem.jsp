@@ -572,7 +572,7 @@
             });
             var i = 0;
             function onAddPressPlan() {
-                i++;
+                
                 var PLAN_NAME = $('#step').val();
                 var PLAN_COST = $('#cost').val();
                 $.ajax({
@@ -591,6 +591,7 @@
                             $('#step').val("");
                             $('#cost').val("");
                             $('#step').focus();
+                            i++;
                         } else if (data === "2") {
 
                         }
@@ -619,9 +620,9 @@
                 $('#amount').focus();
             });
 
-            var i = 0;
+            var j = 0;
             function onAddPressRo() {
-                i++;
+                
                 var ROL_ID = $('#ro').val();
                 var ROL_NAME = $('#ro').text();
                 var AMOUNT = $('#amount').val();
@@ -637,9 +638,10 @@
                                 button: "OK"
                             });
                         } else if (data === "1") {
-                            $('#tbl2 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + i + '</td><td style="border: #2d3436 solid 1px !important;">' + ROL_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + AMOUNT + '</td><td style="border: #2d3436 solid 1px !important;"><button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_ro" data-ref="' + i + '">REMOVE</button></td></tr>');
+                            $('#tbl2 > tbody:last-child').append('<tr><td style="border: #2d3436 solid 1px !important;" >' + j + '</td><td style="border: #2d3436 solid 1px !important;">' + ROL_NAME + '</td><td style="border: #2d3436 solid 1px !important;">' + AMOUNT + '</td><td style="border: #2d3436 solid 1px !important;"><button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_ro" data-ref="' + j + '">REMOVE</button></td></tr>');
                             $('#amount').val("");
                             $('#ro').focus();
+                            j++;
                         } else if (data === "2") {
 
                         }
