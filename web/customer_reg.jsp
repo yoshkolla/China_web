@@ -4,6 +4,7 @@
     Author     : SCORFi3LD
 --%>
 
+<%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="resources.Customer"%>
@@ -144,40 +145,65 @@
                                     <br>
                                     <br>
                                     <br>    
-                                    <!--data table start-->
-                                    <h3>Customer Data</h3>
-                                    <br>
-                                    <div class="material-datatables">
-                                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Address</th>
-                                                    <th>Mobile</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    Session s = GetConnection.getSessionFactory().openSession();
-                                                    List<Customer> cList = s.createCriteria(Customer.class).list();
-                                                    for (Customer c : cList) {
-                                                %>
-                                                <tr>
-                                                    <td><%=c.getCustomerId() %></td>
-                                                    <td><%=c.getName() %></td>
-                                                    <td><%=c.getAddress() %></td>
-                                                    <td><%=c.getMobile() %></td>
-                                                    
-                                                    
-                                                </tr>
-                                                <%
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
+                                    <div class="card">
+                                        <div class="card-content">
+
+                                            <h3 class="card-title" style="margin-bottom: 15px;">Customer Data</h3>
+                                            <div class="material-datatables">
+                                                <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                        <tr style="background-color: #10ac84; color: white;">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Address</th>
+                                                            <th>Mobile</th> 
+                                                            <th>Update</th> 
+                                                            <th>Delete</th> 
+
+                                                        </tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%
+                                                            Session s = GetConnection.getSessionFactory().openSession();                                                            
+                                                            List<Customer> cList = s.createCriteria(Customer.class).add(Restrictions.eq("status",1)).list();
+                                                            
+                                                            for (Customer c : cList) {
+                                                        %>
+                                                        <tr>
+                                                            <td><%=c.getCustomerId()%></td>
+                                                            <td><%=c.getName()%></td>
+                                                            <td><%=c.getAddress()%></td>
+                                                            <td><%=c.getMobile()%></td>
+                                                            <td>
+                                                                <a href="customer_update.jsp?id=<%= c.getCustomerId()%>">
+                                                                    <button class="btn btn-warning btn-sm">
+                                                                        <i class="material-icons"></i> Update
+                                                                    </button>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+
+                                                                <form action="Customer_delete" method="POST">
+                                                                    <button class="btn btn-danger btn-sm">
+                                                                        <input type="hidden" id="id" name="id" value="<%=c.getCustomerId()%>">
+                                                                        <i class="material-icons"></i> Delete
+                                                                    </button>
+                                                                </form>
+
+                                                            </td>
+                                                        </tr>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end content-->
                                     </div>
+
                                 </div>
 
                             </div>
@@ -235,10 +261,13 @@
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
+
     <script>
+        $(window).on("load", function (e) {
+            $('.preloader').fadeOut('slow');
+        });
         $(document).ready(function () {
-            $('#minimizeSidebar').click();
+            $('#datatables').DataTable();
         });
     </script>
-        
 </html>

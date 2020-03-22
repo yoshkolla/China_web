@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 20, 2020 3:46:23 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 22, 2020 2:49:51 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.PaymentType" table="payment_type" catalog="rat_trap" optimistic-lock="version">
         <id name="paymentTypeId" type="java.lang.Integer">

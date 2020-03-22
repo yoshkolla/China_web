@@ -1,5 +1,5 @@
 package resources;
-// Generated Mar 20, 2020 3:46:21 PM by Hibernate Tools 4.3.1
+// Generated Mar 22, 2020 2:49:48 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -19,7 +19,7 @@ public class User  implements java.io.Serializable {
      private String sales;
      private String purchase;
      private String production;
-     private String create;
+     private String creates;
      private String user;
      private String cheque;
      private String report;
@@ -34,7 +34,7 @@ public class User  implements java.io.Serializable {
     public User(Staff staff) {
         this.staff = staff;
     }
-    public User(Staff staff, String username, String password, Integer status, String sales, String purchase, String production, String create, String user, String cheque, String report, String other, Set grns, Set invoices) {
+    public User(Staff staff, String username, String password, Integer status, String sales, String purchase, String production, String creates, String user, String cheque, String report, String other, Set grns, Set invoices) {
        this.staff = staff;
        this.username = username;
        this.password = password;
@@ -42,7 +42,7 @@ public class User  implements java.io.Serializable {
        this.sales = sales;
        this.purchase = purchase;
        this.production = production;
-       this.create = create;
+       this.creates = creates;
        this.user = user;
        this.cheque = cheque;
        this.report = report;
@@ -107,12 +107,12 @@ public class User  implements java.io.Serializable {
     public void setProduction(String production) {
         this.production = production;
     }
-    public String getCreate() {
-        return this.create;
+    public String getCreates() {
+        return this.creates;
     }
     
-    public void setCreate(String create) {
-        this.create = create;
+    public void setCreates(String creates) {
+        this.creates = creates;
     }
     public String getUser() {
         return this.user;

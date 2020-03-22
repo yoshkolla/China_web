@@ -33,7 +33,7 @@
                             <a href="#"><i class="material-icons">vpn_key</i> Change Password</a>
                         </li>
                         <li>
-                            <a href="#"><i class="material-icons">exit_to_app</i> Logout</a>
+                            <a href="LogOutServlet"><i class="material-icons">exit_to_app</i> Logout</a>
                         </li>
                     </ul>
                 </li>

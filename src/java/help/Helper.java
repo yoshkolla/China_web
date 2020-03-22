@@ -16,7 +16,7 @@ import java.util.Calendar;
  */
 public class Helper {
 
-    public static DecimalFormat priceFormt = new DecimalFormat("#,##0.00");
+    public static DecimalFormat priceFormt = new DecimalFormat("0.00");
     public static DecimalFormat intFormat = new DecimalFormat("0");
 
     public static String getDate() {

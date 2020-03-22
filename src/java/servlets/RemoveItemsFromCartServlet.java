@@ -5,24 +5,22 @@
  */
 package servlets;
 
-
+import holder.InvoiceItemHolder;
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import resources.Customer;
+import resources.InvoiceItem;
 
 /**
  *
- * @author Chamara
+ * @author SCORFi3LD
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "RemoveItemsFromCartServlet", urlPatterns = {"/RemoveItemsFromCartServlet"})
+public class RemoveItemsFromCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +34,22 @@ public class Custommer_reg extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String Name = request.getParameter("name");
-            String Address = request.getParameter("address");
-            String Mobile = request.getParameter("mobile");
+        try (PrintWriter out = response.getWriter()) {
 
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(Integer.parseInt("1"));
-            Session ses = connection.GetConnection.getSessionFactory().openSession();
-            Transaction tr = ses.beginTransaction();
-            ses.save(c);
-            tr.commit();
-            ses.flush();
-            ses.close();
-            System.out.println("Done Save Customer");
-
-            response.sendRedirect("customer_reg.jsp");
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            int id = Integer.parseInt(request.getParameter("id"));
+            InvoiceItem delItem = null;
+            InvoiceItemHolder holder = (InvoiceItemHolder) request.getSession().getAttribute("cart");
+            
+            for (InvoiceItem item : holder.getHolder()) {
+                if (item.getStock().getStockId() == id) {
+                    delItem = item;
+                    break;
+                }
+            }
+            if (delItem != null) {
+                holder.getHolder().remove(delItem);
+            }
+            response.sendRedirect("createinvoice.jsp");
         }
     }
 

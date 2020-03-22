@@ -50,7 +50,7 @@ public class GetLoginServlet extends HttpServlet {
             if (AD.size() == 1) {
                 HttpSession session = request.getSession(true);
                 for(User A : AD) {
-                    LogedUserHolder lg = new LogedUserHolder(A.getUserId(), A.getStaff().getStaffId(), A.getStaff().getName() , A.getUsername() ,A.getSales() , A.getPurchase() , A.getProduction() ,A.getCreate() , A.getUser() , A.getCheque() ,A.getReport() , A.getOther());
+                    LogedUserHolder lg = new LogedUserHolder(A.getUserId(), A.getStaff().getStaffId(), A.getStaff().getName() , A.getUsername() ,A.getSales() , A.getPurchase() , A.getProduction() ,A.getCreates() , A.getUser() , A.getCheque() ,A.getReport() , A.getOther());
                     Details dt = (Details) ses.load(Details.class, 1);
                     
                     DetailsHolder dh = new DetailsHolder();

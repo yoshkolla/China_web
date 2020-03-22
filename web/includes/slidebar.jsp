@@ -83,10 +83,10 @@
                 <div class="collapse" id="create" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Customers</a>
+                            <a href="customer_reg.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Customers</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Suppliers</a>
+                            <a href="supplier_reg.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Suppliers</a>
                         </li>
                         <li>
                             <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Raw Materials</a>
@@ -95,7 +95,7 @@
                             <a href="items.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Sales Items</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Staff Management</a>
+                            <a href="staff_reg.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Staff Management</a>
                         </li>
                     </ul>
                 </div>
@@ -109,7 +109,7 @@
                 <div class="collapse" id="user" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create User</a>
+                            <a href="user_reg.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create User</a>
                         </li>
                         <li>
                             <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Account Settings</a>
