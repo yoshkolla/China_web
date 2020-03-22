@@ -173,7 +173,8 @@
                         if (holder.getHolder().size() == 0) {
                     %>
                     <div class="text-center" style="padding:10px">
-                        <h3 style="margin-bottom:20px;">Cart is Empty!</h3>
+                        <img src="assets/img/empty_cart.png" class="img-responsive" style="margin: 0 auto;">
+                        <h3 style="margin:0">Cart is Empty!</h3>
                     </div>
                     <%
                     } else {
@@ -330,7 +331,7 @@
                                                         $('#bal').html(bal)
                                                     }
                                                 });
-
+  
                                                 function addToCart(id, aqty) {
                                                     var qty = $('#qty').val();
                                                     var dis = $('#dis').val();
