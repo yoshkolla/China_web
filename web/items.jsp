@@ -129,7 +129,7 @@
                                                         <td><%=i.getName().toUpperCase()%></td>
                                                         <td><%=i.getMeasurementType().getName().toUpperCase()%></td>
                                                         <td><%=i.getRol()%></td>
-                                                        <td><a href="viewitems.jsp?id=<%=i.getItemsId()%>">Details</a></td>
+                                                        <td><a style="background-color: tomato;color: white;padding: 3px 3px 3px 3px;border-radius: 6px;" href="viewitems.jsp?id=<%=i.getItemsId()%>">Details</a></td>
 
                                                     </tr>
                                                     <%
