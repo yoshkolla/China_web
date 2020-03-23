@@ -116,214 +116,214 @@
                                     <div class="card-content">
                                         <!-- BEGIN FORM WIZARD -->
                                         <div id="formwizard_simple" class="form-wizard form-wizard-horizontal">
-                                            <form class="form floating-label">
-                                                <div class="form-wizard-nav">
-                                                    <div class="progress" style="width: 75%;">
-                                                        <div class="progress-bar progress-bar-primary" style="width: 0%;"></div>
-                                                    </div>
-                                                    <ul class="nav nav-justified nav-pills">
-                                                        <li class="active"><a href="#fws_tab1" data-toggle="tab"><span class="step">1</span> <span class="title">BASIC DETAILS</span></a></li>
-                                                        <li><a href="#fws_tab2" data-toggle="tab"><span class="step">2</span> <span class="title">IMAGE</span></a></li>
-                                                        <li><a href="#fws_tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ROW MATERIAL</span></a></li>
-                                                        <li><a href="#fws_tab4" data-toggle="tab"><span class="step">4</span> <span class="title">PRODUCTION PLAN</span></a></li>
-                                                        <li><a href="#fws_tab5" data-toggle="tab"><span class="step">5</span> <span class="title">CONFIRM</span></a></li>
-                                                    </ul>
+
+                                            <div class="form-wizard-nav">
+                                                <div class="progress" style="width: 75%;">
+                                                    <div class="progress-bar progress-bar-primary" style="width: 0%;"></div>
                                                 </div>
-                                                <!--end .form-wizard-nav -->
+                                                <ul class="nav nav-justified nav-pills">
+                                                    <li class="active"><a href="#fws_tab1" data-toggle="tab"><span class="step">1</span> <span class="title">BASIC DETAILS</span></a></li>
+                                                    <li><a href="#fws_tab2" data-toggle="tab"><span class="step">2</span> <span class="title">IMAGE</span></a></li>
+                                                    <li><a href="#fws_tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ROW MATERIAL</span></a></li>
+                                                    <li><a href="#fws_tab4" data-toggle="tab"><span class="step">4</span> <span class="title">PRODUCTION PLAN</span></a></li>
+                                                    <li><a href="#fws_tab5" data-toggle="tab"><span class="step">5</span> <span class="title">CONFIRM</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <!--end .form-wizard-nav -->
 
-                                                <div class="tab-content clearfix p-30">
-                                                    <div class="tab-pane active" id="fws_tab1">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <input type="text" name="name" id="name" class="form-control" required="">
-                                                                    <label for="name" class="control-label">ITEM NAME</label>
-                                                                </div>
+                                            <div class="tab-content clearfix p-30">
+                                                <div class="tab-pane active" id="fws_tab1">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input type="text" name="name" id="name" class="form-control" required="">
+                                                                <label for="name" class="control-label">ITEM NAME</label>
                                                             </div>
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="rol" id="rol" class="form-control" required="">
-                                                                    <label for="rol" class="control-label">RE ORDER LEVEL</label>
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <input type="number" name="rol" id="rol" class="form-control" required="">
+                                                                <label for="rol" class="control-label">RE ORDER LEVEL</label>
                                                             </div>
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <select  name="type" id="type" class="form-control" required="">
-                                                                        <%
-                                                                            Criteria cr = ses.createCriteria(MeasurementType.class);
-                                                                            cr.add(Restrictions.eq("status", 1));
-                                                                            List<MeasurementType> list = cr.list();
-                                                                            if (list.isEmpty()) {
-                                                                        %>
-                                                                        <option value="0" >PLEASE ADD TYPES FIRST</option>      
-                                                                        <%
-                                                                        } else {
-                                                                            for (MeasurementType t : list) {
-                                                                        %>
-                                                                        <option value="<%=t.getMeasurementTypeId()%>" ><%=t.getName().toUpperCase()%></option>
-                                                                        <%
-                                                                                }
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <select  name="type" id="type" class="form-control" required="">
+                                                                    <%
+                                                                        Criteria cr = ses.createCriteria(MeasurementType.class);
+                                                                        cr.add(Restrictions.eq("status", 1));
+                                                                        List<MeasurementType> list = cr.list();
+                                                                        if (list.isEmpty()) {
+                                                                    %>
+                                                                    <option value="0" >PLEASE ADD TYPES FIRST</option>      
+                                                                    <%
+                                                                    } else {
+                                                                        for (MeasurementType t : list) {
+                                                                    %>
+                                                                    <option value="<%=t.getMeasurementTypeId()%>" ><%=t.getName().toUpperCase()%></option>
+                                                                    <%
                                                                             }
-                                                                        %>
+                                                                        }
+                                                                    %>
 
-                                                                    </select>
-                                                                    <label for="type" class="control-label">MEASURING TYPE</label>
-                                                                </div>
+                                                                </select>
+                                                                <label for="type" class="control-label">MEASURING TYPE</label>
                                                             </div>
-
                                                         </div>
 
                                                     </div>
-                                                    <!--end #tab1 -->
-                                                    <div class="tab-pane" id="fws_tab2">
-                                                        <div class="row">
-                                                            <div class="col-sm-5">
 
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <legend class="text-center">PLEASE SELECT IMAGE FOR ITEM</legend>
-                                                                <div class="fileinput text-center fileinput-new" data-provides="fileinput">
-                                                                    <div class="fileinput-new thumbnail">
-                                                                        <img src="assets/img/image_placeholder.jpg" alt="...">
-                                                                    </div>
-                                                                    <div class="fileinput-preview fileinput-exists thumbnail" style=""></div>
-                                                                    <div>
-                                                                        <span class="btn btn-round btn-file">
-                                                                            <span class="fileinput-new">Select image</span>
-                                                                            <span class="fileinput-exists">Change</span>
-                                                                            <input type="hidden" value="" name="..."><input type="file" name="image" id="image">
-                                                                            <div class="ripple-container"></div></span>
-                                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 57.9688px; top: 25px; background-color: rgb(255, 255, 255); transform: scale(13.4082);"></div></div></a>
-                                                                    </div>
+                                                </div>
+                                                <!--end #tab1 -->
+                                                <div class="tab-pane" id="fws_tab2">
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <legend class="text-center">PLEASE SELECT IMAGE FOR ITEM</legend>
+                                                            <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                                                <div class="fileinput-new thumbnail">
+                                                                    <img src="assets/img/image_placeholder.jpg" alt="...">
+                                                                </div>
+                                                                <div class="fileinput-preview fileinput-exists thumbnail" style=""></div>
+                                                                <div>
+                                                                    <span class="btn btn-round btn-file">
+                                                                        <span class="fileinput-new">Select image</span>
+                                                                        <span class="fileinput-exists">Change</span>
+                                                                        <input type="hidden" value="" name="..."><input type="file" name="image" id="image">
+                                                                        <div class="ripple-container"></div></span>
+                                                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 57.9688px; top: 25px; background-color: rgb(255, 255, 255); transform: scale(13.4082);"></div></div></a>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-4">
+                                                        </div>
+                                                        <div class="col-sm-4">
 
-                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane" id="fws_tab3">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <select  name="ro" id="ro" class="form-control" required="">
-                                                                        <%
-                                                                            Criteria cr_row = ses.createCriteria(RawItems.class);
-                                                                            cr_row.add(Restrictions.eq("status", 1));
-                                                                            List<RawItems> list_row = cr_row.list();
-                                                                            if (list_row.isEmpty()) {
-                                                                        %>
-                                                                        <option value="0" >PLEASE ADD ROW MATERIAL FIRST</option>      
-                                                                        <%
-                                                                        } else {
-                                                                            for (RawItems t : list_row) {
-                                                                        %>
-                                                                        <option value="<%=t.getRawItemsId()%>" ><%=t.getName().toUpperCase() + "  (" + t.getMeasurementType().getName().toLowerCase() + ")"%></option>
-                                                                        <%
-                                                                                }
+                                                </div>
+                                                <div class="tab-pane" id="fws_tab3">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <select  name="ro" id="ro" class="form-control" required="">
+                                                                    <%
+                                                                        Criteria cr_row = ses.createCriteria(RawItems.class);
+                                                                        cr_row.add(Restrictions.eq("status", 1));
+                                                                        List<RawItems> list_row = cr_row.list();
+                                                                        if (list_row.isEmpty()) {
+                                                                    %>
+                                                                    <option value="0" >PLEASE ADD ROW MATERIAL FIRST</option>      
+                                                                    <%
+                                                                    } else {
+                                                                        for (RawItems t : list_row) {
+                                                                    %>
+                                                                    <option value="<%=t.getRawItemsId()%>" ><%=t.getName().toUpperCase() + "  (" + t.getMeasurementType().getName().toLowerCase() + ")"%></option>
+                                                                    <%
                                                                             }
-                                                                        %>
+                                                                        }
+                                                                    %>
 
-                                                                    </select>
-                                                                    <label for="ro" class="control-label">SELECT ROW MATERIAL</label>
-                                                                </div>
+                                                                </select>
+                                                                <label for="ro" class="control-label">SELECT ROW MATERIAL</label>
                                                             </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="amount" id="amount" class="form-control">
-                                                                    <label for="amount" class="control-label">AMOUNT</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-2">
-                                                                <div class="form-group">
-                                                                    <button class="btn btn-sm btn-warning" id="add_ro"><span class="fa fa-plus">&nbsp;</span>ADD</button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-12"> 
-                                                                <table class="" id="tbl2" style="width: 100%;">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">#</th>
-                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">MATERIAL NAME</th>
-                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">AMOUNT</th>
-                                                                            <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
-                                                                        </tr>
-                                                                    <tbody>
-
-                                                                    </tbody>
-                                                                    </thead>
-                                                                </table>
-                                                            </div>
-
                                                         </div>
-
-
-                                                    </div>
-                                                    <!--end #tab2 -->
-
-                                                    <div class="tab-pane" id="fws_tab4">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <input type="text" name="step" id="step" class="form-control">
-                                                                    <label for="step" class="control-label">PRODUCTION STEP NAME</label>
-                                                                </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input type="number" name="amount" id="amount" class="form-control">
+                                                                <label for="amount" class="control-label">AMOUNT</label>
                                                             </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="cost" id="cost" class="form-control">
-                                                                    <label for="cost" class="control-label">COST</label>
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group">
+                                                                <button class="btn btn-sm btn-warning" id="add_ro"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                             </div>
-                                                            <div class="col-sm-2">
-                                                                <div class="form-group">
-                                                                    <button class="btn btn-sm btn-warning" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-12"> 
-                                                                <table class="" id="tbl1" style="width: 100%;">
-
+                                                        </div>
+                                                        <div class="col-sm-12"> 
+                                                            <table class="" id="tbl2" style="width: 100%;">
+                                                                <thead>
                                                                     <tr>
                                                                         <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">#</th>
-                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">STEP NAME</th>
-                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">COST</th>
+                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">MATERIAL NAME</th>
+                                                                        <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">AMOUNT</th>
                                                                         <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
                                                                     </tr>
+                                                                <tbody>
 
-
-                                                                    </tbody>
-                                                                    </thead>
-                                                                </table>
-                                                            </div>
-
+                                                                </tbody>
+                                                                </thead>
+                                                            </table>
                                                         </div>
+
                                                     </div>
-                                                    <!--end #tab3 -->
 
-                                                    <div class="tab-pane" id="fws_tab5">
-                                                        <div class="row">
-                                                            <div class="col-sm-5">
 
-                                                            </div>
-                                                            <div class="col-sm-2">
-                                                                <button class="btn btn-warning"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
-                                                            </div>
-                                                            <div class="col-sm-5">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end #tab4 -->
-
-                                                    <ul class="pager wizard ">
-                                                        <li class="previous disabled"><a class="btn-raised btn btn-danger" href="javascript:void(0);"><span class="fa fa-arrow-left">&nbsp;&nbsp;</span>Previous</a></li>
-                                                        <li class="next"><a class="btn-raised btn btn-info" href="javascript:void(0);">Next&nbsp;&nbsp;<span class="fa fa-arrow-right"></span></a></li>
-                                                    </ul>
                                                 </div>
-                                                <!--end .tab-content -->
+                                                <!--end #tab2 -->
+
+                                                <div class="tab-pane" id="fws_tab4">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input type="text" name="step" id="step" class="form-control">
+                                                                <label for="step" class="control-label">PRODUCTION STEP NAME</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input type="number" name="cost" id="cost" class="form-control">
+                                                                <label for="cost" class="control-label">COST</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group">
+                                                                <button class="btn btn-sm btn-warning" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12"> 
+                                                            <table class="" id="tbl1" style="width: 100%;">
+
+                                                                <tr>
+                                                                    <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">#</th>
+                                                                    <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">STEP NAME</th>
+                                                                    <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">COST</th>
+                                                                    <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
+                                                                </tr>
 
 
-                                            </form>
+                                                                </tbody>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--end #tab3 -->
+
+                                                <div class="tab-pane" id="fws_tab5">
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-warning" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
+                                                        </div>
+                                                        <div class="col-sm-5">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end #tab4 -->
+
+                                                <ul class="pager wizard ">
+                                                    <li class="previous disabled"><a class="btn-raised btn btn-danger" href="javascript:void(0);"><span class="fa fa-arrow-left">&nbsp;&nbsp;</span>Previous</a></li>
+                                                    <li class="next"><a class="btn-raised btn btn-info" href="javascript:void(0);">Next&nbsp;&nbsp;<span class="fa fa-arrow-right"></span></a></li>
+                                                </ul>
+                                            </div>
+                                            <!--end .tab-content -->
+
+
+
                                         </div>
                                         <!--end #rootwizard -->
                                         <!-- END FORM WIZARD -->
@@ -570,9 +570,9 @@
                     $('#cost').focus();
                 }
             });
-            var i = 0;
+            var i = 1;
             function onAddPressPlan() {
-                
+
                 var PLAN_NAME = $('#step').val();
                 var PLAN_COST = $('#cost').val();
                 $.ajax({
@@ -598,7 +598,7 @@
                     }
                 });
             }
-            
+
             $("#tbl1").on("click", ".delete_pr", function () {
                 $.ajax({
                     url: "removeSalesProductionPlanServlet",
@@ -620,9 +620,9 @@
                 $('#amount').focus();
             });
 
-            var j = 0;
+            var j = 1;
             function onAddPressRo() {
-                
+
                 var ROL_ID = $('#ro').val();
                 var ROL_NAME = $('#ro').text();
                 var AMOUNT = $('#amount').val();
@@ -661,6 +661,36 @@
                 $(this).closest("tr").remove();
             });
             //metirel plan
+            //confirm
+            $('#conf_a').click(function (key) {
+
+                var NAME_S = $('#name').val();
+                var ROL_S = $('#rol').val();
+                var TYPE_S = $('#type').val();
+                
+                var dataimg = new FormData();
+                dataimg.append('name', NAME_S);
+                dataimg.append('rol', ROL_S);
+                dataimg.append('type',TYPE_S);
+                dataimg.append('img', $("#image")[0].files[0]);
+
+                $.ajax({
+                    url: "SaveNewItemServlet",
+                    type: "post",
+                    cache: false,
+                    contentType: false,
+                    processType: false,
+                    data: dataimg,
+                    success: function (data) {
+                        
+                    }
+                });
+
+
+
+
+            });
+            //confirm
         });
 
 
