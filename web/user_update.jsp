@@ -92,6 +92,7 @@
                                             <h4 class="card-title">User Update</h4>
                                         </div>
                                         <div class="card-content">
+                                             <h3>User Update</h3>
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     Choose Staff   <select class="form-group form-control" name="staff" id="jobroll">
