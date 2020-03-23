@@ -320,7 +320,7 @@
                                                     <li class="next"><a class="btn-raised btn btn-info" href="javascript:void(0);">Next&nbsp;&nbsp;<span class="fa fa-arrow-right"></span></a></li>
                                                 </ul>
                                             </div>
-                                        <!-- </form> -->
+                                            <!-- </form> -->
                                             <!--end .tab-content -->
 
 
@@ -396,7 +396,7 @@
 
         });
     </script>
-  
+
     <script>
         $(document).ready(function () {
             //Add blue animated border and remove with condition when focus and blur
@@ -663,11 +663,11 @@
                 var NAME_S = $('#name').val();
                 var ROL_S = $('#rol').val();
                 var TYPE_S = $('#type').val();
-                
+
                 var dataimg = new FormData();
                 dataimg.append('name', NAME_S);
                 dataimg.append('rol', ROL_S);
-                dataimg.append('type',TYPE_S);
+                dataimg.append('type', TYPE_S);
                 dataimg.append('img', $("#image")[0].files[0]);
 
                 $.ajax({
@@ -680,12 +680,26 @@
                     data: dataimg,
                     processData: false,
                     success: function (data) {
-                        if(data == "1"){
-                            
-                            
-                        }else{
-                            
-                            
+                        if (data == "1") {
+                            swal({
+                                title: "Good job!",
+                                text: "You saved new item to list",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-success",
+                                type: "success"
+                            }).then(function () {
+                                location.replace('items.jsp');
+                            });
+
+                        } else {
+                            swal({
+                                title: 'Empty Data !',
+                                text: 'Some data are missing.please retry.',
+                                type: 'error',
+                                confirmButtonClass: "btn btn-info",
+                                buttonsStyling: false
+                            });
+
                         }
                     }
                 });
