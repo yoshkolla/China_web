@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 22, 2020 2:49:51 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 24, 2020 1:07:12 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.ItemStaffCost" table="item_staff_cost" catalog="rat_trap" optimistic-lock="version">
         <id name="itemStaffCostId" type="java.lang.Integer">

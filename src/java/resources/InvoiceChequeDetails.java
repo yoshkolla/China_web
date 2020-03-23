@@ -1,5 +1,5 @@
 package resources;
-// Generated Mar 22, 2020 2:49:48 AM by Hibernate Tools 4.3.1
+// Generated Mar 24, 2020 1:07:10 AM by Hibernate Tools 4.3.1
 
 
 
@@ -17,6 +17,7 @@ public class InvoiceChequeDetails  implements java.io.Serializable {
      private String bank;
      private String branch;
      private Double amount;
+     private String chequeImage;
      private Integer status;
 
     public InvoiceChequeDetails() {
@@ -26,7 +27,7 @@ public class InvoiceChequeDetails  implements java.io.Serializable {
     public InvoiceChequeDetails(InvoicePayment invoicePayment) {
         this.invoicePayment = invoicePayment;
     }
-    public InvoiceChequeDetails(InvoicePayment invoicePayment, String type, String chequeNo, String chequeDate, String bank, String branch, Double amount, Integer status) {
+    public InvoiceChequeDetails(InvoicePayment invoicePayment, String type, String chequeNo, String chequeDate, String bank, String branch, Double amount, String chequeImage, Integer status) {
        this.invoicePayment = invoicePayment;
        this.type = type;
        this.chequeNo = chequeNo;
@@ -34,6 +35,7 @@ public class InvoiceChequeDetails  implements java.io.Serializable {
        this.bank = bank;
        this.branch = branch;
        this.amount = amount;
+       this.chequeImage = chequeImage;
        this.status = status;
     }
    
@@ -92,6 +94,13 @@ public class InvoiceChequeDetails  implements java.io.Serializable {
     
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+    public String getChequeImage() {
+        return this.chequeImage;
+    }
+    
+    public void setChequeImage(String chequeImage) {
+        this.chequeImage = chequeImage;
     }
     public Integer getStatus() {
         return this.status;

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 22, 2020 2:49:51 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 24, 2020 1:07:12 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.Invoice" table="invoice" catalog="rat_trap" optimistic-lock="version">
         <id name="invoiceId" type="java.lang.Integer">
@@ -17,23 +17,26 @@
         <property name="total" type="java.lang.Double">
             <column name="total" precision="22" scale="0" />
         </property>
+        <property name="discount" type="java.lang.Double">
+            <column name="discount" precision="22" scale="0" />
+        </property>
+        <property name="netTotal" type="java.lang.Double">
+            <column name="net_total" precision="22" scale="0" />
+        </property>
         <property name="cash" type="java.lang.Double">
             <column name="cash" precision="22" scale="0" />
         </property>
         <property name="balance" type="java.lang.Double">
             <column name="balance" precision="22" scale="0" />
         </property>
+        <property name="due" type="java.lang.Double">
+            <column name="due" precision="22" scale="0" />
+        </property>
         <property name="date" type="string">
             <column name="date" length="45" />
         </property>
         <property name="time" type="string">
             <column name="time" length="45" />
-        </property>
-        <property name="discount" type="java.lang.Double">
-            <column name="discount" precision="22" scale="0" />
-        </property>
-        <property name="netTotal" type="java.lang.Double">
-            <column name="net_total" precision="22" scale="0" />
         </property>
         <property name="status" type="java.lang.Integer">
             <column name="status" />

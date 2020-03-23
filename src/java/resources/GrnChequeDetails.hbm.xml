@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 22, 2020 2:49:51 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 24, 2020 1:07:12 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.GrnChequeDetails" table="grn_cheque_details" catalog="rat_trap" optimistic-lock="version">
         <id name="grnChequeDetailsId" type="java.lang.Integer">
@@ -30,6 +30,9 @@
         </property>
         <property name="amount" type="java.lang.Double">
             <column name="amount" precision="22" scale="0" />
+        </property>
+        <property name="chequeImage" type="string">
+            <column name="cheque_image" />
         </property>
         <property name="status" type="java.lang.Integer">
             <column name="status" />

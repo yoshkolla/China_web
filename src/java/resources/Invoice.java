@@ -1,5 +1,5 @@
 package resources;
-// Generated Mar 22, 2020 2:49:48 AM by Hibernate Tools 4.3.1
+// Generated Mar 24, 2020 1:07:10 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,12 +15,13 @@ public class Invoice  implements java.io.Serializable {
      private Customer customer;
      private User user;
      private Double total;
-     private Double cash;
-     private Double balance;
-     private String date;
-     private String time;
      private Double discount;
      private Double netTotal;
+     private Double cash;
+     private Double balance;
+     private Double due;
+     private String date;
+     private String time;
      private Integer status;
      private Set invoicePayments = new HashSet(0);
      private Set invoiceItems = new HashSet(0);
@@ -33,16 +34,17 @@ public class Invoice  implements java.io.Serializable {
         this.customer = customer;
         this.user = user;
     }
-    public Invoice(Customer customer, User user, Double total, Double cash, Double balance, String date, String time, Double discount, Double netTotal, Integer status, Set invoicePayments, Set invoiceItems) {
+    public Invoice(Customer customer, User user, Double total, Double discount, Double netTotal, Double cash, Double balance, Double due, String date, String time, Integer status, Set invoicePayments, Set invoiceItems) {
        this.customer = customer;
        this.user = user;
        this.total = total;
-       this.cash = cash;
-       this.balance = balance;
-       this.date = date;
-       this.time = time;
        this.discount = discount;
        this.netTotal = netTotal;
+       this.cash = cash;
+       this.balance = balance;
+       this.due = due;
+       this.date = date;
+       this.time = time;
        this.status = status;
        this.invoicePayments = invoicePayments;
        this.invoiceItems = invoiceItems;
@@ -76,6 +78,20 @@ public class Invoice  implements java.io.Serializable {
     public void setTotal(Double total) {
         this.total = total;
     }
+    public Double getDiscount() {
+        return this.discount;
+    }
+    
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    public Double getNetTotal() {
+        return this.netTotal;
+    }
+    
+    public void setNetTotal(Double netTotal) {
+        this.netTotal = netTotal;
+    }
     public Double getCash() {
         return this.cash;
     }
@@ -90,6 +106,13 @@ public class Invoice  implements java.io.Serializable {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
+    public Double getDue() {
+        return this.due;
+    }
+    
+    public void setDue(Double due) {
+        this.due = due;
+    }
     public String getDate() {
         return this.date;
     }
@@ -103,20 +126,6 @@ public class Invoice  implements java.io.Serializable {
     
     public void setTime(String time) {
         this.time = time;
-    }
-    public Double getDiscount() {
-        return this.discount;
-    }
-    
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-    public Double getNetTotal() {
-        return this.netTotal;
-    }
-    
-    public void setNetTotal(Double netTotal) {
-        this.netTotal = netTotal;
     }
     public Integer getStatus() {
         return this.status;
