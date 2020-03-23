@@ -60,7 +60,6 @@
 
         %>
     </head>
-
     <body>
         <div class="wrapper">
             <%                String curruntpage = "Dashboard";
@@ -96,11 +95,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
                         <%
                             }
                         %>
-
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">   
                                 <div class="modal-content">

@@ -71,15 +71,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
-                                    <i class="zmdi zmdi-plus-circle"></i> Add  Here
-                                </button>
+                                
                                 <div class="card">
 
                                     <form action="Save_user_servelrt" method="Get">
                                         <div class="card-header card-header-text">
-                                            <h4 class="card-title">Customer Registration</h4>
+                                            <h4 class="card-title">User Registration</h4>
                                         </div>
                                         <div class="card-content">
                                             <div class="row">
@@ -88,6 +85,7 @@
                                                         <option disabled selected>Choose Staff</option>
                                                         <%
                                                             Session s = GetConnection.getSessionFactory().openSession();
+                                                            
                                                             List<Staff> cList = s.createCriteria(Staff.class).list();
                                                             for (Staff c : cList) {
                                                         %>                                                                   
@@ -112,7 +110,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Password</label>
-                                                        <input type="text" name="Password" class="form-control" value="">
+                                                        <input type="text" name="Password"  class="form-control" value="">
                                                         <span class="help-block">A block of help text that breaks onto a new line.</span>
                                                         <span class="material-input"></span>
                                                     </div>
@@ -218,8 +216,72 @@
                                 <br>
                                 <br>
                                 <br>    
-                                <!--                               add tabale here
-                                                               end tabale here-->
+                                Username Password Sales Purchase Production Create User Cheque Report Other
+
+
+                                <div class="card">
+                                    <div class="card-content">
+                                        <h3 class="card-title" style="margin-bottom: 15px;">Customer Data</h3>
+                                        <div class="toolbar"></div>
+                                        <div class="material-datatables">
+                                            <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Username</th>
+                                                        <th>Password</th>
+                                                        <th>Permissions</th>
+                                                        <th>Update</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <%     
+                                                        
+                                                        List<User> list =s.createCriteria(User.class).add(Restrictions.eq("status",1)).list();
+                                                        for (User u : list) {
+                                                            
+                                                    %>
+                                                    <tr>
+                                                        <td><%=u.getUsername()%></td>
+                                                        <td><%=u.getPassword()%></td>
+                                                        <td>
+                                                            Sales : <%=u.getSales()%><br>
+                                                            Purchase : <%=u.getPurchase()%> <br>
+                                                            Production : <%=u.getProduction()%> <br>
+                                                            Create : <%=u.getCreates()%> <br>
+                                                            User : <%=u.getUser()%> <br>
+                                                            Cheque : <%=u.getCheque()%> <br>
+                                                            Report : <%=u.getReport()%> <br>
+                                                            Other : <%=u.getOther()%> <br>
+                                                        </td>
+                                                        <td>
+                                                            <a href="user_update.jsp?id=<%= u.getUserId()%>">
+                                                                <button class="btn btn-warning btn-sm">
+                                                                    <i class="material-icons"></i> Update
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <form action="User_delete_servlert" method="POST">
+                                                                <button class="btn btn-danger btn-sm">
+                                                                    <input type="hidden" id="id" name="id" value="<%= u.getUserId()%>">
+                                                                    <i class="material-icons"></i> Delete
+                                                                </button>
+                                                            </form>
+
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- end content-->
+                                </div>
+
                             </div>
                         </div>
                     </div>
