@@ -110,7 +110,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Password</label>
-                                                        <input type="text" name="Password" class="form-control" value="">
+                                                        <input type="text" name="Password"  class="form-control" value="">
                                                         <span class="help-block">A block of help text that breaks onto a new line.</span>
                                                         <span class="material-input"></span>
                                                     </div>
