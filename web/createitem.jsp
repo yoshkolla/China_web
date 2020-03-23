@@ -694,7 +694,7 @@
                         } else {
                             swal({
                                 title: 'Empty Data !',
-                                text: 'Some data are missing.please retry.',
+                                text: 'Some data are missing please retry !',
                                 type: 'error',
                                 confirmButtonClass: "btn btn-info",
                                 buttonsStyling: false

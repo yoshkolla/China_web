@@ -123,6 +123,7 @@ public class SaveNewItemServlet extends HttpServlet {
                                 ArrayList<ProductionPlanHolder> pp = new ArrayList();
                                 if (request.getSession().getAttribute("ppl") != null) {
                                     pp = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
+                                    request.getSession().removeAttribute("ppl");
                                 }
                                 if (!pp.isEmpty()) {
                                     for (ProductionPlanHolder p : pp) {
@@ -147,6 +148,7 @@ public class SaveNewItemServlet extends HttpServlet {
                                 ArrayList<ProductionRawMatHolder> pph = new ArrayList();
                                 if (request.getSession().getAttribute("rrl") != null) {
                                     pph = (ArrayList<ProductionRawMatHolder>) request.getSession().getAttribute("rrl");
+                                    request.getSession().removeAttribute("rrl");
                                 }
 
                                 if (!pph.isEmpty()) {
@@ -161,6 +163,9 @@ public class SaveNewItemServlet extends HttpServlet {
                                     }
 
                                 }
+                                
+                                
+                                
 
                                 tr.commit();
                                 ses.close();
