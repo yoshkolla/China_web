@@ -130,7 +130,7 @@
                                                 </ul>
                                             </div>
                                             <!--end .form-wizard-nav -->
-
+                                            <!-- <form action="SaveNewItemServlet" method="post" enctype="multipart/form-data" > -->
                                             <div class="tab-content clearfix p-30">
                                                 <div class="tab-pane active" id="fws_tab1">
                                                     <div class="row">
@@ -236,7 +236,7 @@
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <div class="form-group">
-                                                                <button class="btn btn-sm btn-warning" id="add_ro"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                                <button class="btn btn-sm btn-warning" type="button" id="add_ro"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12"> 
@@ -277,7 +277,7 @@
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <div class="form-group">
-                                                                <button class="btn btn-sm btn-warning" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
+                                                                <button class="btn btn-sm btn-warning" type="button" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12"> 
@@ -306,7 +306,7 @@
 
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <button class="btn btn-warning" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
+                                                            <button class="btn btn-warning" type="button" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
                                                         </div>
                                                         <div class="col-sm-5">
 
@@ -320,6 +320,7 @@
                                                     <li class="next"><a class="btn-raised btn btn-info" href="javascript:void(0);">Next&nbsp;&nbsp;<span class="fa fa-arrow-right"></span></a></li>
                                                 </ul>
                                             </div>
+                                        <!-- </form> -->
                                             <!--end .tab-content -->
 
 
@@ -395,12 +396,7 @@
 
         });
     </script>
-    <script type="text/javascript">
-        $().ready(function () {
-            demo.initMaterialWizard();
-        });
-    </script>
-
+  
     <script>
         $(document).ready(function () {
             //Add blue animated border and remove with condition when focus and blur
@@ -677,12 +673,20 @@
                 $.ajax({
                     url: "SaveNewItemServlet",
                     type: "post",
+                    enctype: 'multipart/form-data',
                     cache: false,
                     contentType: false,
                     processType: false,
                     data: dataimg,
+                    processData: false,
                     success: function (data) {
-                        
+                        if(data == "1"){
+                            
+                            
+                        }else{
+                            
+                            
+                        }
                     }
                 });
 
