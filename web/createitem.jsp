@@ -192,7 +192,8 @@
                                                                         <span class="fileinput-new">Select image</span>
                                                                         <span class="fileinput-exists">Change</span>
                                                                         <input type="hidden" value="" name="..."><input type="file" name="image" id="image">
-                                                                        <div class="ripple-container"></div></span>
+                                                                        <div class="ripple-container"></div>
+                                                                    </span>
                                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 57.9688px; top: 25px; background-color: rgb(255, 255, 255); transform: scale(13.4082);"></div></div></a>
                                                                 </div>
                                                             </div>
