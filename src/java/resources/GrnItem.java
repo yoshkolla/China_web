@@ -1,5 +1,5 @@
 package resources;
-// Generated Mar 24, 2020 1:07:10 AM by Hibernate Tools 4.3.1
+// Generated Mar 28, 2020 12:36:20 AM by Hibernate Tools 4.3.1
 
 
 
@@ -11,7 +11,7 @@ public class GrnItem  implements java.io.Serializable {
 
      private Integer grnItemId;
      private Grn grn;
-     private RawItems rawItems;
+     private RawStock rawStock;
      private Double unitPrice;
      private Double cost;
      private Double qty;
@@ -24,13 +24,13 @@ public class GrnItem  implements java.io.Serializable {
     }
 
 	
-    public GrnItem(Grn grn, RawItems rawItems) {
+    public GrnItem(Grn grn, RawStock rawStock) {
         this.grn = grn;
-        this.rawItems = rawItems;
+        this.rawStock = rawStock;
     }
-    public GrnItem(Grn grn, RawItems rawItems, Double unitPrice, Double cost, Double qty, Double total, Double discount, Double netTotal, Integer status) {
+    public GrnItem(Grn grn, RawStock rawStock, Double unitPrice, Double cost, Double qty, Double total, Double discount, Double netTotal, Integer status) {
        this.grn = grn;
-       this.rawItems = rawItems;
+       this.rawStock = rawStock;
        this.unitPrice = unitPrice;
        this.cost = cost;
        this.qty = qty;
@@ -54,12 +54,12 @@ public class GrnItem  implements java.io.Serializable {
     public void setGrn(Grn grn) {
         this.grn = grn;
     }
-    public RawItems getRawItems() {
-        return this.rawItems;
+    public RawStock getRawStock() {
+        return this.rawStock;
     }
     
-    public void setRawItems(RawItems rawItems) {
-        this.rawItems = rawItems;
+    public void setRawStock(RawStock rawStock) {
+        this.rawStock = rawStock;
     }
     public Double getUnitPrice() {
         return this.unitPrice;

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2020 1:07:12 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 28, 2020 12:36:24 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.RawItems" table="raw_items" catalog="rat_trap" optimistic-lock="version">
         <id name="rawItemsId" type="java.lang.Integer">
@@ -28,12 +28,6 @@
                 <column name="raw_items_id" not-null="true" />
             </key>
             <one-to-many class="resources.ProductionRawItems" />
-        </set>
-        <set name="grnItems" table="grn_item" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="raw_items_id" not-null="true" />
-            </key>
-            <one-to-many class="resources.GrnItem" />
         </set>
         <set name="rawStocks" table="raw_stock" inverse="true" lazy="true" fetch="select">
             <key>

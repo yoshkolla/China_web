@@ -1,5 +1,5 @@
 package resources;
-// Generated Mar 24, 2020 1:07:10 AM by Hibernate Tools 4.3.1
+// Generated Mar 28, 2020 12:36:20 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,7 +18,6 @@ public class RawItems  implements java.io.Serializable {
      private Double rol;
      private Integer status;
      private Set productionRawItemses = new HashSet(0);
-     private Set grnItems = new HashSet(0);
      private Set rawStocks = new HashSet(0);
      private Set itemsHasRawItemses = new HashSet(0);
 
@@ -29,14 +28,13 @@ public class RawItems  implements java.io.Serializable {
     public RawItems(MeasurementType measurementType) {
         this.measurementType = measurementType;
     }
-    public RawItems(MeasurementType measurementType, String name, String image, Double rol, Integer status, Set productionRawItemses, Set grnItems, Set rawStocks, Set itemsHasRawItemses) {
+    public RawItems(MeasurementType measurementType, String name, String image, Double rol, Integer status, Set productionRawItemses, Set rawStocks, Set itemsHasRawItemses) {
        this.measurementType = measurementType;
        this.name = name;
        this.image = image;
        this.rol = rol;
        this.status = status;
        this.productionRawItemses = productionRawItemses;
-       this.grnItems = grnItems;
        this.rawStocks = rawStocks;
        this.itemsHasRawItemses = itemsHasRawItemses;
     }
@@ -89,13 +87,6 @@ public class RawItems  implements java.io.Serializable {
     
     public void setProductionRawItemses(Set productionRawItemses) {
         this.productionRawItemses = productionRawItemses;
-    }
-    public Set getGrnItems() {
-        return this.grnItems;
-    }
-    
-    public void setGrnItems(Set grnItems) {
-        this.grnItems = grnItems;
     }
     public Set getRawStocks() {
         return this.rawStocks;

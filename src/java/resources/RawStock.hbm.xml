@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2020 1:07:12 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 28, 2020 12:36:24 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.RawStock" table="raw_stock" catalog="rat_trap" optimistic-lock="version">
         <id name="rawStockId" type="java.lang.Integer">
@@ -23,5 +23,11 @@
         <property name="qty" type="java.lang.Double">
             <column name="qty" precision="22" scale="0" />
         </property>
+        <set name="grnItems" table="grn_item" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="raw_stock_id" not-null="true" />
+            </key>
+            <one-to-many class="resources.GrnItem" />
+        </set>
     </class>
 </hibernate-mapping>
