@@ -4,7 +4,6 @@
     Author     : SCORFi3LD
 --%>
 
-
 <%@page import="resources.Customer"%>
 <%@page import="resources.Items"%>
 <%@page import="java.util.ArrayList"%>
