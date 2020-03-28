@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="resources.Customer"%>
 <%@page import="resources.Items"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="resources.InvoiceItem"%>
@@ -66,6 +67,8 @@
         <title><%=NAME + " | " + PAGE_NAME%></title>
         <!-- Bootstrap core CSS -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Select2-->
+        <link href="assets/vendors/select2/select2.min.css" rel="stylesheet" type="text/css"/>
         <!-- Material Dashboard CSS -->
         <link href="assets/css/turbo.css" rel="stylesheet" />
         <!-- Favicon -->
@@ -87,6 +90,11 @@
                 background-repeat: no-repeat; 
                 background-color: #FFF;
                 background-position: center;
+            }
+
+            .form-group{
+                padding-bottom: 10px;
+                margin: 0;
             }
         </style>
         <!-- for pre loader -->
@@ -179,7 +187,19 @@
                     <%
                     } else {
                     %>
-                    <div style="height:250px;overflow-y:auto;" class="boxscroll">
+                    <h6 style="margin: 5px 0">Customer</h6>
+                    <select id="cus" class="form-control" style="width:100%">
+                        <option></option>
+                        <%
+                            List<Customer> cList = s.createCriteria(Customer.class).add(Restrictions.eq("status", 1)).list();
+                            for (Customer c : cList) {
+                        %>
+                        <option value="<%=c.getCustomerId()%>"><%=c.getName()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                    <div style="height:200px;overflow-y:auto;border:#5e5e5e solid 1px;padding:5px" class="boxscroll">
                         <%
                             for (InvoiceItem items : cartItems) {
                         %>                    
@@ -206,30 +226,132 @@
                             }
                         %>
                     </div>
+                    <hr style="border-top: 2px dashed #5e5e5e;margin: 10px 0 0;">
                     <table border="0" width="100%">
-                        <tbody>
-                            <tr>
-                                <td><h5>SUBTOTAL</h5></td>
-                                <td><h5 id="sub">0.00</h5></td>
-                            </tr>
-                            <tr>
-                                <td><h5>CASH</h5></td>
-                                <td><input id="cash" type="number" value="" min="0" style="font-size:1.25em;width:100%"/></td>
-                            </tr>
-                            <tr>
-                                <td><h5>BALANCE</h5></td>
-                                <td><h5 id="bal">0.00</h5></td>
-                            </tr>
-                        </tbody>
+                        <tr>
+                            <td width="20%"><h6 style="margin: 5px 0">SUBTOTAL</h6></td>
+                            <td class="text-right"><h5 id="sub" style="font-weight:bold;margin:0">0.00</h5></td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><h6 style="margin: 5px 0">DISCOUNT (%)</h6></td>
+                            <td><input id="cdis" type="number" value="0" min="0" max="100" style="font-weight:bold;font-size:1.25em;width:100%;height:26px;text-align:right;margin:0"/></td>
+                        </tr>
+                        <tr>
+                            <td width="20%"><h6 style="margin: 5px 0">NET TOTAL</h6></td>
+                            <td class="text-right"><h5 id="net" style="font-weight:bold;margin:0">0.00</h5></td>
+                        </tr>
                     </table>
 
-                    <button class="btn btn-success btn-block">
-                        <span class="btn-label"><i class="material-icons">check</i></span> Checkout
-                    </button>
+                    <div class="btn-group" role="group" aria-label="Payment Methods" style="width:100%">
+                        <button type="button" class="btn btn-success btn-secondary" style="width:50%;background:#ff9900;" id="cheqpay">Cheque Payment</button>
+                        <button type="button" class="btn btn-success btn-secondary" style="width:50%" id="cashpay">Cash Payment</button>
+                    </div>
                     <%
                         }
                     %>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="chequeModal" role="dialog" style="display: none;">
+        <div class="modal-dialog">   
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
+                    <h4 class="modal-title">Cheque Details</h4>
+                </div>
+                <div class="modal-body">
+                    <table width="100%" cellspacing="5">
+                        <tr>
+                            <td width="50%">
+                                <div class="form-group open" style="margin-bottom:10px;">
+                                    <div class="select" aria-expanded="true">
+                                        <select class="form-control" id="chqtype">
+                                            <option>CASH CHEQUE</option>
+                                            <option>DATE CHEQUE</option>
+                                        </select>
+                                    </div>
+                                    <span class="material-input"></span>
+                                </div>
+                                <div class="form-group label-floating" style="margin-bottom:10px;">
+                                    <label class="control-label">Cheque No <small>*</small></label>
+                                    <input type="text" class="form-control" id="chqno"/>
+                                </div>
+                                <div class="form-group label-floating" style="margin-bottom:10px;">
+                                    <label class="control-label">Date Picker <small>*</small></label>
+                                    <input type="date" class="form-control" value="<%=Helper.getDate()%>" id="chqdate"/>
+                                </div>
+                                <div class="form-group label-floating" style="margin-bottom:10px;">
+                                    <label class="control-label">Bank <small>*</small></label>
+                                    <input type="text" class="form-control" id="bank"/>
+                                </div>
+                                <div class="form-group label-floating" style="margin-bottom:10px;">
+                                    <label class="control-label">Branch <small>*</small></label>
+                                    <input type="text" class="form-control" id="branch"/>
+                                </div>
+                                <div class="form-group label-floating" style="margin-bottom:10px;">
+                                    <label class="control-label">Net Total</label>
+                                    <input type="text" class="form-control" value="0.00" id="pqnet" disabled/>
+                                </div>
+                                <div class="form-group label-floating" style="margin-bottom:10px;">
+                                    <label class="control-label">Amount <small>*</small></label>
+                                    <input type="number" class="form-control" id="amount"/>
+                                </div>
+                            </td>
+                            <td width="50%" align="center">
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail">
+                                        <img src="assets/img/image_placeholder.jpg" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="" id="chqimg"></div>
+                                    <div>
+                                        <span class="btn btn-round btn-file">
+                                            <span class="fileinput-new">Select image</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="hidden"><input type="file" name="...">
+                                            <div class="ripple-container"></div>
+                                        </span>
+                                        <a href="#" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-right">
+                                <input type="submit" class="btn btn-success" id="cheque_checkout">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cashModal" role="dialog" style="display: none;">
+        <div class="modal-dialog">   
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
+                    <h4 class="modal-title">Payment Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group label-floating" style="margin-bottom:10px;">
+                        <label class="control-label">Net Total</label>
+                        <input type="text" class="form-control" value="0.00" id="pcnet" disabled/>
+                    </div>
+                    <div class="form-group label-floating is-focused" style="margin-bottom:10px;">
+                        <label class="control-label">Cash <small>*</small></label>
+                        <input type="number" class="form-control" id="cash"/>
+                    </div>
+                    <div class="form-group label-floating" style="margin-bottom:10px;">
+                        <label class="control-label">Balance</label>
+                        <input type="text" class="form-control" value="0.00" id="bal" disabled/>
+                    </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn btn-success" id="cash_checkout">
+                    </div>
+                </div>                                
             </div>
         </div>
     </div>
@@ -277,85 +399,246 @@
     <script src="assets/vendors/fullcalendar.min.js"></script>
     <!-- TagsInput Plugin -->
     <script src="assets/vendors/jquery.tagsinput.js"></script>
+    <!-- Select2-->
+    <script src="assets/vendors/select2/select2.min.js" type="text/javascript"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
-    <!-- for pre loader -->
     <script>
-                                                $(window).on("load", function (e) {
-                                                    $('.preloader').fadeOut('slow');
-                                                });
 
-                                                $(document).ready(function () {
-                                                    $('#minimizeSidebar').click();
-                                                    getSubTotal();
-                                                });
-
-                                                $("#stockModal").on('hide.bs.modal', function () {
-                                                    location.reload();
-                                                });
-
-                                                $("#stockModal").on('shown.bs.modal', function () {
-                                                    $('#qty').focus();
-                                                });
-
-                                                $("#cartModal").on('shown.bs.modal', function () {
-                                                    $('#cash').focus();
-                                                });
-
-                                                function getSubTotal() {
-                                                    $.ajax({
-                                                        url: "GetCartSubTotalServlet",
-                                                        success: function (data) {
-                                                            $('#sub').html(data);
-                                                            $('#cash').val("");
-                                                            $('#bal').html("0.00");
-                                                        }
-                                                    });
-                                                }
-
-                                                function loadStocks(id) {
-                                                    $('#stock').load('viewstocks.jsp?id=' + id);
-
-                                                }
-
-                                                $('#cash').keyup(function () {
-                                                    var sub = $('#sub').html()
-                                                    var cash = $(this).val();
-
-                                                    if (cash == "" | cash.length == 0) {
-                                                        return;
-                                                    }
-
-                                                    var bal = parseFloat(cash) - parseFloat(sub);
-                                                    if (bal >= 0) {
-                                                        $('#bal').html(bal)
-                                                    }
-                                                });
-  
-                                                function addToCart(id, aqty) {
-                                                    var qty = $('#qty').val();
-                                                    var dis = $('#dis').val();
-
-                                                    if (parseFloat(qty) > parseFloat(aqty)) {
-                                                        swal("Invalied Qty Amount!", "You entered stock qty is not valid! Please enter anoher value!", "error").then(function () {
-                                                            $('#qty').focus();
-                                                        });
-                                                        return;
-                                                    }
-
-                                                    $.ajax({
-                                                        url: "AddItemToCartServlet",
-                                                        data: {id: id, qty: qty, dis: dis},
-                                                        success: function (data) {
-                                                            $('#cart_count').html(data.split(",")[0]);
-                                                            loadStocks(data.split(",")[1]);
-                                                            getSubTotal();
-                                                            swal("Done!", "Item added successfuly!", "success").then(function () {
-                                                                $('#qty').focus();
-                                                            });
-                                                        }
-                                                    });
-                                                }
     </script>
     <!-- for pre loader -->
+    <script type="text/javascript">
+        $(window).on("load", function (e) {
+            $('.preloader').fadeOut('slow');
+        });
+
+        $(document).ready(function () {
+            $('#cus').select2({
+                placeholder: "Select a customer",
+                allowClear: true
+            });
+            $('#minimizeSidebar').click();
+            getSubTotal();
+        });
+
+        $("#stockModal").on('hide.bs.modal', function () {
+            location.reload();
+        });
+
+        $("#stockModal").on('shown.bs.modal', function () {
+            $('#qty').focus();
+        });
+
+        $("#cartModal").on('shown.bs.modal', function () {
+            $('#cdis').focus();
+        });
+
+        function getSubTotal() {
+            $.ajax({
+                url: "GetCartSubTotalServlet",
+                success: function (data) {
+                    $('#sub').html(data);
+                    $('#net').html(data);
+                    $('#cash').val("");
+                    $('#bal').val("0.00");
+                }
+            });
+        }
+
+        function loadStocks(id) {
+            $('#stock').load('viewstocks.jsp?id=' + id);
+        }
+
+        $('#cash').keyup(function () {
+            var sub = $('#net').html()
+            var cash = $(this).val();
+            var dis = $('#cdis').val();
+
+            if (dis == "" | dis.length == 0) {
+                $('#cdis').val("0");
+            }
+
+            if (cash == "" | cash.length == 0) {
+                $('#bal').val("0.00");
+                return;
+            }
+
+            var bal = parseFloat(cash) - parseFloat(sub);
+            if (bal >= 0) {
+                $('#bal').val(bal.toFixed(2));
+            } else {
+                $('#bal').val("0.00");
+            }
+        });
+
+        $('#cdis').keyup(function () {
+            var sub = $('#sub').html();
+            var dis = $(this).val();
+
+            $('#cash').val('');
+            $('#bal').val('0.00');
+
+            if (dis == "" | dis.length == 0) {
+                return;
+            }
+
+            if (parseFloat(dis) == 0) {
+                $('#net').html(sub);
+            } else {
+                var net = parseFloat(sub) - ((parseFloat(sub) * parseFloat(dis)) / 100);
+                $('#net').html(net.toFixed(2));
+            }
+        });
+
+        $('#cdis').keypress(function (e) {
+            if (e.keyCode == 13) { // Enter Key
+                $('#cash').focus();
+            }
+        });
+
+        $('#cash').keypress(function (e) {
+            if (e.keyCode == 13) { // Enter Key
+                $('#checkout').click();
+            }
+        });
+
+        function addToCart(id, aqty) {
+            var qty = $('#qty').val();
+            var dis = $('#dis').val();
+
+            if (parseFloat(qty) > parseFloat(aqty)) {
+                swal("Invalied Qty Amount!", "You entered stock qty is not valid! Please enter anoher value!", "error").then(function () {
+                    $('#qty').focus();
+                });
+                return;
+            }
+
+            $.ajax({
+                url: "AddItemToCartServlet",
+                data: {id: id, qty: qty, dis: dis},
+                success: function (data) {
+                    $('#cart_count').html(data.split(",")[0]);
+                    loadStocks(data.split(",")[1]);
+                    getSubTotal();
+                    swal("Done!", "Item added successfuly!", "success").then(function () {
+                        $('#qty').focus();
+                    });
+                }
+            });
+        }
+
+        var cshFlag = false;
+        $('#cashpay').click(function () {
+            if ($('#cus').val() == "") {
+                swal("", "Please select the customer", "warning").then(function () {
+                    $('#cus').focus();
+                });
+                return;
+            }
+
+            $('#cartModal').modal('hide');
+            $('#pcnet').val($('#net').html());
+            cshFlag = true;
+        });
+
+        $('#cashModal').on('shown.bs.modal', function () {
+            $('#cash').focus();
+        });
+
+        var chqFlag = false;
+        $('#cheqpay').click(function () {
+            if ($('#cus').val() == "") {
+                swal("", "Please select the customer", "warning").then(function () {
+                    $('#cus').focus();
+                });
+                return;
+            }
+
+            $('#cartModal').modal('hide');
+            $('#pqnet').val($('#net').html());
+            chqFlag = true;
+        });
+
+        $('#cartModal').on('hidden.bs.modal', function () {
+            if (cshFlag == true) {
+                $('#cashModal').modal('show');
+            }
+            if (chqFlag == true) {
+                $('#chequeModal').modal('show');
+            }
+            chqFlag = false;
+            cshFlag = false;
+        });
+
+        $('#cash_checkout').click(function () {
+            var cus = $('#cus').val();
+            var sub = $('#sub').html();
+            var dis = $('#cdis').val();
+            var net = $('#net').html();
+            var cash = $('#cash').val();
+
+            if (cash == "" | cash.length == 0) {
+                cash = net;
+            }
+
+            $.ajax({
+                url: "SaveCashInvoiceServlet",
+                data: {cus: cus, sub: sub, dis: dis, net: net, cash: cash},
+                success: function (data) {
+                    window.open("invoiceprint.jsp?inv=" + data, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,fullscreen=yes");
+                    location.reload();
+                }
+            });
+        });
+
+        $('#cheque_checkout').click(function () {
+            var cus = $('#cus').val();
+            var sub = $('#sub').html();
+            var dis = $('#cdis').val();
+            var net = $('#net').html();
+
+            var chqtype = $('#chqtype').val();
+            var amount = $('#amount').val();
+            var chqno = $('#chqno').val();
+            var chqdate = $('#chqdate').val();
+            var bank = $('#bank').val();
+            var branch = $('#branch').val();
+            var chqimg = 'assets/img/image_placeholder.jpg';
+
+            if (chqno == "" | chqdate == "" | bank == "" | branch == "" | amount == "") {
+                swal("", "Please fill the all fields", "warning");
+                return;
+            }
+
+            if (amount.length == 0) {
+                swal("", "The amount must be not zero", "warning");
+                return;
+            }
+            if ($('#chqimg').find('img').attr('src') != null) {
+                chqimg = $('#chqimg').find('img').attr('src');
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "SaveChequeInvoiceServlet",
+                data: {
+                    cus: cus,
+                    sub: sub,
+                    dis: dis,
+                    net: net,
+                    chqtype: chqtype,
+                    chqno: chqno,
+                    chqdate: chqdate,
+                    bank: bank,
+                    branch: branch,
+                    chqimg: chqimg,
+                    amount: amount
+                },
+                success: function (data) {
+                    window.open("invoiceprint.jsp?inv=" + data, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,fullscreen=yes");
+                    location.reload();
+                }
+            });
+        });
+    </script>
 </html>
