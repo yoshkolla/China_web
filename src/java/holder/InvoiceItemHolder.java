@@ -33,4 +33,8 @@ public class InvoiceItemHolder {
             System.out.println("================================================");
         }
     }
+    
+    public void clear(){
+        this.holder.clear();
+    }
 }

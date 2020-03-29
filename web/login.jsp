@@ -5,9 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <script>
             addEventListener("load", function () {
                 setTimeout(hideURLbar, 0);
@@ -170,10 +168,8 @@
                         });
 
                     }
-                }
-                );
+                });
             }
-
         </script>
 
     </body>

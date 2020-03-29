@@ -32,7 +32,7 @@
                             <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Return Invoice</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Payment</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Invoice Payment</a>
                         </li>
                     </ul>
                 </div>

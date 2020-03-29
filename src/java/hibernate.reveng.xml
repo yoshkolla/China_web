@@ -41,30 +41,4 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="rat_trap"/>
-  <table-filter match-name="grn_cheque_details"/>
-  <table-filter match-name="payment_type"/>
-  <table-filter match-name="raw_items"/>
-  <table-filter match-name="production"/>
-  <table-filter match-name="production_staff"/>
-  <table-filter match-name="grn_item"/>
-  <table-filter match-name="raw_stock"/>
-  <table-filter match-name="item_staff_cost"/>
-  <table-filter match-name="measurement_type"/>
-  <table-filter match-name="grn_payment"/>
-  <table-filter match-name="invoice_item"/>
-  <table-filter match-name="staff"/>
-  <table-filter match-name="production_steps"/>
-  <table-filter match-name="job_roll"/>
-  <table-filter match-name="supplier"/>
-  <table-filter match-name="invoice_cheque_details"/>
-  <table-filter match-name="grn"/>
-  <table-filter match-name="customer"/>
-  <table-filter match-name="user"/>
-  <table-filter match-name="stock"/>
-  <table-filter match-name="details"/>
-  <table-filter match-name="invoice_payment"/>
-  <table-filter match-name="invoice"/>
-  <table-filter match-name="items_has_raw_items"/>
-  <table-filter match-name="items"/>
-  <table-filter match-name="production_raw_items"/>
 </hibernate-reverse-engineering>

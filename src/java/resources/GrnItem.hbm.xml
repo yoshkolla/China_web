@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2020 1:07:12 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 28, 2020 12:36:24 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="resources.GrnItem" table="grn_item" catalog="rat_trap" optimistic-lock="version">
         <id name="grnItemId" type="java.lang.Integer">
@@ -11,8 +11,8 @@
         <many-to-one name="grn" class="resources.Grn" fetch="select">
             <column name="grn_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="rawItems" class="resources.RawItems" fetch="select">
-            <column name="raw_items_id" not-null="true" />
+        <many-to-one name="rawStock" class="resources.RawStock" fetch="select">
+            <column name="raw_stock_id" not-null="true" />
         </many-to-one>
         <property name="unitPrice" type="java.lang.Double">
             <column name="unit_price" precision="22" scale="0" />
