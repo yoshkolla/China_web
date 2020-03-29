@@ -45,12 +45,6 @@ public class RegisterRawItemServlet extends HttpServlet {
             int msrType = Integer.valueOf(request.getParameter("regRawItem_msrType"));
             double rol = Double.valueOf(request.getParameter("regRawItem_rol"));
 
-            System.out.println(itemName);
-            System.out.println(msrType);
-            System.out.println(rol);
-            System.out.println("----------------------------");
-            
-            
             Session sess = connection.GetConnection.getSessionFactory().openSession();
             Transaction tr = sess.beginTransaction();
 
@@ -78,7 +72,7 @@ public class RegisterRawItemServlet extends HttpServlet {
                 out.print("Warning:Sorry, This Name has been already exist..!");
             }
         } catch (Exception e) {
-            response.sendRedirect("oops-SomethingWentWrong?error=" + new ServletException(e) + " ");
+            out.print("Warning:Sorry, Operation Faild!");
         }
     }
 

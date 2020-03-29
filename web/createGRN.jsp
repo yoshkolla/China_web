@@ -501,6 +501,8 @@
                     swal(outputData.split(":")[1], "success");
                 } else if (outputData.split(":")[0] == 'Warning') {
                     swal("Oops!", outputData.split(":")[1], "warning");
+                } else if (outputData.split(":")[0] == 'Warning') {
+                    swal("Oops!", outputData.split(":")[1], "warning");
                 }
 
             });
