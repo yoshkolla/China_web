@@ -46,13 +46,10 @@
                 <div class="collapse" id="purchase" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create GRN</a>
+                            <a href="createGRN.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create GRN</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Supplier Return</a>
-                        </li>
-                        <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Supplier Payment</a>
+                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>GRN Payment</a>
                         </li>
                     </ul>
                 </div>
