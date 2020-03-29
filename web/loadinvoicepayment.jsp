@@ -47,7 +47,7 @@
         <span class="material-input"></span>
     </div>
     <label>Payment</label>
-    <div class="form-group" style="margin-top:0;">
+    <div class="form-group" style="margin-top:0;" id="cashpayform">
         <input type="number" class="form-control" min="1" max="<%=Helper.priceFormt.format(inv.getDue())%>" id="cashpay">
         <span class="material-input"></span>
     </div>
@@ -141,8 +141,12 @@
         var id = $(this).attr('data-ref');
         $('#paybox').load('loadinvoicepayment.jsp?id=' + id + '&type=cheque');
     });
-    $('#cashpay').click(function () {
+    $('#cash_checkout').click(function () {
         var amount = $('#cashpay').val();
+        if ($('#cashpayform').hasClass("has-error")) {
+            swal("Oops!", "Please enter valid amount!", "error");
+            return;
+        }
         swal({
             title: "Are you sure?",
             text: "Are you sure that you want to save payments?",
@@ -159,7 +163,9 @@
                             swal("Oops!", "Something went wrong!", "error");
                         }
                         if (data == "1") {
-
+                            swal("Done!", "Payment added successfuly!", "success").then(function () {
+                                location.reload();
+                            });
                         }
                     }
                 });

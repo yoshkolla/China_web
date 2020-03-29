@@ -278,7 +278,7 @@
                                     <input type="text" class="form-control" id="chqno"/>
                                 </div>
                                 <div class="form-group label-floating" style="margin-bottom:10px;">
-                                    <label class="control-label">Date Picker <small>*</small></label>
+                                    <label class="control-label">Cheque Date <small>*</small></label>
                                     <input type="date" class="form-control" value="<%=Helper.getDate()%>" id="chqdate"/>
                                 </div>
                                 <div class="form-group label-floating" style="margin-bottom:10px;">

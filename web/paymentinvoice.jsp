@@ -102,7 +102,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-content">
-                                        <h3 class="card-title" style="margin-bottom: 15px;">Cancel Invoice</h3>
+                                        <h3 class="card-title" style="margin-bottom: 15px;">Invoice Payment</h3>
                                         <div class="material-datatables">
                                             <table id="invTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                                 <thead>
@@ -111,6 +111,7 @@
                                                         <th>Customer Name</th>
                                                         <th>Date & Time</th>
                                                         <th>Net Total</th>
+                                                        <th>Due Amount</th>
                                                         <th class="disabled-sorting text-right">Actions</th>
                                                     </tr>
                                                 </thead>
@@ -124,6 +125,7 @@
                                                         <td><%=in.getCustomer().getName()%></td>
                                                         <td><%=in.getDate()%> <%=in.getTime()%></td>
                                                         <td><%=h.priceFormt.format(in.getNetTotal())%></td>
+                                                        <td><%=h.priceFormt.format(in.getDue())%></td>
                                                         <td class="text-right">
                                                             <a class="btn btn-success pay" data-ref="<%=in.getInvoiceId()%>">Pay Now</a>
                                                         </td>
