@@ -33,6 +33,8 @@
             DetailsHolder dth;
             int i = 1;
             int j = 1;
+            int ITEM_ID=0; 
+            
             try {
                 if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
                     dth = (DetailsHolder) request.getSession().getAttribute("details");
@@ -60,6 +62,7 @@
             Items ITEM = null;
             if (request.getParameter("id") != null && !request.getParameter("id").equals("")) {
                 ITEM = (Items) ses.load(Items.class, Integer.parseInt(request.getParameter("id")));
+                ITEM_ID = ITEM.getItemsId();
             } else {
                 response.sendRedirect("items.jsp");
             }
@@ -246,7 +249,7 @@
                                                                     <span class="btn btn-round btn-file">
                                                                         <span class="fileinput-new">Select image</span>
                                                                         <span class="fileinput-exists">Change</span>
-                                                                        <input type="hidden" value="" name="..."><input type="file" name="image" id="image">
+                                                                        <input type="hidden" value="<%=ITEM.getImage() %>" name="..."><input type="file" name="image" id="image">
                                                                         <div class="ripple-container"></div></span>
                                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 57.9688px; top: 25px; background-color: rgb(255, 255, 255); transform: scale(13.4082);"></div></div></a>
                                                                 </div>
@@ -767,13 +770,14 @@
                 var TYPE_S = $('#type').val();
 
                 var dataimg = new FormData();
+                dataimg.append('id', <%=ITEM_ID %>);
                 dataimg.append('name', NAME_S);
                 dataimg.append('rol', ROL_S);
                 dataimg.append('type', TYPE_S);
                 dataimg.append('img', $("#image")[0].files[0]);
 
                 $.ajax({
-                    url: "SaveNewItemServlet",
+                    url: "UpdateItemServlet",
                     type: "post",
                     enctype: 'multipart/form-data',
                     cache: false,
@@ -785,7 +789,7 @@
                         if (data == "1") {
                             swal({
                                 title: "Good job!",
-                                text: "You saved new item to list",
+                                text: "You Update Selected Item.",
                                 buttonsStyling: false,
                                 confirmButtonClass: "btn btn-success",
                                 type: "success"
