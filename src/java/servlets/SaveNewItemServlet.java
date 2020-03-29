@@ -99,7 +99,7 @@ public class SaveNewItemServlet extends HttpServlet {
 
                                 Items ITEM = new Items();
                                 ITEM.setName(NAME);
-                                ITEM.setImage("");
+                                ITEM.setImage("assets/img/image_placeholder.jpg");
                                 ITEM.setRol(Double.parseDouble(ROL));
                                 ITEM.setStatus("1");
                                 ITEM.setMeasurementType(MT);
