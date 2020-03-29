@@ -127,13 +127,13 @@
                                                         File f = new File(application.getRealPath("/") + ITEM.getImage());
                                                         if (f.exists()) {
                                                     %>
-                                                    <img src="<%=ITEM.getImage()%>" class="img-responsive" style="height: 40%;width: 40%;">
+                                                    <img src="<%=ITEM.getImage()%>" class="img-responsive" style="height: 20%;width: 20%;">
                                                     <% } else {%>
                                                     <img src="assets/img/noimage.png" style="height: 15%;width: 15%;">
                                                     <% }%>
                                                 </center>
                                             </div>
-                                            <div class="col-sm-12 mt-3">
+                                                <div class="col-sm-12" style="margin-top: 25px;">
                                                 <table style="width: 100%; text-align: left;" >
                                                     <tr>
                                                         <td style="border:#455A64 solid 1px; padding: 3px 3px 3px 3px;">ITEM NAME : <%=ITEM.getName().toUpperCase()%></td>
