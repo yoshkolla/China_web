@@ -4,7 +4,9 @@
     Author     : Chamara
 --%>
 
-
+<%@page import="resources.ItemStaffCost"%>
+<%@page import="resources.ProductionSteps"%>
+<%@page import="holder.ProductionPlanHolder"%>
 <%@page import="holder.ProductionRawMatHolder"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="resources.ItemsHasRawItems"%>
@@ -29,7 +31,8 @@
             int STAF_ID = 0;
             LogedUserHolder luh;
             DetailsHolder dth;
-
+            int i = 1;
+            int j = 1;
             try {
                 if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
                     dth = (DetailsHolder) request.getSession().getAttribute("details");
@@ -61,14 +64,42 @@
                 response.sendRedirect("items.jsp");
             }
             if (ITEM != null) {
-                
-            ArrayList<ProductionRawMatHolder> pph = new ArrayList();    
-            Set<ItemsHasRawItems> RI = ITEM.getItemsHasRawItemses();
-            for (ItemsHasRawItems I : RI) {
-                if (I.getStatus() == 1) {
-                    
+
+                ArrayList<ProductionRawMatHolder> pph = new ArrayList();
+                Set<ItemsHasRawItems> RI = ITEM.getItemsHasRawItemses();
+                for (ItemsHasRawItems I : RI) {
+                    if (I.getStatus() == 1) {
+                        ProductionRawMatHolder h = new ProductionRawMatHolder();
+                        h.setAmount(I.getAmount());
+                        h.setId(0);
+                        h.setName(I.getRawItems().getName());
+                        h.setRow_id(I.getRawItems().getRawItemsId());
+                        pph.add(h);
+                        i++;
+                    }
                 }
-            }
+                request.getSession().setAttribute("ppl", pph);
+
+                ArrayList<ProductionPlanHolder> rrh = new ArrayList();
+                Set<ProductionSteps> HI = ITEM.getProductionStepses();
+                for (ProductionSteps I : HI) {
+                    if (I.getStatus() == 1) {
+                        double cost = 0.0;
+                        Set<ItemStaffCost> sc = I.getItemStaffCosts();
+                        for (ItemStaffCost c : sc) {
+                            if (c.getStatus() == 1) {
+                                cost = c.getCost();
+                            }
+                        }
+
+                        ProductionPlanHolder h = new ProductionPlanHolder();
+                        h.setCost(cost);
+                        h.setId(0);
+                        h.setName(I.getStepName());
+                        j++;
+                    }
+                }
+                request.getSession().setAttribute("rrl", rrh);
 
         %>
 
@@ -108,7 +139,7 @@
         <!-- for pre loader -->
         <div class="preloader"></div>
         <!-- for pre loader -->
-        
+
         <div class="wrapper">
             <%
                 String curruntpage = "Update Item";
@@ -165,7 +196,7 @@
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <div class="form-group">
-                                                                <input type="number" name="rol" id="rol" class="form-control" required="" value="<%=ITEM.getRol()%>">
+                                                                <input type="number" name="rol" id="rol" class="form-control" required="" value="<%= ITEM.getRol() %>">
                                                                 <label for="rol" class="control-label">RE ORDER LEVEL</label>
                                                             </div>
                                                         </div>
@@ -313,7 +344,19 @@
                                                                     <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
                                                                 </tr>
 
+                                                                <tbody>
+                                                                    <%
 
+                                                                    %>
+
+                                                                    <tr>
+                                                                        <td style="border: #2d3436 solid 1px !important;" >' + i + '</td>
+                                                                        <td style="border: #2d3436 solid 1px !important;">' + PLAN_NAME + '</td>
+                                                                        <td style="border: #2d3436 solid 1px !important;">' + PLAN_COST + '</td>
+                                                                        <td style="border: #2d3436 solid 1px !important;">
+                                                                            <button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="' + i + '">REMOVE</button>
+                                                                        </td>
+                                                                    </tr>
                                                                 </tbody>
                                                                 </thead>
                                                             </table>
@@ -590,7 +633,7 @@
                     $('#cost').focus();
                 }
             });
-            var i = 1;
+            var i = <%=i%>;
             function onAddPressPlan() {
 
                 var PLAN_NAME = $('#step').val();
@@ -640,7 +683,7 @@
                 $('#amount').focus();
             });
 
-            var j = 1;
+            var j = <%=j%>;
             function onAddPressRo() {
 
                 var ROL_ID = $('#ro').val();
