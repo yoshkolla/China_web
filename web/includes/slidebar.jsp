@@ -32,7 +32,7 @@
                             <a href="cancelinvoice.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Cancel Invoice</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Invoice Payment</a>
+                            <a href="paymentinvoice.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Invoice Payment</a>
                         </li>
                     </ul>
                 </div>
