@@ -5,37 +5,51 @@
  */
 package servlets;
 
-import holder.ProductionPlanHolder;
+import connection.GetConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import resources.Invoice;
 
 /**
  *
- * @author Mayura Lakshan
+ * @author SCORFi3LD
  */
-@WebServlet(name = "removeSalesProductionPlanServlet", urlPatterns = {"/removeSalesProductionPlanServlet"})
-public class removeSalesProductionPlanServlet extends HttpServlet {
+@WebServlet(name = "CancelInvoiceServlet", urlPatterns = {"/CancelInvoiceServlet"})
+public class CancelInvoiceServlet extends HttpServlet {
 
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            if (request.getSession().getAttribute("ppl") != null) {
-                ArrayList<ProductionPlanHolder> holders = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
-                holders.remove(id);
-                request.getSession().setAttribute("ppl",holders);
-                if (holders.isEmpty()){
-                    out.write("1");
-                }
-            }
+            
+            int inv = Integer.parseInt(request.getParameter("inv"));
+            
+            Session s = GetConnection.getSessionFactory().openSession();
+            Transaction tr = s.beginTransaction();
+            
+            Invoice in = (Invoice)s.load(Invoice.class, inv);
+            in.setStatus(0);
+            
+            s.update(in);
+            tr.commit();
+            
+            out.write("1");
         }
     }
 

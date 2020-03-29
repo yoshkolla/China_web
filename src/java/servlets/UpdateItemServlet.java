@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,9 +38,18 @@ import resources.RawItems;
  *
  * @author Mayura Lakshan
  */
-@WebServlet(name = "SaveNewItemServlet", urlPatterns = {"/SaveNewItemServlet"})
-public class SaveNewItemServlet extends HttpServlet {
+@WebServlet(name = "UpdateItemServlet", urlPatterns = {"/UpdateItemServlet"})
+public class UpdateItemServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -49,6 +59,7 @@ public class SaveNewItemServlet extends HttpServlet {
 
             } else {
                 String IMG;
+                String ID = "";
                 String NAME = "";
                 String ROL = "";
                 String TYPE = "";
@@ -64,6 +75,7 @@ public class SaveNewItemServlet extends HttpServlet {
                 boolean isMultipart = ServletFileUpload.isMultipartContent(request);
                 if (!isMultipart) {
                     out.print("0");
+                    System.out.println("A");
                 } else {
 
                     //to do this multipart request
@@ -79,6 +91,9 @@ public class SaveNewItemServlet extends HttpServlet {
                                 case "name":
                                     NAME = item.getString();
                                     break;
+                                case "id":
+                                    ID = item.getString();
+                                    break;
                                 case "rol":
                                     ROL = item.getString();
 
@@ -91,19 +106,19 @@ public class SaveNewItemServlet extends HttpServlet {
                             }
                         } else {
 
-                            if (!NAME.equals("") && !ROL.equals("") && !TYPE.equals("")) {
+                            if (!NAME.equals("") && !ROL.equals("") && !TYPE.equals("") && !ID.equals("")) {
                                 Session ses = connection.GetConnection.getSessionFactory().openSession();
                                 Transaction tr = ses.beginTransaction();
                                 Helper help = new Helper();
                                 MeasurementType MT = (MeasurementType) ses.load(MeasurementType.class, Integer.parseInt(TYPE));
 
-                                Items ITEM = new Items();
+                                Items ITEM = (Items) ses.load(Items.class, Integer.parseInt(ID));
                                 ITEM.setName(NAME);
-                                ITEM.setImage("assets/img/image_placeholder.jpg");
                                 ITEM.setRol(Double.parseDouble(ROL));
                                 ITEM.setStatus("1");
                                 ITEM.setMeasurementType(MT);
-                                ses.save(ITEM);
+                                ses.update(ITEM);
+                                
                                 String itemname = item.getName();
                                 String EXT = FilenameUtils.getExtension(itemname);
                                 IMG = ITEM.getItemsId() + "." + EXT;
@@ -115,11 +130,24 @@ public class SaveNewItemServlet extends HttpServlet {
 
                                         item.write(uploadedFile);
                                         Items IT = (Items) ses.load(Items.class, ITEM.getItemsId());
-                                        IT.setImage("itemimage/"+IMG);
+                                        IT.setImage("itemimage/" + IMG);
                                         ses.update(IT);
                                     }
 
                                 }
+
+                                Set<ItemsHasRawItems> RII = ITEM.getItemsHasRawItemses();
+                                for (ItemsHasRawItems I : RII) {
+                                    I.setStatus(0);
+                                    ses.update(I);
+                                }
+
+                                Set<ProductionSteps> HI = ITEM.getProductionStepses();
+                                for (ProductionSteps I : HI) {
+                                    I.setStatus(0);
+                                    ses.update(I);
+                                }
+
                                 ArrayList<ProductionPlanHolder> pp = new ArrayList();
                                 if (request.getSession().getAttribute("ppl") != null) {
                                     pp = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
@@ -163,14 +191,12 @@ public class SaveNewItemServlet extends HttpServlet {
                                     }
 
                                 }
-                                
-                                
-                                
 
                                 tr.commit();
                                 ses.close();
                                 out.print("1");
                             } else {
+                                System.out.println("B");
                                 out.print("0");
                             }
 
@@ -181,6 +207,8 @@ public class SaveNewItemServlet extends HttpServlet {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("C");
             out.print("0");
         }
     }

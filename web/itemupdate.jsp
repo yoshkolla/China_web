@@ -4,7 +4,9 @@
     Author     : Chamara
 --%>
 
-
+<%@page import="resources.ItemStaffCost"%>
+<%@page import="resources.ProductionSteps"%>
+<%@page import="holder.ProductionPlanHolder"%>
 <%@page import="holder.ProductionRawMatHolder"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="resources.ItemsHasRawItems"%>
@@ -29,7 +31,10 @@
             int STAF_ID = 0;
             LogedUserHolder luh;
             DetailsHolder dth;
-
+            int i = 1;
+            int j = 1;
+            int ITEM_ID=0; 
+            
             try {
                 if (request.getSession().getAttribute("admin") != null && request.getSession().getAttribute("details") != null) {
                     dth = (DetailsHolder) request.getSession().getAttribute("details");
@@ -57,18 +62,48 @@
             Items ITEM = null;
             if (request.getParameter("id") != null && !request.getParameter("id").equals("")) {
                 ITEM = (Items) ses.load(Items.class, Integer.parseInt(request.getParameter("id")));
+                ITEM_ID = ITEM.getItemsId();
             } else {
                 response.sendRedirect("items.jsp");
             }
             if (ITEM != null) {
-                
-            ArrayList<ProductionRawMatHolder> pph = new ArrayList();    
-            Set<ItemsHasRawItems> RI = ITEM.getItemsHasRawItemses();
-            for (ItemsHasRawItems I : RI) {
-                if (I.getStatus() == 1) {
-                    
+
+                ArrayList<ProductionRawMatHolder> pph = new ArrayList();
+                Set<ItemsHasRawItems> RI = ITEM.getItemsHasRawItemses();
+                for (ItemsHasRawItems I : RI) {
+                    if (I.getStatus() == 1) {
+                        ProductionRawMatHolder h = new ProductionRawMatHolder();
+                        h.setAmount(I.getAmount());
+                        h.setId(0);
+                        h.setName(I.getRawItems().getName());
+                        h.setRow_id(I.getRawItems().getRawItemsId());
+                        pph.add(h);
+                        i++;
+                    }
                 }
-            }
+                request.getSession().setAttribute("rrl", pph);
+
+                ArrayList<ProductionPlanHolder> rrh = new ArrayList();
+                Set<ProductionSteps> HI = ITEM.getProductionStepses();
+                for (ProductionSteps I : HI) {
+                    if (I.getStatus() == 1) {
+                        double cost = 0.0;
+                        Set<ItemStaffCost> sc = I.getItemStaffCosts();
+                        for (ItemStaffCost c : sc) {
+                            if (c.getStatus() == 1) {
+                                cost = c.getCost();
+                            }
+                        }
+
+                        ProductionPlanHolder h = new ProductionPlanHolder();
+                        h.setCost(cost);
+                        h.setId(0);
+                        h.setName(I.getStepName());
+                        rrh.add(h);
+                        j++;
+                    }
+                }
+                request.getSession().setAttribute("ppl", rrh);
 
         %>
 
@@ -108,7 +143,7 @@
         <!-- for pre loader -->
         <div class="preloader"></div>
         <!-- for pre loader -->
-        
+
         <div class="wrapper">
             <%
                 String curruntpage = "Update Item";
@@ -165,7 +200,7 @@
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <div class="form-group">
-                                                                <input type="number" name="rol" id="rol" class="form-control" required="" value="<%=ITEM.getRol()%>">
+                                                                <input type="number" name="rol" id="rol" class="form-control" required="" value="<%= ITEM.getRol() %>">
                                                                 <label for="rol" class="control-label">RE ORDER LEVEL</label>
                                                             </div>
                                                         </div>
@@ -214,7 +249,7 @@
                                                                     <span class="btn btn-round btn-file">
                                                                         <span class="fileinput-new">Select image</span>
                                                                         <span class="fileinput-exists">Change</span>
-                                                                        <input type="hidden" value="" name="..."><input type="file" name="image" id="image">
+                                                                        <input type="hidden" value="<%=ITEM.getImage() %>" name="..."><input type="file" name="image" id="image">
                                                                         <div class="ripple-container"></div></span>
                                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 57.9688px; top: 25px; background-color: rgb(255, 255, 255); transform: scale(13.4082);"></div></div></a>
                                                                 </div>
@@ -272,7 +307,29 @@
                                                                         <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
                                                                     </tr>
                                                                 <tbody>
+                                                                    <%
+                                                                      i=1; 
+                                                                      if(request.getSession().getAttribute("rrl") != null ){ 
+                                                                         ArrayList<ProductionRawMatHolder> pp = (ArrayList<ProductionRawMatHolder>) request.getSession().getAttribute("rrl");
+                                                                         for(ProductionRawMatHolder p : pp){
+                                                                         
+                                                                         
+                                                                    %>
 
+                                                                    <tr>
+                                                                        <td style="border: #2d3436 solid 1px !important;" ><%=i %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getName() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getAmount() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;">
+                                                                            <button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="<%=i %>">REMOVE</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    
+                                                                    <%
+                                                                        i++; 
+                                                                        }
+                                                                           } 
+                                                                    %>
                                                                 </tbody>
                                                                 </thead>
                                                             </table>
@@ -303,6 +360,7 @@
                                                                 <button class="btn btn-sm btn-warning" type="button" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                             </div>
                                                         </div>
+                                                        
                                                         <div class="col-sm-12"> 
                                                             <table class="" id="tbl1" style="width: 100%;">
 
@@ -313,7 +371,30 @@
                                                                     <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
                                                                 </tr>
 
+                                                                <tbody>
+                                                                    <%
+                                                                      j=1; 
+                                                                      if(request.getSession().getAttribute("ppl") != null ){ 
+                                                                         ArrayList<ProductionPlanHolder> rr = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
+                                                                         for(ProductionPlanHolder p : rr){
+                                                                         
+                                                                         
+                                                                    %>
 
+                                                                    <tr>
+                                                                        <td style="border: #2d3436 solid 1px !important;" ><%=j %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getName() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getCost() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;">
+                                                                            <button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="<%=j %>">REMOVE</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    
+                                                                    <%
+                                                                        j++;
+                                                                        }
+                                                                           } 
+                                                                    %>
                                                                 </tbody>
                                                                 </thead>
                                                             </table>
@@ -329,7 +410,7 @@
 
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <button class="btn btn-warning" type="button" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
+                                                            <button class="btn btn-warning" type="button" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND UPDATE</button>
                                                         </div>
                                                         <div class="col-sm-5">
 
@@ -590,7 +671,7 @@
                     $('#cost').focus();
                 }
             });
-            var i = 1;
+            var i = <%=j%>;
             function onAddPressPlan() {
 
                 var PLAN_NAME = $('#step').val();
@@ -640,7 +721,7 @@
                 $('#amount').focus();
             });
 
-            var j = 1;
+            var j = <%=i%>;
             function onAddPressRo() {
 
                 var ROL_ID = $('#ro').val();
@@ -689,13 +770,14 @@
                 var TYPE_S = $('#type').val();
 
                 var dataimg = new FormData();
+                dataimg.append('id', <%=ITEM_ID %>);
                 dataimg.append('name', NAME_S);
                 dataimg.append('rol', ROL_S);
                 dataimg.append('type', TYPE_S);
                 dataimg.append('img', $("#image")[0].files[0]);
 
                 $.ajax({
-                    url: "SaveNewItemServlet",
+                    url: "UpdateItemServlet",
                     type: "post",
                     enctype: 'multipart/form-data',
                     cache: false,
@@ -707,7 +789,7 @@
                         if (data == "1") {
                             swal({
                                 title: "Good job!",
-                                text: "You saved new item to list",
+                                text: "You Update Selected Item.",
                                 buttonsStyling: false,
                                 confirmButtonClass: "btn btn-success",
                                 type: "success"

@@ -29,10 +29,10 @@
                             <a href="createinvoice.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Invoice</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Return Invoice</a>
+                            <a href="cancelinvoice.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Cancel Invoice</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Payment</a>
+                            <a href="paymentinvoice.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Invoice Payment</a>
                         </li>
                     </ul>
                 </div>
