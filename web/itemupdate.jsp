@@ -78,7 +78,7 @@
                         i++;
                     }
                 }
-                request.getSession().setAttribute("ppl", pph);
+                request.getSession().setAttribute("rrl", pph);
 
                 ArrayList<ProductionPlanHolder> rrh = new ArrayList();
                 Set<ProductionSteps> HI = ITEM.getProductionStepses();
@@ -96,10 +96,11 @@
                         h.setCost(cost);
                         h.setId(0);
                         h.setName(I.getStepName());
+                        rrh.add(h);
                         j++;
                     }
                 }
-                request.getSession().setAttribute("rrl", rrh);
+                request.getSession().setAttribute("ppl", rrh);
 
         %>
 
@@ -303,7 +304,29 @@
                                                                         <th style="border: #576574 solid 1px;padding: 2px 2px 2px 2px;">REMOVE</th>
                                                                     </tr>
                                                                 <tbody>
+                                                                    <%
+                                                                      i=1; 
+                                                                      if(request.getSession().getAttribute("rrl") != null ){ 
+                                                                         ArrayList<ProductionRawMatHolder> pp = (ArrayList<ProductionRawMatHolder>) request.getSession().getAttribute("rrl");
+                                                                         for(ProductionRawMatHolder p : pp){
+                                                                         
+                                                                         
+                                                                    %>
 
+                                                                    <tr>
+                                                                        <td style="border: #2d3436 solid 1px !important;" ><%=i %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getName() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getAmount() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;">
+                                                                            <button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="<%=i %>">REMOVE</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    
+                                                                    <%
+                                                                        i++; 
+                                                                        }
+                                                                           } 
+                                                                    %>
                                                                 </tbody>
                                                                 </thead>
                                                             </table>
@@ -334,6 +357,7 @@
                                                                 <button class="btn btn-sm btn-warning" type="button" id="add_pr"><span class="fa fa-plus">&nbsp;</span>ADD</button>
                                                             </div>
                                                         </div>
+                                                        
                                                         <div class="col-sm-12"> 
                                                             <table class="" id="tbl1" style="width: 100%;">
 
@@ -346,17 +370,28 @@
 
                                                                 <tbody>
                                                                     <%
-
+                                                                      j=1; 
+                                                                      if(request.getSession().getAttribute("ppl") != null ){ 
+                                                                         ArrayList<ProductionPlanHolder> rr = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
+                                                                         for(ProductionPlanHolder p : rr){
+                                                                         
+                                                                         
                                                                     %>
 
                                                                     <tr>
-                                                                        <td style="border: #2d3436 solid 1px !important;" >' + i + '</td>
-                                                                        <td style="border: #2d3436 solid 1px !important;">' + PLAN_NAME + '</td>
-                                                                        <td style="border: #2d3436 solid 1px !important;">' + PLAN_COST + '</td>
+                                                                        <td style="border: #2d3436 solid 1px !important;" ><%=j %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getName() %></td>
+                                                                        <td style="border: #2d3436 solid 1px !important;"><%=p.getCost() %></td>
                                                                         <td style="border: #2d3436 solid 1px !important;">
-                                                                            <button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="' + i + '">REMOVE</button>
+                                                                            <button style="margin: 2px 2px 2px 2px;background-color:#27ae60;color: white; border: none;border-radius: 6px; " type="button" class="delete_pr" data-ref="<%=j %>">REMOVE</button>
                                                                         </td>
                                                                     </tr>
+                                                                    
+                                                                    <%
+                                                                        j++;
+                                                                        }
+                                                                           } 
+                                                                    %>
                                                                 </tbody>
                                                                 </thead>
                                                             </table>
@@ -372,7 +407,7 @@
 
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <button class="btn btn-warning" type="button" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND SAVE</button>
+                                                            <button class="btn btn-warning" type="button" id="conf_a"><span class="fa fa-check">&nbsp;</span>CONFIRM AND UPDATE</button>
                                                         </div>
                                                         <div class="col-sm-5">
 
@@ -633,7 +668,7 @@
                     $('#cost').focus();
                 }
             });
-            var i = <%=i%>;
+            var i = <%=j%>;
             function onAddPressPlan() {
 
                 var PLAN_NAME = $('#step').val();
@@ -683,7 +718,7 @@
                 $('#amount').focus();
             });
 
-            var j = <%=j%>;
+            var j = <%=i%>;
             function onAddPressRo() {
 
                 var ROL_ID = $('#ro').val();

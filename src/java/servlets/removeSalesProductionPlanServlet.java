@@ -32,7 +32,7 @@ public class removeSalesProductionPlanServlet extends HttpServlet {
                 ArrayList<ProductionPlanHolder> holders = (ArrayList<ProductionPlanHolder>) request.getSession().getAttribute("ppl");
                 holders.remove(id);
                 request.getSession().setAttribute("ppl",holders);
-                if (holders.isEmpty()) {
+                if (holders.isEmpty()){
                     out.write("1");
                 }
             }

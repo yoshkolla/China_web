@@ -127,7 +127,7 @@
                                 <div class="col-sm-2">
                                     <div class="card" style="border:#c7c7c7 1px solid;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">   
                                         <div class="pt-header">
-                                            <img src="<%=item.getImage()%>" class="img-responsive"/>
+                                            <img src="<%=item.getImage()%>" class="img-responsive" style="height: 150px;" />
                                         </div>
                                         <div class="text-center">
                                             <h5 style="margin-bottom:10px"><%=item.getName()%></h5>
