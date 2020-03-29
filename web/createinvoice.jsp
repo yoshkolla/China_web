@@ -4,7 +4,6 @@
     Author     : SCORFi3LD
 --%>
 
-
 <%@page import="resources.Customer"%>
 <%@page import="resources.Items"%>
 <%@page import="java.util.ArrayList"%>
@@ -206,7 +205,7 @@
                         <div class="card" style="background-color:#eee;border-radius:3px;margin:0;padding:10px">
                             <div class="card-body">
                                 <div class="col-sm-4 col-xs-4">
-                                    <img src="<%=items.getStock().getItems().getImage()%>" class="img-responsive" style="width:50%;">
+                                    <img src="<%=items.getStock().getItems().getImage()%>" class="img-responsive" style="height:50%;">
                                 </div>
                                 <div class="col-sm-8 col-xs-8">                        
                                     <a href="RemoveItemsFromCartServlet?id=<%=items.getStock().getStockId()%>">
