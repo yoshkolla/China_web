@@ -4,6 +4,7 @@
     Author     : AKILA
 --%>
 
+<%@page import="resources.RawItems"%>
 <%@page import="resources.MeasurementType"%>
 <%@page import="org.hibernate.Criteria"%>
 <%@page import="org.hibernate.Query"%>
@@ -37,6 +38,8 @@
         <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"/>
         <link href="assets/vendors/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <!-- Select2-->
+        <link href="assets/vendors/select2/select2.min.css" rel="stylesheet" type="text/css"/>
 
         <%
             String PAGE_NAME = "Create GRN", LOGED_USER_NAME = "", NAME = "", USERNAME = "";
@@ -60,8 +63,8 @@
                 }
             } catch (Exception e) {
                 response.sendRedirect("LogOutServlet");
-
             }
+
             Session sess = GetConnection.getSessionFactory().openSession();
         %>
     </head>
@@ -86,24 +89,28 @@
                                                 <p style="text-align: left; font-size: 15px; background-color:#03a9f4; color:#fff; padding: 2px;">&nbsp;GRN No | #<%=new DecimalFormat("0000").format(sess.createCriteria(Grn.class).list().size() + 1)%></p>
                                             </div>
                                             <div class="col-md-3"></div>
-
                                             <div class="col-md-6">
                                                 <span style="text-align: left; font-size: 15px;">&nbsp;Supplier</span>
                                                 <div class="form-group open" style="padding-left: 10px; margin-top: -28px; margin-left: 85px;">
                                                     <div class="select" aria-expanded="true">
-                                                        <select class="form-control">
-                                                            <option>Select a Supplier</option>
-                                                            <option>Option 1</option>
-                                                            <option>Option 2</option>
-                                                            <option>Option 3</option>
-                                                            <option>Option 4</option>
-                                                            <option>Option 5</option>
+                                                        <select class="form-control"
+                                                                required="true"
+                                                                autofocus="true"
+                                                                id="grn_supplier"
+                                                                onclick='execCal_GRNSUM();'>
+
+                                                            <option value="x">Select A Supplier</option>
+                                                            <%  Criteria suppCriteria = sess.createCriteria(Supplier.class);
+                                                                suppCriteria.add(Restrictions.eq("status", 1));
+                                                                List<Supplier> supplierList = suppCriteria.list();
+                                                                for (Supplier supplierObject : supplierList) { %>
+                                                            <option value="<%out.print(supplierObject.getSupplierId());%>"><%out.print(supplierObject.getName());%>&nbsp;</option>
+                                                            <% }%>
                                                         </select>
                                                     </div>
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -115,152 +122,198 @@
                                     <div class="card-header card-header-text">
                                         <h5 class="card-title">Add Items</h5>
                                     </div>
-                                    <div class="card-content">
-                                        <button class="btn btn-danger btn-sm" style="float: right; margin-top: -40px;" data-toggle="modal" data-target="#newitemRegModal" onclick='resetAll_regRawItemForm();'><span class="fa fa-pencil"></span>&nbsp;&nbsp;REGISTER</button>
-
-                                        <form id="AddItem" class="form-horizontal" action="#" method="">
+                                    <div class="form-horizontal">
+                                        <div class="card-content">
+                                            <button class="btn btn-danger btn-sm" style="float: right; margin-top: -40px;" data-toggle="modal" data-target="#newitemRegModal" onclick='resetAll_regRawItemForm();'><span class="fa fa-pencil"></span>&nbsp;&nbsp;REGISTER</button>
+                                            <!--Item-Name-->
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <label class="col-sm-2 label-on-left" style="margin-left: 15px;">Item</label>
-                                                    <div class="col-sm-8">
-                                                        <div class="form-group open" style="margin-left: 30px;">
-                                                            <div class="select" aria-expanded="true">
-                                                                <select class="form-control">
-                                                                    <option>Select an Item</option>
-                                                                    <option>Option 1</option>
-                                                                    <option>Option 2</option>
-                                                                    <option>Option 3</option>
-                                                                    <option>Option 4</option>
-                                                                    <option>Option 5</option>
-                                                                </select>
-                                                            </div>
+                                                    <div class="form-group label-floating is-empty" style="margin-left: 7px;">
+                                                        <label class="control-label">Item</label>
+                                                        <div class="select" aria-expanded="true">
+                                                            <select 
+                                                                class="form-control" 
+                                                                required="true"
+                                                                autofocus="true"
+                                                                id="addItem_Item"
+                                                                onclick='checkValidations_addItemToList();'
+                                                                onkeydown='setElementFocus_addItemToList(event, "addItem_unitPrice");'>
+
+                                                                <option value="x">Select an Item</option>
+                                                                <%  Criteria RawItemCriteria = sess.createCriteria(RawItems.class);
+                                                                    RawItemCriteria.add(Restrictions.eq("status", 1));
+                                                                    List<RawItems> RawItemList = RawItemCriteria.list();
+                                                                    for (RawItems RawItemObject : RawItemList) { %>
+                                                                <option value="<%out.print(RawItemObject.getRawItemsId());%>"><%out.print(RawItemObject.getName());%>&nbsp;</option>
+                                                                <% }%>
+                                                            </select>
+                                                        </div>
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <!--Unit-Price-->
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Unit Price</label>
+                                                            <input 
+                                                                class="form-control" 
+                                                                type="number" 
+                                                                number="true" 
+                                                                required="true"
+                                                                autofocus="true"
+                                                                min="0.01"
+                                                                step="0.01"
+                                                                id="addItem_unitPrice"
+                                                                onblur='priceValFormatting(this);'
+                                                                onkeyup='checkValidations_addItemToList();'
+                                                                onkeydown='setElementFocus_addItemToList(event, "addItem_supplierPrice");'>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--Supplier-Price-->
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Supplier Price</label>
+                                                            <input 
+                                                                class="form-control" 
+                                                                type="number" 
+                                                                number="true" 
+                                                                required="true"
+                                                                autofocus="true"
+                                                                min="0.01"
+                                                                step="0.01"
+                                                                id="addItem_supplierPrice"
+                                                                onblur='priceValFormatting(this);'
+                                                                onkeyup='checkValidations_addItemToList();'
+                                                                onkeydown='setElementFocus_addItemToList(event, "addItem_qty");'>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--Qty-->
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Qty</label>
+                                                            <input 
+                                                                class="form-control" 
+                                                                type="number" 
+                                                                number="true" 
+                                                                required="true"
+                                                                autofocus="true"
+                                                                min="0.001"
+                                                                step="0.001"
+                                                                id="addItem_qty"
+                                                                onblur='qtyValFormatting(this);'
+                                                                onkeyup='checkValidations_addItemToList();'
+                                                                onkeydown='setElementFocus_addItemToList(event, "addItem_discount");'>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--Discount-->
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Discount (%)</label>
+                                                            <input 
+                                                                class="form-control" 
+                                                                type="number" 
+                                                                number="true" 
+                                                                required="true"
+                                                                autofocus="true"
+                                                                min="0.00"
+                                                                step="0.01"
+                                                                id="addItem_discount"
+                                                                onblur='priceValFormatting(this);'
+                                                                onkeyup='checkValidations_addItemToList();'
+                                                                onkeydown='setElementFocus_addItemToList(event, "buttonSubmit_addItemToList");'>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-12">
-
-                                                    <div class="col-lg-6">
-                                                        <label class="col-sm-3 label-on-left">Unit Price</label>
-                                                        <div class="col-sm-3">
-                                                            <div class="form-group label-floating is-empty">
-                                                                <label class="control-label"></label>
-                                                                <input class="form-control" type="number" name="number" number="true">
-                                                                <span class="material-input"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <label class="col-sm-3 label-on-left">Supplier Price</label>
-                                                        <div class="col-sm-3">
-                                                            <div class="form-group label-floating is-empty">
-                                                                <label class="control-label"></label>
-                                                                <input class="form-control" type="number" name="number" number="true">
-                                                                <span class="material-input"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <label class="col-sm-3 label-on-left">Qty</label>
-                                                        <div class="col-sm-3">
-                                                            <div class="form-group label-floating is-empty">
-                                                                <label class="control-label"></label>
-                                                                <input class="form-control" type="number" name="number" number="true">
-                                                                <span class="material-input"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <label class="col-sm-3 label-on-left">Discount (%)</label>
-                                                        <div class="col-sm-3">
-                                                            <div class="form-group label-floating is-empty">
-                                                                <label class="control-label"></label>
-                                                                <input class="form-control" type="number" name="number" number="true">
-                                                                <span class="material-input"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-
-                                            <button class="btn btn-primary btn-sm" style="float: right;"><span class="fa fa-plus"></span>&nbsp;&nbsp;ADD</button>
-                                        </form>
+                                        </div>
                                     </div>
-                                    <div class="card-footer text-center"></div>
+                                    <div class="card-footer text-right">
+                                        <button class="btn btn-primary btn-sm" 
+                                                type="submit" 
+                                                disabled="true"
+                                                onmouseover='checkValidations_addItemToList();'
+                                                onclick ='execAddItemToListFunc("addItem_ItemID=" + document.getElementById("addItem_Item").value + "&" + "addItem_unitPrice=" + document.getElementById("addItem_unitPrice").value + "&" + "addItem_supplierPrice=" + document.getElementById("addItem_supplierPrice").value + "&" + "addItem_qty=" + document.getElementById("addItem_qty").value + "&" + "addItem_discount=" + document.getElementById("addItem_discount").value);'
+                                                id="buttonSubmit_addItemToList">
+                                            <span class="fa fa-plus"></span> &nbsp;&nbsp;ADD&nbsp;&nbsp;
+                                        </button>
+                                        <button class="btn btn-default btn-sm"
+                                                style="margin-left:15px;"
+                                                onclick='resetAll_addItemToList();'
+                                                id="buttonReset_addItemToList">
+                                            <span class="fa fa-undo"></span> &nbsp;RESET
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-
-
 
                             <!-- GRN.Items -Table ================================================================ -->
-                            <div class="col-md-12">
-                                <div class="card col-md-12" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                    <div class="card-body">
-                                        <table class="table table-sm" id="grnitemstable">
-                                            <thead>
-                                                <tr style="background-color: #10ac84 !important; color: white !important; ">
-                                                    <td>ITEM</td>
-                                                    <td>UNIT PRICE (Rs.)</td>
-                                                    <td>SUPPLIER PRICE (Rs.)</td>
-                                                    <td>QTY</td>
-                                                    <td>DISCOUNT (%)</td>
-                                                    <td>AMOUNT (Rs.)</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="grnitemstablebody"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                            <div id="DataTable_Includer">
+                                <%@include file="createGRN_loadGRNItems.jsp"%>
                             </div>
-
-
-
 
                             <!-- GRN.SUM -CARD ================================================================ -->
                             <div class="col-md-12">
                                 <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                    <form id="TypeValidation" class="form-horizontal" action="#" method="">
+                                    <div class="form-horizontal">
                                         <div class="card-content">
-
-
+                                            <!-- ==== SUM Values ========================================= -->
                                             <div class="row">
                                                 <div class="col-sm-3" style="float: right;">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" type="text" name="number" number="true" disabled="true" value="0.00">
+                                                        <input class="form-control" type="text" disabled="true" id="grn_totalAmount">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 label-on-left" style="float: right;">Total Discount</label>
+                                                <label class="col-sm-2 label-on-left" style="float: right;">Total Amount (Rs.)</label>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col-sm-3" style="float: right;">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" type="text" name="number" number="true" disabled="true" value="0.00">
+                                                        <input class="form-control" type="text" disabled="true" id="grn_totalDisc">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 label-on-left" style="float: right;">Total Amount</label>
+                                                <label class="col-sm-2 label-on-left" style="float: right;">Total Discount (Rs.)</label>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-sm-3" style="float: right;">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" style="font-weight: bolder;" type="text" disabled="true" id="grn_netTotal">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-sm-2 label-on-left" style="float: right; font-weight: bolder;">Net Total (Rs.)</label>
+                                            </div>
+                                        </div>
 
-                                            <br>
+                                        <div class="card-footer text-center">
                                             <div class="col-md-4" style="float: right; margin-right: -16px;">
                                                 <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-success" id="save" style="margin-right: 20px;"><span class="fa fa-save mr-2"></span>&nbsp;&nbsp;SAVE&nbsp;</button>
-                                                    <button type="button" class="btn btn-danger" id="cancel"><span class="fa fa-close mr-2"></span>&nbsp;&nbsp;CANCEL&nbsp;</button>
+                                                    <button
+                                                        class="btn btn-success"  
+                                                        style="margin-right: 20px;"
+                                                        type="submit" 
+                                                        disabled="true"
+                                                        id="buttonSubmit_saveGRN" 
+                                                        onmouseover='execCal_GRNSUM();'
+                                                        onclick='execSaveGRNFunc("grn_supplier=" + document.getElementById("grn_supplier").value + "&" + "grn_totalAmount=" + document.getElementById("grn_totalAmount").value + "&" + "grn_totalDisc=" + document.getElementById("grn_totalDisc").value + "&" + "grn_netTotal=" + document.getElementById("grn_netTotal").value);'>
+                                                        <span class="fa fa-save mr-2"></span>&nbsp;&nbsp;SAVE&nbsp;
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger" id="buttonSubmit_cancelGRN" onclick='execCancelGRN();'><span class="fa fa-close mr-2"></span>&nbsp;&nbsp;CANCEL&nbsp;</button>
                                                 </div>
                                             </div>
-
                                         </div>
-                                        <div class="card-footer text-center">
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
 
@@ -270,12 +323,6 @@
                 </div>
             </div>
             <%@include file="includes/footer.jsp"%>
-
-
-
-
-
-
 
 
             <!-- NEW ITEM REGISTRATION -Modal-->
@@ -314,10 +361,12 @@
                                                     autofocus="true"
                                                     id="regRawItem_msrType" 
                                                     onkeydown='setElementFocus_regRawItemForm(event, "regRawItem_rol");' 
-                                                    onkeyup='checkValidations_regRawItemForm();'>
+                                                    onkeyup='checkValidations_regRawItemForm();'
+                                                    onclick='checkValidations_regRawItemForm();'>
 
                                                     <option value="x">Select a Type</option>
                                                     <%  Criteria msrTypeCriteria = sess.createCriteria(MeasurementType.class);
+                                                        msrTypeCriteria.add(Restrictions.eq("status", 1));
                                                         List<MeasurementType> msrTypeList = msrTypeCriteria.list();
                                                         for (MeasurementType msrTypeObject : msrTypeList) { %>
                                                     <option value="<%out.print(msrTypeObject.getMeasurementTypeId());%>"><%out.print(msrTypeObject.getName());%>&nbsp;</option>
@@ -335,10 +384,10 @@
                                         number="true" 
                                         required="true"
                                         autofocus="true"
-                                        min="0.100"
-                                        step="0.01"
+                                        min="0.001"
+                                        step="0.001"
                                         id="regRawItem_rol"
-                                        onblur='currencyValidate(this);'
+                                        onblur='priceValFormatting(this);'
                                         onkeyup='checkValidations_regRawItemForm();'
                                         onkeydown='setElementFocus_regRawItemForm(event, "buttonSubmit_regRawItem");'>
                                     <span class="material-input"></span>
@@ -372,7 +421,6 @@
     <script src="assets/vendors/jquery.validate.min.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
     <script src="assets/vendors/moment.min.js"></script>
-
     <!--  Charts Plugin -->
     <script src="assets/vendors/charts/flot/jquery.flot.js"></script>
     <script src="assets/vendors/charts/flot/jquery.flot.resize.js"></script>
@@ -380,7 +428,6 @@
     <script src="assets/vendors/charts/flot/jquery.flot.stack.js"></script>
     <script src="assets/vendors/charts/flot/jquery.flot.categories.js"></script>
     <script src="assets/vendors/charts/chartjs/Chart.min.js" type="text/javascript"></script>
-
     <!--  Plugin for the Wizard -->
     <script src="assets/vendors/jquery.bootstrap-wizard.js"></script>
     <!--  Notifications Plugin    -->
@@ -405,24 +452,36 @@
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
+    <!-- Select2-->
+    <script src="assets/vendors/select2/select2.min.js" type="text/javascript"></script>
 
     <script>
     </script>
     <script>
-        $(window).load(function () {
+        $(window).on("load", function (e) {
             $('.preloader').fadeOut('slow');
         });
-
         $(document).ready(function () {
             $('#minimizeSidebar').click();
-            $('#datatables').DataTable();
+            resetAll();
         });
     </script>
 
-    <!-- === Utility Scripts ======================================================================================== -->
+    <!-- ========================================================================================================================================== -->
+    <!-- === UTILITY SCRIPTS  ============================================================================================================================== -->
     <!-- ========================================================================================================================================== -->
 
-    <!-- **************** REGISTER-RAW-ITEM FORM Scripts ***************************************************************************************************************** -->
+    <!--   INPUT ELEMENT VALUES FORMATTING  -->
+    <script>
+        function priceValFormatting(field) {
+            field.value = parseFloat(field.value).toFixed(2);
+        }
+        function qtyValFormatting(field) {
+            field.value = parseFloat(field.value).toFixed(3);
+        }
+    </script>
+
+    <!-- ========= REGISTER-RAW-ITEM FORM Scripts ==================================================================================== -->
     <!-- SET FOCUS TO ELEMENTS -->
     <script>
         function setElementFocus_regRawItemForm(event, fcsElement) {
@@ -445,13 +504,7 @@
         }
     </script>
 
-    <!--   INPUT ELEMENT VALIDATIONS  -->
-    <script>
-        function currencyValidate(field) {
-            field.value = parseFloat(field.value).toFixed(3)
-        }
-    </script>
-
+    <!-- CHECK ELEMENTs VALUEs IN REG.RAW-ITEM FORM-->
     <script>
         function checkValidations_regRawItemForm() {
             var flagSubmitSts = false;
@@ -477,7 +530,7 @@
                 flagSubmitSts = false;
             }
 
-            // @ finally all OK
+            // when all OK
             else {
                 flagSubmitSts = true;
             }
@@ -495,19 +548,234 @@
     <script type="text/javascript">
         function execRegRawItemFormFunc(param) {
             $.post("RegisterRawItemServlet", param, function (outputData) {
-
-                //  Display Msg
-                if (outputData.split(":")[0] == 'Success') {
-                    swal(outputData.split(":")[1], "success");
-                } else if (outputData.split(":")[0] == 'Warning') {
-                    swal("Oops!", outputData.split(":")[1], "warning");
-                } else if (outputData.split(":")[0] == 'Warning') {
-                    swal("Oops!", outputData.split(":")[1], "warning");
-                }
-
+                //  Show output-Message  [ Title : MsgText : MsgType ]
+                swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);
             });
         }
     </script>
 
+
+    <!-- =========ADD-ITEM-TO-GRN_items.LIST FORM Scripts ==================================================================================== -->
+
+    <!-- SET FOCUS TO ELEMENTS -->
+    <script>
+        function setElementFocus_addItemToList(event, fcsElement) {
+            // Enter Key
+            if (event.keyCode == 13) {
+                document.getElementById('buttonSubmit_addItemToList').disabled = true;  //  disable it ( 4 disable auto Form submits )
+                document.getElementById(fcsElement).focus();
+                document.getElementById('buttonSubmit_addItemToList').disabled = false;
+            }
+        }
+    </script>
+
+    <!-- RESET ADDING-ITEM FORM-->
+    <script>
+        function resetAll_addItemToList() {
+            document.getElementById("addItem_Item").value = "x";
+            document.getElementById("addItem_unitPrice").value = "0.01";
+            document.getElementById("addItem_supplierPrice").value = "0.01";
+            document.getElementById("addItem_qty").value = "0.001";
+            document.getElementById("addItem_discount").value = "0.00";
+            document.getElementById("buttonSubmit_addItemToList").disabled = true; // disable it
+        }
+    </script>
+
+    <!-- CHECK ELEMENTs VALUEs IN ADDING-ITEMs FROM -->
+    <script>
+        function checkValidations_addItemToList() {
+            var flagSubmitSts = false;
+            // value validations
+            if (document.getElementById('addItem_Item').value == "x") {
+                flagSubmitSts = false;
+            } else if (!document.getElementById('addItem_unitPrice').checkValidity()) {
+                flagSubmitSts = false;
+            } else if (!document.getElementById('addItem_supplierPrice').checkValidity()) {
+                flagSubmitSts = false;
+            } else if (!document.getElementById('addItem_qty').checkValidity()) {
+                flagSubmitSts = false;
+            } else if (!document.getElementById('addItem_discount').checkValidity()) {
+                flagSubmitSts = false;
+            }
+
+            // check DoubleValues ----UNIT_PRICE
+            else if (document.getElementById('addItem_unitPrice').value.toString().trim().length == 0) {
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_unitPrice').value.toString().trim() == "NaN") {
+                document.getElementById("addItem_unitPrice").value = "0.01";
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_unitPrice').value < 0.01) {
+                flagSubmitSts = false;
+            }
+
+            // check DoubleValues ----SUPPLIER_PRICE
+            else if (document.getElementById('addItem_supplierPrice').value.toString().trim().length == 0) {
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_supplierPrice').value.toString().trim() == "NaN") {
+                document.getElementById("addItem_supplierPrice").value = "0.01";
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_supplierPrice').value < 0.01) {
+                flagSubmitSts = false;
+            }
+
+            // check DoubleValues ----QTY
+            else if (document.getElementById('addItem_qty').value.toString().trim().length == 0) {
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_qty').value.toString().trim() == "NaN") {
+                document.getElementById("addItem_qty").value = "0.001";
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_qty').value < 0.001) {
+                flagSubmitSts = false;
+            }
+
+            // check DoubleValues ----DISCOUNT
+            else if (document.getElementById('addItem_discount').value.toString().trim().length == 0) {
+                flagSubmitSts = false;
+            } else if (document.getElementById('addItem_discount').value.toString().trim() == "NaN") {
+                document.getElementById("addItem_discount").value = "0.00";
+                flagSubmitSts = false;
+            }
+
+            // @ finally all OK
+            else {
+                flagSubmitSts = true;
+            }
+
+            //  == set submit btn status ==================
+            if (flagSubmitSts) {
+                document.getElementById('buttonSubmit_addItemToList').disabled = false;  //  enable submit !!!
+            } else {
+                document.getElementById('buttonSubmit_addItemToList').disabled = true;  //  disable submit 
+            }
+        }
+    </script>
+
+    <!--  ADD ITEM TO GRN_items.LIST -->
+    <script type="text/javascript">
+        function execAddItemToListFunc(param) {
+            $.post("AddItemToGRNServlet", param, function (outputData) {
+                // Post Actions..
+                if (outputData.split(":")[0] == 'success') {
+                    resetAll_addItemToList();
+                    execCal_GRNSUM();
+                    document.getElementById("addItem_Item").focus();
+                    load_GRNItemsTableData();
+                } else {
+                    //  Show output-Message [ Title : MsgText : MsgType ]
+                    swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);
+                }
+            });
+        }
+    </script>
+
+
+    <!-- ========= GRN MAIN-Scripts ==================================================================================== -->
+
+    <!-- LOAD GRN.Items Table_Data -->
+    <script>
+        function load_GRNItemsTableData() {
+            document.getElementById("DataTable_Remover").outerHTML = "";
+            $('#DataTable_Includer').load('createGRN_loadGRNItems.jsp');
+        }
+    </script>
+
+    <!-- RESET All Elements -->
+    <script>
+        function resetAll() {
+            resetAll_addItemToList();
+            document.getElementById("grn_supplier").value = "x";
+            document.getElementById("grn_totalAmount").value = "0.00";
+            document.getElementById("grn_totalDisc").value = "0.00";
+            document.getElementById("grn_netTotal").value = "0.00";
+            document.getElementById("buttonSubmit_addItemToList").disabled = true; // disable it
+            document.getElementById("buttonSubmit_saveGRN").disabled = true; // disable it
+
+            execCal_GRNSUM();
+        }
+    </script>
+
+    <!--  Cancel GRN -->
+    <script type="text/javascript">
+        function execCancelGRN() {
+            swal({
+                title: 'Are you sure?',
+                text: "You want to Cancel this GRN",
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then(confirm => {
+                if (confirm) {
+                    $.post("CancelGRNServlet", function (outputData) {
+                        //  Show output-Message [ Title : MsgText : MsgType ]
+                        if (outputData.split(":")[0] != 'success') {
+                            swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);
+                        }
+                        // Post Actions..
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    });
+                }
+            });
+        }
+    </script>
+
+    <!--  Calculate SUM Values of GRN -->
+    <script type="text/javascript">
+        function execCal_GRNSUM() {
+            $.post("GetGRNSUMServlet", function (outputData) {
+                // Post Actions..
+                if (outputData.split(":")[0] == 'success') {
+                    document.getElementById("grn_totalAmount").value = outputData.split(":")[1];
+                    document.getElementById("grn_totalDisc").value = outputData.split(":")[2];
+                    document.getElementById("grn_netTotal").value = outputData.split(":")[3];
+
+                    // set Save Func. Enable/ Disable 
+                    if (outputData.split(":")[4] == 'true') {
+                        if (document.getElementById("grn_supplier").value == 'x') {
+                            document.getElementById("buttonSubmit_saveGRN").disabled = true; // disable it
+                        } else {
+                            document.getElementById("buttonSubmit_saveGRN").disabled = false; // enable it
+                        }
+                    } else {
+                        document.getElementById("buttonSubmit_saveGRN").disabled = true; // disable it
+                    }
+
+                } else {
+                    //  Show output-Message [ Title : MsgText : MsgType ]
+                    swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);
+                    document.getElementById("buttonSubmit_saveGRN").disabled = true; // disable it
+                }
+            });
+        }
+    </script>
+
+    <!--  SAVE GRN -->
+    <script type="text/javascript">
+        function execSaveGRNFunc(param) {
+            swal({
+                title: 'Are you sure?',
+                text: "You want to Save this GRN now",
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then(confirm => {
+                if (confirm) {
+                    $.post("SaveGRNServlet", param, function (outputData) {
+                        //  Show output-Message [ Title : MsgText : MsgType ]
+                        swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);
+                        // Post Actions..
+                        setTimeout(function () {
+                            if (outputData.split(":")[0] == 'success') {
+                                location.reload();
+                            } else {
+                                document.getElementById("buttonSubmit_saveGRN").disabled = true; // disable it
+                            }
+                        }, 1000);
+                    });
+                }
+            });
+        }
+    </script>
 
 </html>

@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import holder.GRNItems_DataHolder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,19 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-import resources.MeasurementType;
-import resources.RawItems;
 
 /**
  *
  * @author AKILA
  */
-@WebServlet(name = "RegisterRawItemServlet", urlPatterns = {"/RegisterRawItemServlet"})
-public class RegisterRawItemServlet extends HttpServlet {
+@WebServlet(name = "CancelGRNServlet", urlPatterns = {"/CancelGRNServlet"})
+public class CancelGRNServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,37 +35,11 @@ public class RegisterRawItemServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         try {
-            //Get details through param
-            String itemName = request.getParameter("regRawItem_name");
-            int msrType = Integer.valueOf(request.getParameter("regRawItem_msrType"));
-            double rol = Double.valueOf(request.getParameter("regRawItem_rol"));
 
-            Session sess = connection.GetConnection.getSessionFactory().openSession();
-            Transaction tr = sess.beginTransaction();
+            GRNItems_DataHolder dtHolder = (GRNItems_DataHolder) request.getSession().getAttribute("GrnItems");
+            dtHolder.clear();
 
-            // Check Name Exist Status...
-            Criteria itemNameExistCriteria = sess.createCriteria(RawItems.class);
-            itemNameExistCriteria.add(Restrictions.eq("name", itemName));
-            RawItems itemNameObject = (RawItems) itemNameExistCriteria.uniqueResult();
-            if (itemNameObject == null) {
-
-                // Register New-Raw-Item 
-                RawItems newRawItem = new RawItems();
-                newRawItem.setName(itemName);
-                newRawItem.setRol(rol);
-                newRawItem.setStatus(1);
-
-                MeasurementType measurementType = (MeasurementType) sess.load(MeasurementType.class, msrType);
-                newRawItem.setMeasurementType(measurementType);
-
-                sess.save(newRawItem);
-                tr.commit();
-                sess.close();
-                out.print("success::Registration Succesfully..!");
-
-            } else { // when Name already exist
-                out.print("warning:Oops!:This Name has been already exist..!");
-            }
+            out.print("success::Done!");
         } catch (Exception e) {
             out.print("error:Sorry:Operation Faild!");
         }

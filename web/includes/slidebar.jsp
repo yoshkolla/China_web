@@ -1,12 +1,12 @@
 <div class="sidebar">
     <div class="logo">
         <a href="#" class="simple-text">
-            <%=NAME %>
+            <%=NAME%>
         </a>
     </div>
     <div class="logo logo-mini">
         <a href="#" class="simple-text">
-            <%="R" %>
+            <%="R"%>
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -49,7 +49,10 @@
                             <a href="createGRN.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create GRN</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>GRN Payment</a>
+                            <a href="grnPayments.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>GRN Payment</a>
+                        </li>
+                        <li>
+                            <a href="viewGrnsNPayments.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>View GRNs & Payments</a>
                         </li>
                     </ul>
                 </div>

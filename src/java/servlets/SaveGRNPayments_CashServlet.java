@@ -5,26 +5,28 @@
  */
 package servlets;
 
+import connection.GetConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-import resources.MeasurementType;
-import resources.RawItems;
+import resources.Grn;
+import resources.GrnPayment;
+import resources.PaymentType;
 
 /**
  *
  * @author AKILA
  */
-@WebServlet(name = "RegisterRawItemServlet", urlPatterns = {"/RegisterRawItemServlet"})
-public class RegisterRawItemServlet extends HttpServlet {
+@WebServlet(name = "SaveGRNPayments_CashServlet", urlPatterns = {"/SaveGRNPayments_CashServlet"})
+public class SaveGRNPayments_CashServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,37 +42,44 @@ public class RegisterRawItemServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         try {
-            //Get details through param
-            String itemName = request.getParameter("regRawItem_name");
-            int msrType = Integer.valueOf(request.getParameter("regRawItem_msrType"));
-            double rol = Double.valueOf(request.getParameter("regRawItem_rol"));
 
-            Session sess = connection.GetConnection.getSessionFactory().openSession();
+            /* 
+                           ------------------- PROCESS ORDER --------------------------
+                          [ 01 ] Declare Main Param Objects
+                          [ 02 ] Save GRN_Payment
+                          [ 03 ] Update GRN's values --> cash & balance
+                          [ 04 ] Finalize...
+             */
+            // [ 01 ]  Main Param OBJECTS =======================================================================================
+            Session sess = GetConnection.getSessionFactory().openSession();
             Transaction tr = sess.beginTransaction();
+            String sdfDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String sdfTime = new SimpleDateFormat("hh:mm:ss a").format(new Date());
 
-            // Check Name Exist Status...
-            Criteria itemNameExistCriteria = sess.createCriteria(RawItems.class);
-            itemNameExistCriteria.add(Restrictions.eq("name", itemName));
-            RawItems itemNameObject = (RawItems) itemNameExistCriteria.uniqueResult();
-            if (itemNameObject == null) {
+            Grn param_GrnObjc = (Grn) sess.load(Grn.class, Integer.parseInt(request.getParameter("id")));
+            PaymentType pymntType = (PaymentType) sess.load(PaymentType.class, 1); // CASH
+            double param_PaymentAmount = Double.parseDouble(request.getParameter("amount"));
 
-                // Register New-Raw-Item 
-                RawItems newRawItem = new RawItems();
-                newRawItem.setName(itemName);
-                newRawItem.setRol(rol);
-                newRawItem.setStatus(1);
+            // [ 02 ]  SAVE GRN_PAYMENT =======================================================================================
+            GrnPayment grnPmnt = new GrnPayment();
+            grnPmnt.setGrn(param_GrnObjc);
+            grnPmnt.setPaymentType(pymntType);
+            grnPmnt.setDate(sdfDate);
+            grnPmnt.setTime(sdfTime);
+            grnPmnt.setAmount(param_PaymentAmount);
+            grnPmnt.setStatus(1);
+            sess.save(grnPmnt);
 
-                MeasurementType measurementType = (MeasurementType) sess.load(MeasurementType.class, msrType);
-                newRawItem.setMeasurementType(measurementType);
+            // [ 03 ]  UPDATE GRN's VALUES [ cash & balance ] =========================================================================
+            param_GrnObjc.setCash(param_GrnObjc.getCash() + param_PaymentAmount);
+            param_GrnObjc.setBalance(param_GrnObjc.getBalance() - param_PaymentAmount);
+            sess.update(param_GrnObjc);
 
-                sess.save(newRawItem);
-                tr.commit();
-                sess.close();
-                out.print("success::Registration Succesfully..!");
+            // [ 04 ] Finalize ================================================================================================
+            tr.commit();
+            sess.close();
+            out.print("success::Cash-Payment Save Successful!");
 
-            } else { // when Name already exist
-                out.print("warning:Oops!:This Name has been already exist..!");
-            }
         } catch (Exception e) {
             out.print("error:Sorry:Operation Faild!");
         }
