@@ -93,7 +93,7 @@
                     </div>
                     <label>Due Amount</label>
                     <div class="form-group" style="margin-top:0;">
-                        <input type="text" class="form-control" value="<%=Helper.priceFormt.format(inv.getDue())%>" id="chqdue" disabled>
+                        <input type="text" class="form-control" value="<%=Helper.priceFormt.format(inv.getDue())%>" disabled>
                         <span class="material-input"></span>
                     </div>
                     <label>Amount <small>*</small></label>
@@ -143,6 +143,10 @@
     });
     $('#cash_checkout').click(function () {
         var amount = $('#cashpay').val();
+        if (amount == "" | amount.length == 0) {
+            swal("Oops!", "Please enter valid amount!", "error");
+            return;
+        }
         if ($('#cashpayform').hasClass("has-error")) {
             swal("Oops!", "Please enter valid amount!", "error");
             return;
@@ -151,8 +155,7 @@
             title: "Are you sure?",
             text: "Are you sure that you want to save payments?",
             icon: "warning",
-            buttons: true,
-            dangerMode: true
+            buttons: ["No!", "Yes!"]
         }).then(confirm => {
             if (confirm) {
                 $.ajax({
@@ -169,6 +172,52 @@
                         }
                     }
                 });
+            }
+        });
+    });
+    $('#cheque_checkout').click(function () {
+        var chqtype = $('#chqtype').val();
+        var chqno = $('#chqno').val();
+        var chqdate = $('#chqdate').val();
+        var bank = $('#bank').val();
+        var branch = $('#branch').val();
+        var chqpay = $('#chqpay').val();
+        var chqimg = 'assets/img/image_placeholder.jpg';
+
+        if (chqno == "" | chqdate == "" | bank == "" | branch == "" | chqpay == "") {
+            swal("", "Please fill the all fields", "warning");
+            return;
+        }
+
+        if (chqpay.length == 0 || chqpay == 0) {
+            swal("", "The amount must be not zero", "warning");
+            return;
+        }
+        if ($('#chqimg').find('img').attr('src') != null) {
+            chqimg = $('#chqimg').find('img').attr('src');
+        }
+        $.ajax({
+            type: 'POST',
+            url: "SaveChequePaymnetServlet",
+            data: {
+                id:<%=inv.getInvoiceId()%>,
+                chqtype: chqtype,
+                chqno: chqno,
+                chqdate: chqdate,
+                bank: bank,
+                branch: branch,
+                chqimg: chqimg,
+                chqpay: chqpay
+            },
+            success: function (data) {
+                if (data == "0") {
+                    swal("Oops!", "Something went wrong!", "error");
+                }
+                if (data == "1") {
+                    swal("Done!", "Payment added successfuly!", "success").then(function () {
+                        location.reload();
+                    });
+                }
             }
         });
     });
