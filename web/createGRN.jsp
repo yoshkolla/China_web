@@ -239,7 +239,13 @@
                                                 type="submit" 
                                                 disabled="true"
                                                 onmouseover='checkValidations_addItemToList();'
-                                                onclick ='execAddItemToListFunc("addItem_ItemID=" + document.getElementById("addItem_Item").value + "&" + "addItem_unitPrice=" + document.getElementById("addItem_unitPrice").value + "&" + "addItem_supplierPrice=" + document.getElementById("addItem_supplierPrice").value + "&" + "addItem_qty=" + document.getElementById("addItem_qty").value + "&" + "addItem_discount=" + document.getElementById("addItem_discount").value);'
+                                                onclick ='execAddItemToListFunc(
+                                                                "addItem_ItemID=" + document.getElementById("addItem_Item").value + "&" +
+                                                                "addItem_unitPrice=" + document.getElementById("addItem_unitPrice").value + "&" +
+                                                                "addItem_supplierPrice=" + document.getElementById("addItem_supplierPrice").value + "&" +
+                                                                "addItem_qty=" + document.getElementById("addItem_qty").value + "&" +
+                                                                "addItem_discount=" + document.getElementById("addItem_discount").value
+                                                                );'
                                                 id="buttonSubmit_addItemToList">
                                             <span class="fa fa-plus"></span> &nbsp;&nbsp;ADD&nbsp;&nbsp;
                                         </button>
@@ -306,7 +312,12 @@
                                                         disabled="true"
                                                         id="buttonSubmit_saveGRN" 
                                                         onmouseover='execCal_GRNSUM();'
-                                                        onclick='execSaveGRNFunc("grn_supplier=" + document.getElementById("grn_supplier").value + "&" + "grn_totalAmount=" + document.getElementById("grn_totalAmount").value + "&" + "grn_totalDisc=" + document.getElementById("grn_totalDisc").value + "&" + "grn_netTotal=" + document.getElementById("grn_netTotal").value);'>
+                                                        onclick='execSaveGRNFunc(
+                                                                        "grn_supplier=" + document.getElementById("grn_supplier").value + "&" +
+                                                                        "grn_totalAmount=" + document.getElementById("grn_totalAmount").value + "&" +
+                                                                        "grn_totalDisc=" + document.getElementById("grn_totalDisc").value + "&" +
+                                                                        "grn_netTotal=" + document.getElementById("grn_netTotal").value
+                                                                        );'>
                                                         <span class="fa fa-save mr-2"></span>&nbsp;&nbsp;SAVE&nbsp;
                                                     </button>
                                                     <button type="button" class="btn btn-danger" id="buttonSubmit_cancelGRN" onclick='execCancelGRN();'><span class="fa fa-close mr-2"></span>&nbsp;&nbsp;CANCEL&nbsp;</button>
@@ -400,7 +411,11 @@
                                     type="submit" 
                                     disabled="true"
                                     onmouseover='checkValidations_regRawItemForm();'
-                                    onclick='execRegRawItemFormFunc("regRawItem_name=" + document.getElementById("regRawItem_name").value + "&" + "regRawItem_msrType=" + document.getElementById("regRawItem_msrType").value + "&" + "regRawItem_rol=" + document.getElementById("regRawItem_rol").value);'
+                                    onclick='execRegRawItemFormFunc(
+                                                    "regRawItem_name=" + document.getElementById("regRawItem_name").value + "&" +
+                                                    "regRawItem_msrType=" + document.getElementById("regRawItem_msrType").value + "&" +
+                                                    "regRawItem_rol=" + document.getElementById("regRawItem_rol").value
+                                                    );'
                                     id="buttonSubmit_regRawItem">
                                 &nbsp;&nbsp;Register&nbsp;&nbsp;
                             </button>

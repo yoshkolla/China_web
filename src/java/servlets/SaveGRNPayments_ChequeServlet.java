@@ -67,9 +67,6 @@ public class SaveGRNPayments_ChequeServlet extends HttpServlet {
             String param_branch = request.getParameter("branch");
             double param_PaymentAmount = Double.parseDouble(request.getParameter("chqpay"));
             String param_chqimg = request.getParameter("chqimg");
-            if (param_chqimg.isEmpty()) {
-                param_chqimg = "assets/img/image_placeholder.jpg";
-            }
 
             // [ 02 ]  SAVE GRN_PAYMENT =======================================================================================
             GrnPayment grnPmnt = new GrnPayment();
@@ -90,7 +87,7 @@ public class SaveGRNPayments_ChequeServlet extends HttpServlet {
             grnChqDtls.setBank(param_bank);
             grnChqDtls.setBranch(param_branch);
             grnChqDtls.setAmount(param_PaymentAmount);
-            grnChqDtls.setChequeImage(param_chqimg);    //  /!\  /!\ /!\ [      Need 2 fix Image-Base64 save Issue     ] /!\ /!\ /!\
+            grnChqDtls.setChequeImage(param_chqimg);
             grnChqDtls.setStatus(1);
             sess.save(grnChqDtls);
 
