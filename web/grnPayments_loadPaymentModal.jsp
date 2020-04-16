@@ -119,12 +119,12 @@
                         <div class="fileinput-new thumbnail">
                             <img src="assets/img/image_placeholder.jpg" alt="...">
                         </div>
-                        <div class="fileinput-preview fileinput-exists thumbnail" style="" ></div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="" id="chqimg"></div>
                         <div>
                             <span class="btn btn-round btn-file">
                                 <span class="fileinput-new">Select image</span>
                                 <span class="fileinput-exists">Change</span>
-                                <input type="hidden"><input type="file" name="..." id="chqimg">
+                                <input type="hidden"><input type="file" name="...">
                                 <div class="ripple-container"></div>
                             </span>
                             <a href="#" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -223,7 +223,7 @@
 </script>
 
 <!-- ==== Save Payments [ Cheque ] =================================================================================== -->
-<script>
+<script type="text/javascript">
     $('#cheque_checkout').click(function () {
         var flagSubmitSts = false;
 
@@ -290,9 +290,26 @@
             }).then(confirm => {
                 if (confirm) {
                     // start >> Save process...
+
+                    // assign Cheque-Image...
+                    var chequeimg = 'assets/img/image_placeholder.jpg';
+                    if ($('#chqimg').find('img').attr('src') != null) {
+                        chequeimg = $('#chqimg').find('img').attr('src');
+                    }
+
                     $.ajax({
+                        type: 'POST',
                         url: "SaveGRNPayments_ChequeServlet",
-                        data: {grnid:<%=grnObjc.getGrnId()%>, chqtype: $('#chqtype').val(), chqno: $('#chqno').val(), chqdate: $('#chqdate').val(), bank: $('#bank').val(), branch: $('#branch').val(), chqpay: $('#chqpay').val(), chqimg: $("#chqimg").val()},
+                        data: {
+                            grnid:<%=grnObjc.getGrnId()%>,
+                            chqtype: $('#chqtype').val(),
+                            chqno: $('#chqno').val(),
+                            chqdate: $('#chqdate').val(),
+                            bank: $('#bank').val(),
+                            branch: $('#branch').val(),
+                            chqpay: $('#chqpay').val(),
+                            chqimg: chequeimg
+                        },
                         success: function (outputData) {
                             //  Show output-Message [ Title : MsgText : MsgType ]
                             swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);

@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.Criteria"%>
 <%@page import="resources.GrnChequeDetails"%>
 <%@page import="resources.GrnPayment"%>
 <%@page import="resources.GrnItem"%>
@@ -198,7 +199,12 @@
                                         <td><%=grnPmntRecord.getTime()%></td>
                                         <td class="text-right">
                                             <% if (grnPmntRecord.getPaymentType().getPaymentTypeId() == 2) {
-                                                    GrnChequeDetails grnChequeDetObjc = (GrnChequeDetails) ssn.load(GrnChequeDetails.class, grnPmntRecord.getGrnPaymentId());
+                                                    GrnChequeDetails grnChequeDetObjc = null;
+                                                    Criteria crtGrnChqDet = ssn.createCriteria(GrnChequeDetails.class);
+                                                    crtGrnChqDet.add(Restrictions.eq("grnPayment", grnPmntRecord));
+                                                    if (crtGrnChqDet.uniqueResult() != null) {
+                                                        grnChequeDetObjc = (GrnChequeDetails) crtGrnChqDet.uniqueResult();
+                                                    }
                                             %>
                                             <a class="btn btn-info btn-xs btn_VwChqPrvw" data-ref-VwChqPrvw="<%=grnChequeDetObjc.getGrnChequeDetailsId()%>">View Cheque</a>
                                             <% } else {%>

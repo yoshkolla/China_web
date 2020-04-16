@@ -90,7 +90,7 @@
                                             </div>
                                             <div class="col-md-3"></div>
                                             <div class="col-md-6">
-                                                <span style="text-align: left; font-size: 15px;">&nbsp;Supplier</span>
+                                                <span style="text-align: left; font-size: 15px; font-weight: bolder;">&nbsp;Supplier</span>
                                                 <div class="form-group open" style="padding-left: 10px; margin-top: -28px; margin-left: 85px;">
                                                     <div class="select" aria-expanded="true">
                                                         <select class="form-control"
@@ -118,18 +118,20 @@
 
                             <!-- Add_GRN.Items -CARD ================================================================ -->
                             <div class="col-md-12">
-                                <div class="card">
+                                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                     <div class="card-header card-header-text">
-                                        <h5 class="card-title">Add Items</h5>
+                                        <h5 class="card-title" style="background-color: #8BC34A; color: white; padding-left: 10px; padding-right: 20px; margin-left: -20px;">Add Items</h5>
                                     </div>
                                     <div class="form-horizontal">
                                         <div class="card-content">
-                                            <button class="btn btn-danger btn-sm" style="float: right; margin-top: -40px;" data-toggle="modal" data-target="#newitemRegModal" onclick='resetAll_regRawItemForm();'><span class="fa fa-pencil"></span>&nbsp;&nbsp;REGISTER</button>
+                                            <button class="btn btn-danger btn-sm" style="float: right; margin-top: -45px; margin-right: -10px;" data-toggle="modal" data-target="#newitemRegModal" onclick='resetAll_regRawItemForm();'>
+                                                <span class="fa fa-pencil"></span>&nbsp;&nbsp;REGISTER
+                                            </button>
                                             <!--Item-Name-->
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <div class="form-group label-floating is-empty" style="margin-left: 7px;">
-                                                        <label class="control-label">Item</label>
+                                                    <div class="form-group" style="margin-left: 7px;">
+                                                        <label class="control-label" style="font-size: 14px; font-weight: bolder;">Item</label>
                                                         <div class="select" aria-expanded="true">
                                                             <select 
                                                                 class="form-control" 
@@ -156,8 +158,8 @@
                                                 <div class="col-lg-12">
                                                     <!--Unit-Price-->
                                                     <div class="col-lg-3">
-                                                        <div class="form-group label-floating is-empty">
-                                                            <label class="control-label">Unit Price</label>
+                                                        <div class="form-group">
+                                                            <label class="control-label" style="font-size: 14px; font-weight: bolder;">Unit Price</label>
                                                             <input 
                                                                 class="form-control" 
                                                                 type="number" 
@@ -175,8 +177,8 @@
                                                     </div>
                                                     <!--Supplier-Price-->
                                                     <div class="col-lg-3">
-                                                        <div class="form-group label-floating is-empty">
-                                                            <label class="control-label">Supplier Price</label>
+                                                        <div class="form-group">
+                                                            <label class="control-label" style="font-size: 14px; font-weight: bolder;">Supplier Price</label>
                                                             <input 
                                                                 class="form-control" 
                                                                 type="number" 
@@ -194,8 +196,8 @@
                                                     </div>
                                                     <!--Qty-->
                                                     <div class="col-lg-3">
-                                                        <div class="form-group label-floating is-empty">
-                                                            <label class="control-label">Qty</label>
+                                                        <div class="form-group">
+                                                            <label class="control-label" style="font-size: 14px; font-weight: bolder;">Qty</label>
                                                             <input 
                                                                 class="form-control" 
                                                                 type="number" 
@@ -213,8 +215,8 @@
                                                     </div>
                                                     <!--Discount-->
                                                     <div class="col-lg-3">
-                                                        <div class="form-group label-floating is-empty">
-                                                            <label class="control-label">Discount (%)</label>
+                                                        <div class="form-group">
+                                                            <label class="control-label" style="font-size: 14px; font-weight: bolder;">Discount (%)</label>
                                                             <input 
                                                                 class="form-control" 
                                                                 type="number" 
@@ -239,7 +241,13 @@
                                                 type="submit" 
                                                 disabled="true"
                                                 onmouseover='checkValidations_addItemToList();'
-                                                onclick ='execAddItemToListFunc("addItem_ItemID=" + document.getElementById("addItem_Item").value + "&" + "addItem_unitPrice=" + document.getElementById("addItem_unitPrice").value + "&" + "addItem_supplierPrice=" + document.getElementById("addItem_supplierPrice").value + "&" + "addItem_qty=" + document.getElementById("addItem_qty").value + "&" + "addItem_discount=" + document.getElementById("addItem_discount").value);'
+                                                onclick ='execAddItemToListFunc(
+                                                                "addItem_ItemID=" + document.getElementById("addItem_Item").value + "&" +
+                                                                "addItem_unitPrice=" + document.getElementById("addItem_unitPrice").value + "&" +
+                                                                "addItem_supplierPrice=" + document.getElementById("addItem_supplierPrice").value + "&" +
+                                                                "addItem_qty=" + document.getElementById("addItem_qty").value + "&" +
+                                                                "addItem_discount=" + document.getElementById("addItem_discount").value
+                                                                );'
                                                 id="buttonSubmit_addItemToList">
                                             <span class="fa fa-plus"></span> &nbsp;&nbsp;ADD&nbsp;&nbsp;
                                         </button>
@@ -260,39 +268,39 @@
 
                             <!-- GRN.SUM -CARD ================================================================ -->
                             <div class="col-md-12">
-                                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <div class="card">
                                     <div class="form-horizontal">
                                         <div class="card-content">
                                             <!-- ==== SUM Values ========================================= -->
                                             <div class="row">
-                                                <div class="col-sm-3" style="float: right;">
+                                                <div class="col-sm-4" style="float: right;">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
                                                         <input class="form-control" type="text" disabled="true" id="grn_totalAmount">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 label-on-left" style="float: right;">Total Amount (Rs.)</label>
+                                                <label class="col-sm-3 label-on-left" style="float: right;">Total Amount (Rs.)</label>
                                             </div>
                                             <div class="row">
-                                                <div class="col-sm-3" style="float: right;">
+                                                <div class="col-sm-4" style="float: right;">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
                                                         <input class="form-control" type="text" disabled="true" id="grn_totalDisc">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 label-on-left" style="float: right;">Total Discount (Rs.)</label>
+                                                <label class="col-sm-3 label-on-left" style="float: right;">Total Discount (Rs.)</label>
                                             </div>
                                             <div class="row">
-                                                <div class="col-sm-3" style="float: right;">
+                                                <div class="col-sm-4" style="float: right;">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" style="font-weight: bolder;" type="text" disabled="true" id="grn_netTotal">
+                                                        <input class="form-control" style="font-weight: bold;" type="text" disabled="true" id="grn_netTotal">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 label-on-left" style="float: right; font-weight: bolder;">Net Total (Rs.)</label>
+                                                <label class="col-sm-3 label-on-left" style="float: right; font-weight: bold;">Net Total (Rs.)</label>
                                             </div>
                                         </div>
 
@@ -306,7 +314,12 @@
                                                         disabled="true"
                                                         id="buttonSubmit_saveGRN" 
                                                         onmouseover='execCal_GRNSUM();'
-                                                        onclick='execSaveGRNFunc("grn_supplier=" + document.getElementById("grn_supplier").value + "&" + "grn_totalAmount=" + document.getElementById("grn_totalAmount").value + "&" + "grn_totalDisc=" + document.getElementById("grn_totalDisc").value + "&" + "grn_netTotal=" + document.getElementById("grn_netTotal").value);'>
+                                                        onclick='execSaveGRNFunc(
+                                                                        "grn_supplier=" + document.getElementById("grn_supplier").value + "&" +
+                                                                        "grn_totalAmount=" + document.getElementById("grn_totalAmount").value + "&" +
+                                                                        "grn_totalDisc=" + document.getElementById("grn_totalDisc").value + "&" +
+                                                                        "grn_netTotal=" + document.getElementById("grn_netTotal").value
+                                                                        );'>
                                                         <span class="fa fa-save mr-2"></span>&nbsp;&nbsp;SAVE&nbsp;
                                                     </button>
                                                     <button type="button" class="btn btn-danger" id="buttonSubmit_cancelGRN" onclick='execCancelGRN();'><span class="fa fa-close mr-2"></span>&nbsp;&nbsp;CANCEL&nbsp;</button>
@@ -336,8 +349,8 @@
                         <div class="modal-body">
                             <div class="card-content">
 
-                                <div class="form-group label-floating is-empty">
-                                    <label class="control-label">Item Name *</label>
+                                <div class="form-group">
+                                    <label class="control-label" style="font-size: 14px;">Item Name *</label>
                                     <input 
                                         class="form-control" 
                                         type="text" 
@@ -376,8 +389,8 @@
                                             <span class="material-input"></span></div>
                                     </div>
                                 </div>
-                                <div class="form-group label-floating is-empty">
-                                    <label class="control-label">ROL *</label>
+                                <div class="form-group">
+                                    <label class="control-label" style="font-size: 14px;">ROL *</label>
                                     <input 
                                         class="form-control" 
                                         type="number" 
@@ -400,7 +413,11 @@
                                     type="submit" 
                                     disabled="true"
                                     onmouseover='checkValidations_regRawItemForm();'
-                                    onclick='execRegRawItemFormFunc("regRawItem_name=" + document.getElementById("regRawItem_name").value + "&" + "regRawItem_msrType=" + document.getElementById("regRawItem_msrType").value + "&" + "regRawItem_rol=" + document.getElementById("regRawItem_rol").value);'
+                                    onclick='execRegRawItemFormFunc(
+                                                    "regRawItem_name=" + document.getElementById("regRawItem_name").value + "&" +
+                                                    "regRawItem_msrType=" + document.getElementById("regRawItem_msrType").value + "&" +
+                                                    "regRawItem_rol=" + document.getElementById("regRawItem_rol").value
+                                                    );'
                                     id="buttonSubmit_regRawItem">
                                 &nbsp;&nbsp;Register&nbsp;&nbsp;
                             </button>
