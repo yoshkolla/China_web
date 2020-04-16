@@ -46,7 +46,7 @@ public class Custommer_reg extends HttpServlet {
             c.setName(Name);
             c.setAddress(Address);
             c.setMobile(Mobile);
-            c.setStatus(Integer.parseInt("1"));
+            c.setStatus(1);
             Session ses = connection.GetConnection.getSessionFactory().openSession();
             Transaction tr = ses.beginTransaction();
             ses.save(c);
