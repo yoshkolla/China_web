@@ -4,11 +4,10 @@
     Author     : Chamara
 --%>
 
-
 <%@page import="holder.LogedUserHolder"%>
 <%@page import="holder.DetailsHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <html>
     <head>
 
