@@ -225,11 +225,11 @@
 
 
     <!-- CHEQUE-PREVIEW Modal -->
-    <div class="modal fade" id="expandChqPrvModal" role="dialog" style="display: none;">
+    <div class="modal fade" id="expandChqPrvModal" role="dialog" style="display: none;" data-backdrop="false">
         <div class="modal-dialog">   
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><button type="button" class="close" data-dismiss="modal" style="margin-bottom: 20px;"><i class="fa fa-close"></i></button></h4>
+                    <h4 class="modal-title"><button type="button" class="close" onclick="$('#expandChqPrvModal').modal('hide');" style="margin-bottom: 20px;"><i class="fa fa-close"></i></button></h4>
                 </div>
                 <div class="modal-body" id="expandChqPrvBox">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">

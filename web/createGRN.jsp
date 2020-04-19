@@ -127,33 +127,14 @@
                                             <button class="btn btn-danger btn-sm" style="float: right; margin-top: -45px; margin-right: -10px;" data-toggle="modal" data-target="#newitemRegModal" onclick='resetAll_regRawItemForm();'>
                                                 <span class="fa fa-pencil"></span>&nbsp;&nbsp;REGISTER
                                             </button>
-                                            <!--Item-Name-->
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group" style="margin-left: 7px;">
-                                                        <label class="control-label" style="font-size: 14px; font-weight: bolder;">Item</label>
-                                                        <div class="select" aria-expanded="true">
-                                                            <select 
-                                                                class="form-control" 
-                                                                required="true"
-                                                                autofocus="true"
-                                                                id="addItem_Item"
-                                                                onclick='checkValidations_addItemToList();'
-                                                                onkeydown='setElementFocus_addItemToList(event, "addItem_unitPrice");'>
 
-                                                                <option value="x">Select an Item</option>
-                                                                <%  Criteria RawItemCriteria = sess.createCriteria(RawItems.class);
-                                                                    RawItemCriteria.add(Restrictions.eq("status", 1));
-                                                                    List<RawItems> RawItemList = RawItemCriteria.list();
-                                                                    for (RawItems RawItemObject : RawItemList) { %>
-                                                                <option value="<%out.print(RawItemObject.getRawItemsId());%>"><%out.print(RawItemObject.getName());%>&nbsp;</option>
-                                                                <% }%>
-                                                            </select>
-                                                        </div>
-                                                        <span class="material-input"></span>
-                                                    </div>
+                                            <!--Item-Name Selector-->
+                                            <div class="row">
+                                                <div id="Dropdown_Includer">
+                                                    <%@include file="createGRN_loadRawItemsDropdown.jsp"%>
                                                 </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <!--Unit-Price-->
@@ -253,7 +234,7 @@
                                         </button>
                                         <button class="btn btn-default btn-sm"
                                                 style="margin-left:15px;"
-                                                onclick='resetAll_addItemToList();'
+                                                onclick='resetAll_addItemToList(); load_RawItemsDropdownElem();'
                                                 id="buttonReset_addItemToList">
                                             <span class="fa fa-undo"></span> &nbsp;RESET
                                         </button>
@@ -326,6 +307,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -567,12 +549,21 @@
             $.post("RegisterRawItemServlet", param, function (outputData) {
                 //  Show output-Message  [ Title : MsgText : MsgType ]
                 swal(outputData.split(":")[1], outputData.split(":")[2], outputData.split(":")[0]);
+                load_RawItemsDropdownElem();
             });
         }
     </script>
 
 
     <!-- =========ADD-ITEM-TO-GRN_items.LIST FORM Scripts ==================================================================================== -->
+
+    <!-- LOAD Raw-Items Dropdown Element -->
+    <script>
+        function load_RawItemsDropdownElem() {
+            document.getElementById("Dropdown_Remover").outerHTML = "";
+            $('#Dropdown_Includer').load('createGRN_loadRawItemsDropdown.jsp');
+        }
+    </script>
 
     <!-- SET FOCUS TO ELEMENTS -->
     <script>

@@ -21,8 +21,8 @@
             dtHolder = (GRNItems_DataHolder) session.getAttribute("GrnItems");
         } else {
             dtHolder = new GRNItems_DataHolder();
+            request.getSession().setAttribute("GrnItems", dtHolder);
         }
-        request.getSession().setAttribute("GrnItems", dtHolder);
         // *****************************************************************************
     %>
 
