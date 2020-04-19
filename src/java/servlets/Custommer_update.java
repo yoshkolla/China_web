@@ -5,9 +5,8 @@
  */
 package servlets;
 
-
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +20,8 @@ import resources.Customer;
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Custommer_update", urlPatterns = {"/Custommer_update"})
+public class Custommer_update extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +36,33 @@ public class Custommer_reg extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+
+            Session ses = connection.GetConnection.getSessionFactory().openSession();
+            Transaction tr = ses.beginTransaction();
+            int id = Integer.parseInt(request.getParameter("id"));
+            
+            Customer c = (Customer) ses.load(Customer.class, id);
+            
             String Name = request.getParameter("name");
             String Address = request.getParameter("address");
             String Mobile = request.getParameter("mobile");
+            
+            c.setStatus(Integer.parseInt("1"));            
+            
+            
+            System.out.println(Name);
+            System.out.println(Address);
+            System.out.println(Mobile);
 
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(1);
-            Session ses = connection.GetConnection.getSessionFactory().openSession();
-            Transaction tr = ses.beginTransaction();
-            ses.save(c);
+            ses.update(c);
+            
             tr.commit();
             ses.flush();
             ses.close();
-            System.out.println("Done Save Customer");
+
+            System.out.println("Done update Customer");
 
             response.sendRedirect("customer_reg.jsp");
-
         } catch (Exception e) {
             e.printStackTrace();
         }

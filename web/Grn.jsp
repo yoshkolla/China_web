@@ -1,13 +1,13 @@
 <%-- 
-    Document   : index
-    Created on : Mar 19, 2020, 5:14:33 PM
+    Document   : Grn
+    Created on : Mar 25, 2020, 6:48:45 PM
     Author     : Chamara
 --%>
 
 <%@page import="holder.LogedUserHolder"%>
 <%@page import="holder.DetailsHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<!DOCTYPE html>
 <html>
     <head>
 

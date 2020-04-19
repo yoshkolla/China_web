@@ -5,9 +5,8 @@
  */
 package servlets;
 
-
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import resources.Customer;
+import resources.Staff;
+import resources.Supplier;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Staff_delete_servlert", urlPatterns = {"/Staff_delete_servlert"})
+public class Staff_delete_servlert extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +36,23 @@ public class Custommer_reg extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String Name = request.getParameter("name");
-            String Address = request.getParameter("address");
-            String Mobile = request.getParameter("mobile");
-
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(1);
+      try {
             Session ses = connection.GetConnection.getSessionFactory().openSession();
             Transaction tr = ses.beginTransaction();
-            ses.save(c);
+
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            Staff s = (Staff) ses.load(Staff.class, id);
+
+            s.setStatus(Integer.parseInt("0"));
+            ses.update(s);
             tr.commit();
             ses.flush();
             ses.close();
-            System.out.println("Done Save Customer");
+            System.out.println("Done Update Customer");
 
-            response.sendRedirect("customer_reg.jsp");
-
+            response.sendRedirect("staff_reg.jsp");
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -5,9 +5,8 @@
  */
 package servlets;
 
-
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import resources.Customer;
+import resources.JobRoll;
+import resources.Staff;
+import resources.User;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Save_user_servelrt", urlPatterns = {"/Save_user_servelrt"})
+public class Save_user_servelrt extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,28 +39,35 @@ public class Custommer_reg extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String Name = request.getParameter("name");
-            String Address = request.getParameter("address");
-            String Mobile = request.getParameter("mobile");
 
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(1);
             Session ses = connection.GetConnection.getSessionFactory().openSession();
+            User u = new User();
+
+            u.setUsername(request.getParameter("Username"));
+            u.setPassword(request.getParameter("Password"));
+            u.setSales(request.getParameter("Sales"));
+            u.setPurchase(request.getParameter("Purchase"));
+            u.setProduction(request.getParameter("Production"));
+            u.setCreates(request.getParameter("Create"));
+            u.setUser(request.getParameter("User"));
+            u.setCheque(request.getParameter("Cheque"));
+            u.setReport(request.getParameter("Report"));
+            u.setOther(request.getParameter("Other"));
+            int staff = Integer.parseInt(request.getParameter("staff"));
+            u.setStaff((Staff) ses.load(Staff.class, staff));
+            u.setStatus(Integer.parseInt("1"));
+
             Transaction tr = ses.beginTransaction();
-            ses.save(c);
+            ses.save(u);
             tr.commit();
             ses.flush();
             ses.close();
-            System.out.println("Done Save Customer");
 
-            response.sendRedirect("customer_reg.jsp");
+            System.out.println("Done Save User");
+
+            response.sendRedirect("user_reg.jsp");
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

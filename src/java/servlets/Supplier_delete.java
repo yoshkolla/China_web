@@ -5,7 +5,6 @@
  */
 package servlets;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -15,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import resources.Customer;
+
+import resources.Supplier;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Supplier_delete", urlPatterns = {"/Supplier_delete"})
+public class Supplier_delete extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,28 +37,22 @@ public class Custommer_reg extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String Name = request.getParameter("name");
-            String Address = request.getParameter("address");
-            String Mobile = request.getParameter("mobile");
-
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(1);
             Session ses = connection.GetConnection.getSessionFactory().openSession();
             Transaction tr = ses.beginTransaction();
-            ses.save(c);
+
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            Supplier c = (Supplier) ses.load(Supplier.class, id);
+
+            c.setStatus(Integer.parseInt("0"));
+            ses.update(c);
             tr.commit();
             ses.flush();
             ses.close();
-            System.out.println("Done Save Customer");
+            System.out.println("Done Update Customer");
 
-            response.sendRedirect("customer_reg.jsp");
-
+            response.sendRedirect("supplier_reg.jsp");
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
