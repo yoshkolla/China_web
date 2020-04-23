@@ -5,9 +5,7 @@
  */
 package servlets;
 
-
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,14 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import resources.Customer;
+import resources.JobRoll;
+import resources.Staff;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Staff_update", urlPatterns = {"/Staff_update"})
+public class Staff_update extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,25 +36,28 @@ public class Custommer_reg extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String Name = request.getParameter("name");
-            String Address = request.getParameter("address");
-            String Mobile = request.getParameter("mobile");
-
-            Customer c = new Customer();
-
-            c.setName(Name);
-            c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(1);
             Session ses = connection.GetConnection.getSessionFactory().openSession();
             Transaction tr = ses.beginTransaction();
-            ses.save(c);
+
+            int id = Integer.parseInt(request.getParameter("staff_id"));
+            
+            Staff c = (Staff) ses.load(Staff.class, id);
+
+            c.setName(request.getParameter("name"));
+            c.setMobile(request.getParameter("mobile"));
+            c.setAddress(request.getParameter("address"));
+            c.setNic(request.getParameter("nic"));
+            c.setJobRoll((JobRoll) ses.load(JobRoll.class, Integer.parseInt(request.getParameter("job"))));
+            c.setStatus(Integer.parseInt("1"));
+
+            ses.update(c);
             tr.commit();
             ses.flush();
             ses.close();
+
             System.out.println("Done Save Customer");
 
-            response.sendRedirect("customer_reg.jsp");
+            response.sendRedirect("staff_reg.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();

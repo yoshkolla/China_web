@@ -5,9 +5,8 @@
  */
 package servlets;
 
-
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import resources.Customer;
+import resources.Supplier;
 
 /**
  *
  * @author Chamara
  */
-@WebServlet(name = "Custommer_reg", urlPatterns = {"/Custommer_reg"})
-public class Custommer_reg extends HttpServlet {
+@WebServlet(name = "Supplier_update", urlPatterns = {"/Supplier_update"})
+public class Supplier_update extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,25 +37,29 @@ public class Custommer_reg extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            Session ses = connection.GetConnection.getSessionFactory().openSession();
+            Transaction tr = ses.beginTransaction();
+            
+            int id = Integer.parseInt(request.getParameter("id"));
+            
             String Name = request.getParameter("name");
             String Address = request.getParameter("address");
             String Mobile = request.getParameter("mobile");
+            
 
-            Customer c = new Customer();
-
+            Supplier c = (Supplier) ses.load(Supplier.class, id);
             c.setName(Name);
             c.setAddress(Address);
-            c.setMobile(Mobile);
-            c.setStatus(1);
-            Session ses = connection.GetConnection.getSessionFactory().openSession();
-            Transaction tr = ses.beginTransaction();
-            ses.save(c);
+            c.setTele(Mobile);
+            c.setStatus(Integer.parseInt("1"));
+            ses.update(c);
             tr.commit();
             ses.flush();
             ses.close();
+            
             System.out.println("Done Save Customer");
 
-            response.sendRedirect("customer_reg.jsp");
+            response.sendRedirect("supplier_reg.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
