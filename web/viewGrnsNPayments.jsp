@@ -157,13 +157,13 @@
     </body>
 
     <!-- DETAILS-PREVIEW Modal -->
-    <div class="modal fade" id="expandDetModal" role="dialog" style="display: none;">
-        <div class="modal-dialog modal-lg">   
+    <div class="modal fade" id="expandDetModal" role="dialog" style="display: none;" data-backdrop="false">
+        <div class="modal-dialog modal-lg" style="margin-top: 30px;">   
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><button type="button" class="close" data-dismiss="modal" style="margin-bottom: 20px;"><i class="fa fa-close"></i></button></h4>
+                    <h4 class="modal-title"><button type="button" class="close" onclick="$('#expandDetModal').modal('hide');" style="margin-bottom: 20px;"><i class="fa fa-close"></i></button></h4>
                 </div>
-                <div class="modal-body" id="expandDetBox">
+                <div class="modal-body" id="expandDetBox" style="height: 50em;">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                     <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#fe718d" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round" transform="rotate(179.178 50 50)">
                     <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
@@ -173,6 +173,7 @@
             </div>
         </div>
     </div>
+
 
     <!--   Core JS Files   -->
     <script src="assets/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
