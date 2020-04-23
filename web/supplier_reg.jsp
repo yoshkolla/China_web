@@ -1,11 +1,11 @@
 <%-- 
-    Document   : supplier_reg
+    Document   : index
     Created on : Dec 6, 2019, 11:37:56 AM
     Author     : SCORFi3LD
 --%>
 
-<%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="resources.Supplier"%>
+<%@page import="org.hibernate.criterion.Restrictions"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="resources.Customer"%>
@@ -84,7 +84,7 @@
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     <h4 class="modal-title"> Supplier Registration</h4>
                                                 </div>
-                                                <form action="Suppler_reg" method="POST">
+                                                   <form action="Suppler_reg" method="POST">
                                                     <div class="modal-body">
                                                         <div class="col-md-12">
                                                             <div class="card">
@@ -145,11 +145,15 @@
                                     </div>
                                     <br>
                                     <br>
-                                    <br>    
-                                    <div class="card">
+                                    <br>  
+                                    
+                                    
+                                    
+                                    
+                                    <div class="card" style="width:90%; ">
                                         <div class="card-content">
 
-                                            <h3 class="card-title" style="margin-bottom: 15px;">Supplier items list</h3>
+                                            <h3 class="card-title" style="margin-bottom: 15px;">Supplier Data</h3>
                                             <div class="material-datatables">
                                                 <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
                                                     <thead>
@@ -158,18 +162,18 @@
                                                             <th>ID</th>
                                                             <th>Name</th>
                                                             <th>Address</th>
-                                                            <th>Mobile</th>                                                    
-                                                            <th>Update</th>                                                    
-                                                            <th>Delete</th>                                                    
+                                                            <th>Mobile</th> 
+                                                            <th>Update</th> 
+                                                            <th>Delete</th> 
+
                                                         </tr>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <!--supplier_id, name, address, tele, -->
                                                         <%
                                                             Session s = GetConnection.getSessionFactory().openSession();
-                                                          //  List<Supplier> cList = s.createCriteria(Supplier.class).list();
-                                                         List<Supplier> cList = s.createCriteria(Supplier.class).add(Restrictions.eq("status", 1)).list();
+                                                            List<Supplier> cList = s.createCriteria(Supplier.class).add(Restrictions.eq("status", 1)).list();
+
                                                             for (Supplier c : cList) {
                                                         %>
                                                         <tr>
@@ -178,8 +182,7 @@
                                                             <td><%=c.getAddress()%></td>
                                                             <td><%=c.getTele()%></td>
                                                             <td>
-                                                                <a href="supplier_update.jsp?id=<%=c.getSupplierId()%>">
-                                                                    
+                                                                <a href="customer_update.jsp?id=<%= c.getSupplierId()%>">
                                                                     <button class="btn btn-warning btn-sm">
                                                                         <i class="material-icons"></i> Update
                                                                     </button>
@@ -187,14 +190,14 @@
                                                             </td>
                                                             <td>
 
-                                                                <form action="Supplier_delete" method="POST">
+                                                                <form action="Customer_delete" method="POST">
                                                                     <button class="btn btn-danger btn-sm">
                                                                         <input type="hidden" id="id" name="id" value="<%=c.getSupplierId()%>">
                                                                         <i class="material-icons"></i> Delete
                                                                     </button>
                                                                 </form>
 
-
+                                                            </td>
                                                         </tr>
                                                         <%
                                                             }
@@ -213,8 +216,8 @@
                     </div>
                 </div>
             </div>
-
-            <%@include file="includes/footer.jsp"%>
+        </div>     
+        <%@include file="includes/footer.jsp"%>
 
     </body>
 
@@ -263,22 +266,13 @@
     <script src="assets/vendors/jquery.tagsinput.js"></script>
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/turbo.js"></script>
+
     <script>
-        $(document).ready(function () {
-        $('#minimizeSidebar').click();
-        <script>
-                $(window).on("load", functio
-            n (e) {
-                $('.preloader').fadeOut('slow'
-                
-        );
+        $(window).on("load", function (e) {
+            $('.preloader').fadeOut('slow');
         });
-                $(document).
-            rea
-                    dy(function () {
-                $('#datatables'
-                       
-                ).DataTable();
-                });
+        $(document).ready(function () {
+            $('#datatables').DataTable();
+        });
     </script>
 </html>
