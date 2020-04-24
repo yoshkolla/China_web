@@ -120,7 +120,7 @@
                             <div class="col-md-12">
                                 <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                     <div class="card-header card-header-text">
-                                        <h5 class="card-title" style="background-color: #8BC34A; color: white; padding-left: 10px; padding-right: 20px; margin-left: -20px;">Add Items</h5>
+                                        <h5 class="card-title" style="background-color: #8BC34A; color: white; padding-left: 10px; padding-right: 20px; margin-left: -20px;">Add Raw Material Items</h5>
                                     </div>
                                     <div class="form-horizontal">
                                         <div class="card-content">
@@ -326,13 +326,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">Register New Item</h4>
+                            <h4 class="modal-title">Register Raw Material Item</h4>
                         </div>
                         <div class="modal-body">
                             <div class="card-content">
 
                                 <div class="form-group">
-                                    <label class="control-label" style="font-size: 14px;">Item Name *</label>
+                                    <label class="control-label" style="font-size: 14px;">Name *</label>
                                     <input 
                                         class="form-control" 
                                         type="text" 

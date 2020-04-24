@@ -89,13 +89,27 @@
                             <a href="supplier_reg.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Suppliers</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Raw Materials</a>
+                            <a href="rawMaterials.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Raw Materials</a>
                         </li>
                         <li>
                             <a href="items.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Sales Items</a>
                         </li>
                         <li>
                             <a href="staff_reg.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Staff Management</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="<%=curruntpage.equals("Stock") ? "active" : ""%>">
+                <a data-toggle="collapse" href="#stock" class="collapsed" aria-expanded="false">
+                    <i class="material-icons">view_list</i>
+                    <p>Stock<b class="caret"></b></p>
+                </a>
+                <div class="collapse" id="stock" aria-expanded="false" style="height: 0px;">
+                    <ul class="nav">
+                        <li>
+                            <a href="rawMaterialStock.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Raw Material Stock</a>
                         </li>
                     </ul>
                 </div>
