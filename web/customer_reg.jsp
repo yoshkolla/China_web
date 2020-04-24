@@ -144,8 +144,12 @@
                                     </div>
                                     <br>
                                     <br>
-                                    <br>    
-                                    <div class="card">
+                                    <br>  
+                                    
+                                    
+                                    
+                                    
+                                    <div class="card" style="width:90%; ">
                                         <div class="card-content">
 
                                             <h3 class="card-title" style="margin-bottom: 15px;">Customer Data</h3>
@@ -166,9 +170,9 @@
                                                     </thead>
                                                     <tbody>
                                                         <%
-                                                            Session s = GetConnection.getSessionFactory().openSession();                                                            
-                                                            List<Customer> cList = s.createCriteria(Customer.class).add(Restrictions.eq("status",1)).list();
-                                                            
+                                                            Session s = GetConnection.getSessionFactory().openSession();
+                                                            List<Customer> cList = s.createCriteria(Customer.class).add(Restrictions.eq("status", 1)).list();
+
                                                             for (Customer c : cList) {
                                                         %>
                                                         <tr>
@@ -211,8 +215,8 @@
                     </div>
                 </div>
             </div>
-
-            <%@include file="includes/footer.jsp"%>
+        </div>     
+        <%@include file="includes/footer.jsp"%>
 
     </body>
 
