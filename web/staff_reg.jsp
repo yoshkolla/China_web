@@ -185,13 +185,12 @@
                     <br>
                     <br>
                     <br>    
-                    <!--data table start-->
 
-                    <br>
-                    <div class="card">
+
+                    <div class="card" style="width:90%; ">
                         <div class="card-content">
 
-                            <h3 class="card-title" style="margin-bottom: 15px;">Staff Data</h3>
+                            <h3 class="card-title" style="margin-bottom: 15px;">Customer Data</h3>
                             <div class="material-datatables">
                                 <table id="datatables" class="table table-sm table-bordered" cellspacing="0" width="100%" style="width:100%">
                                     <thead>
@@ -202,31 +201,31 @@
                                             <th>Address</th>
                                             <th>Mobile</th>                                                    
                                             <th>Job Roll</th>                                                    
+                                            <th>Delete</th>                                                    
                                         </tr>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            Session sx = GetConnection.getSessionFactory().openSession();
-                                            List<Staff> cList1 = sx.createCriteria(Staff.class).add(Restrictions.eq("status", 1)).list();
-
+                                            List<Staff> cList1 = s.createCriteria(Staff.class).add(Restrictions.eq("status", 1)).list();
                                             for (Staff c : cList1) {
+
                                         %>
                                         <tr>
                                             <td><%=c.getStaffId()%></td>
                                             <td><%=c.getName()%></td>
                                             <td><%=c.getAddress()%></td>
                                             <td><%=c.getMobile()%></td>
-                                            <td><%=c.getJobRoll().getName()%></td>
                                             <td>
-                                                <a href="staff_updates.jsp?id=<%=c.getStaffId()%>">
+                                                <a href="customer_update.jsp?id=<%= c.getStaffId()%>">
                                                     <button class="btn btn-warning btn-sm">
                                                         <i class="material-icons"></i> Update
                                                     </button>
                                                 </a>
                                             </td>
                                             <td>
-                                                <form action="Staff_delete_servlert" method="POST">
+
+                                                <form action="Customer_delete" method="POST">
                                                     <button class="btn btn-danger btn-sm">
                                                         <input type="hidden" id="id" name="id" value="<%=c.getStaffId()%>">
                                                         <i class="material-icons"></i> Delete
@@ -234,81 +233,78 @@
                                                 </form>
 
                                             </td>
+                                        </tr> 
 
-                                        </tr>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
+
+
+
+                                        <%}%>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <!-- end content-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div>  
 
 
 
-    <%@include file="includes/footer.jsp"%>
 
-</body>
+                    <%@include file="includes/footer.jsp"%>
 
-<!--   Core JS Files   -->
-<script src="assets/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
-<script src="assets/vendors/jquery-ui.min.js" type="text/javascript"></script>
-<script src="assets/vendors/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/vendors/material.min.js" type="text/javascript"></script>
-<script src="assets/vendors/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+                    </body>
 
-<!-- Forms Validations Plugin -->
-<script src="assets/vendors/jquery.validate.min.js"></script>
+                    <!--   Core JS Files   -->
+                    <script src="assets/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
+                    <script src="assets/vendors/jquery-ui.min.js" type="text/javascript"></script>
+                    <script src="assets/vendors/bootstrap.min.js" type="text/javascript"></script>
+                    <script src="assets/vendors/material.min.js" type="text/javascript"></script>
+                    <script src="assets/vendors/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
 
-<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-<script src="assets/vendors/moment.min.js"></script>
+                    <!-- Forms Validations Plugin -->
+                    <script src="assets/vendors/jquery.validate.min.js"></script>
 
-<!--  Charts Plugin -->
-<script src="assets/vendors/charts/flot/jquery.flot.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.resize.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.pie.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.stack.js"></script>
-<script src="assets/vendors/charts/flot/jquery.flot.categories.js"></script>
-<script src="assets/vendors/charts/chartjs/Chart.min.js" type="text/javascript"></script>
+                    <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+                    <script src="assets/vendors/moment.min.js"></script>
 
-<!--  Plugin for the Wizard -->
-<script src="assets/vendors/jquery.bootstrap-wizard.js"></script>
-<!--  Notifications Plugin    -->
-<script src="assets/vendors/bootstrap-notify.js"></script>
-<!-- DateTimePicker Plugin -->
-<script src="assets/vendors/bootstrap-datetimepicker.js"></script>
-<!-- Vector Map plugin -->
-<script src="assets/vendors/jquery-jvectormap.js"></script>
-<!-- Sliders Plugin -->
-<script src="assets/vendors/nouislider.min.js"></script>
-<!-- Select Plugin -->
-<script src="assets/vendors/jquery.select-bootstrap.js"></script>
-<!--  DataTables.net Plugin    -->
-<script src="assets/vendors/jquery.datatables.js"></script>
-<!-- Sweet Alert 2 plugin -->
-<script src="assets/vendors/sweetalert2.js"></script>
-<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-<script src="assets/vendors/jasny-bootstrap.min.js"></script>
-<!--  Full Calendar Plugin    -->
-<script src="assets/vendors/fullcalendar.min.js"></script>
-<!-- TagsInput Plugin -->
-<script src="assets/vendors/jquery.tagsinput.js"></script>
-<!-- Material Dashboard javascript methods -->
-<script src="assets/js/turbo.js"></script>
-<script>
-    $(window).on("load", function (e) {
-        $('.preloader').fadeOut('slow');
-    });
-    $(document).ready(function () {
-        $('#datatables').DataTable();
-    });
-</script>
-</html>
+                    <!--  Charts Plugin -->
+                    <script src="assets/vendors/charts/flot/jquery.flot.js"></script>
+                    <script src="assets/vendors/charts/flot/jquery.flot.resize.js"></script>
+                    <script src="assets/vendors/charts/flot/jquery.flot.pie.js"></script>
+                    <script src="assets/vendors/charts/flot/jquery.flot.stack.js"></script>
+                    <script src="assets/vendors/charts/flot/jquery.flot.categories.js"></script>
+                    <script src="assets/vendors/charts/chartjs/Chart.min.js" type="text/javascript"></script>
+
+                    <!--  Plugin for the Wizard -->
+                    <script src="assets/vendors/jquery.bootstrap-wizard.js"></script>
+                    <!--  Notifications Plugin    -->
+                    <script src="assets/vendors/bootstrap-notify.js"></script>
+                    <!-- DateTimePicker Plugin -->
+                    <script src="assets/vendors/bootstrap-datetimepicker.js"></script>
+                    <!-- Vector Map plugin -->
+                    <script src="assets/vendors/jquery-jvectormap.js"></script>
+                    <!-- Sliders Plugin -->
+                    <script src="assets/vendors/nouislider.min.js"></script>
+                    <!-- Select Plugin -->
+                    <script src="assets/vendors/jquery.select-bootstrap.js"></script>
+                    <!--  DataTables.net Plugin    -->
+                    <script src="assets/vendors/jquery.datatables.js"></script>
+                    <!-- Sweet Alert 2 plugin -->
+                    <script src="assets/vendors/sweetalert2.js"></script>
+                    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+                    <script src="assets/vendors/jasny-bootstrap.min.js"></script>
+                    <!--  Full Calendar Plugin    -->
+                    <script src="assets/vendors/fullcalendar.min.js"></script>
+                    <!-- TagsInput Plugin -->
+                    <script src="assets/vendors/jquery.tagsinput.js"></script>
+                    <!-- Material Dashboard javascript methods -->
+                    <script src="assets/js/turbo.js"></script>
+                    <script>
+                        $(window).on("load", function (e) {
+                            $('.preloader').fadeOut('slow');
+                        });
+                        $(document).ready(function () {
+                            $('#datatables').DataTable();
+                        });
+                    </script>
+                    </html>
 
