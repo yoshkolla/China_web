@@ -67,10 +67,11 @@
                 background-color: #FFF;
                 background-position: center;
             }
+            
         </style>
         <!-- for pre loader -->
     </head>
-    <body>
+    <body class="">
         <!-- for pre loader -->
         <div class="preloader"></div>
         <!-- for pre loader -->
@@ -83,7 +84,7 @@
                 <%@include file="includes/navbar.jsp"%>
                 <div class="content">
                     <div class="container-fluid">
-                        <div class="row " style="display: none;">
+                        <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-header">

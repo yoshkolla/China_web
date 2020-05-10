@@ -97,7 +97,7 @@
             </div>
         </div>
         <footer class="copyrigh-wthree">
-            <p>© 2020 A P K Hub All Rights Reserved V 1.0.0 Beta</p>
+            <p>© 2020 All Rights Reserved V 1.2 Beta</p>
         </footer>
         <script src="assets/vendors/jquery-3.1.1.min.js" type="text/javascript"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

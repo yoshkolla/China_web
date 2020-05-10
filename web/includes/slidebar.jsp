@@ -69,7 +69,7 @@
                             <a href="production.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Create Production</a>
                         </li>
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Productions</a>
+                            <a href=""><span class="fa fa-arrow-right" style="display: none;">&nbsp;&nbsp;</span>Productions</a>
                         </li>
                     </ul>
                 </div>
