@@ -155,7 +155,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" style="margin-bottom: 20px;"><i class="fa fa-close"></i></button>
                 </div>
-                <div class="modal-body" id="stock" style="padding-top: 24px;padding-right: 24px;padding-bottom: 16px;padding-left: 24px;">
+                <div class="modal-body" id="stockBody" style="padding-top: 24px;padding-right: 24px;padding-bottom: 16px;padding-left: 24px;">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                     <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#fe718d" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round" transform="rotate(179.178 50 50)">
                     <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
@@ -445,7 +445,7 @@
         }
 
         function loadStocks(id) {
-            $('#stock').load('viewstocks.jsp?id=' + id);
+            $('#stockBody').load('viewstocks.jsp?id=' + id);
         }
 
         $('#cash').keyup(function () {

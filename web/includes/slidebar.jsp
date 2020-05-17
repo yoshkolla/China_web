@@ -140,10 +140,7 @@
                 <div class="collapse" id="cheque" aria-expanded="false" style="height: 0px;">
                     <ul class="nav">
                         <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Released Cheque</a>
-                        </li>
-                        <li>
-                            <a href=""><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Reserved Cheque</a>
+                            <a href="chequeManagement.jsp"><span class="fa fa-arrow-right">&nbsp;&nbsp;</span>Manage Cheques</a>
                         </li>
                     </ul>
                 </div>
