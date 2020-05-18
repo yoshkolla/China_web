@@ -45,6 +45,7 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/rat_trap?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">123</property>
     <mapping resource="resources/InvoiceChequeDetails.hbm.xml"/>
     <mapping resource="resources/ProductionSteps.hbm.xml"/>
     <mapping resource="resources/User.hbm.xml"/>
